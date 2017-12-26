@@ -1,0 +1,8 @@
+*
+
+!.gitignore
+!.vimperatorrc
+!.tmux.conf
+!.pentadactylrc
+!.ycm_extra_conf.py
+!.ideavimrc

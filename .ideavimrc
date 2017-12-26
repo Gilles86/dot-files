@@ -1,0 +1,11 @@
+nnoremap L gt
+nnoremap H gT
+nnoremap W :w<cr>
+nnoremap Q :q<cr>
+nnoremap <C-p> :action GotoFile<cr>
+nnoremap <C-n> :nohlsearch<cr>
+nnoremap gcc :action CommentByLineComment<CR>
+nnoremap <space>r :source ~/.ideavimrc<CR>
+
+set surround
+set scrolloff=5 sidescrolloff=10
