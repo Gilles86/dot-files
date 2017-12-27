@@ -45,7 +45,8 @@ call plug#begin('~/.config/nvim/plugged')
    " Plug 'justinmk/vim-sneak'
    " Plug 'jiangmiao/auto-pairs'
 
-   Plug 'vim-syntastic/syntastic', { 'do': 'npm install -g tslint' }
+   " Plug 'vim-syntastic/syntastic', { 'do': 'npm install -g tslint' }
+   Plug 'neomake/neomake'
 
    Plug 'mattn/webapi-vim', { 'on': 'Gist' }
    Plug 'mattn/gist-vim', { 'on': 'Gist' }
@@ -134,7 +135,7 @@ let g:typescript_indent_disable = 1
 " -------------------------------------
 "  vim-jsx
 " -------------------------------------
-let g:jsx_ext_required = 0
+let g:jsx_ext_required = 1
 
 " -------------------------------------
 "  YouCompleteMe
@@ -178,37 +179,49 @@ let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffers_label = '¯\_(ツ)_/¯'
 let g:airline#extensions#branch#enabled = 1
+let g:airline#extensions#neomake#enabled = 1
 let g:airline_theme='dark_minimal'
-let g:airline_extensions = ['tabline', 'branch']
+let g:airline_extensions = ['tabline', 'branch', 'neomake']
+
+" -------------------------------------
+"  neomake
+" -------------------------------------
+let g:neomake_javascript_enabled_makers = ['eslint']
+call neomake#configure#automake({
+  \ 'TextChanged': {},
+  \ 'InsertLeave': {},
+  \ 'BufWritePost': {'delay': 0},
+  \ 'BufWinEnter': {},
+  \ }, 500)
 
 " -------------------------------------
 "  syntastic
 " -------------------------------------
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
 
-let g:syntastic_always_populate_loc_list = 0
-let g:syntastic_auto_loc_list = 0
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 0
-" let g:syntastic_mode_map = { "mode": "active", "passive_filetypes": ["go", "javascript", "html", "css", "scss", "typescript"] }
-" let g:syntastic_swift_checkers = ['swiftpm'] 
-let g:syntastic_html_checkers = [''] 
-let g:syntastic_html_checkers = [''] 
-let g:syntastic_swift_checkers = ['swiftpm', 'swiftlint']
-let g:syntastic_javascript_eslint_exe='$(npm bin)/eslint'
-let g:syntastic_javascript_checkers=['eslint']
-let g:syntastic_typescript_checkers = ['eslint']
-let g:syntastic_error_symbol = "✗"
-let g:syntastic_style_error_symbol = "✗"
-let g:syntastic_warning_symbol = "∙∙"
-let g:syntastic_style_warning_symbol = "∙∙"
-" autofix with eslint
-let g:syntastic_javascript_eslint_args = ['--fix']
-function! SyntasticCheckHook(errors)
-  checktime
-endfunction
+" let g:syntastic_always_populate_loc_list = 0
+" let g:syntastic_auto_loc_list = 1
+" let g:syntastic_check_on_open = 0
+" let g:syntastic_check_on_wq = 0
+" " let g:syntastic_mode_map = { "mode": "active", "passive_filetypes": ["go", "javascript", "html", "css", "scss", "typescript"] }
+" " let g:syntastic_swift_checkers = ['swiftpm'] 
+" let g:syntastic_html_checkers = [''] 
+" let g:syntastic_html_checkers = [''] 
+" let g:syntastic_swift_checkers = ['swiftpm', 'swiftlint']
+" let g:syntastic_javascript_eslint_exe='$(npm bin)/eslint'
+" let g:syntastic_javascript_checkers=['eslint']
+" let g:syntastic_typescript_checkers = ['eslint']
+" let g:syntastic_error_symbol = "✗"
+" let g:syntastic_style_error_symbol = "✗"
+" let g:syntastic_warning_symbol = "∙∙"
+" let g:syntastic_style_warning_symbol = "∙∙"
+" " autofix with eslint
+" let g:syntastic_javascript_eslint_args = ['--fix']
+" function! SyntasticCheckHook(errors)
+"   checktime
+" endfunction
 
 " -------------------------------------
 "  vim-indent-guide
