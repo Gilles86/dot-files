@@ -41,7 +41,6 @@ call plug#begin('~/.config/nvim/plugged')
    Plug 'tpope/vim-fugitive'
    Plug 'tpope/vim-repeat'
    Plug 'tpope/vim-unimpaired'
-   Plug 'nathanaelkane/vim-indent-guides'
    " Plug 'justinmk/vim-sneak'
    " Plug 'jiangmiao/auto-pairs'
 
@@ -151,6 +150,7 @@ let g:ycm_max_diagnostics_to_display=10000
 let g:ycm_min_num_identifier_candidate_chars=0
 let g:ycm_min_num_of_chars_for_completion=2
 let g:ycm_open_loclist_on_ycm_diags=1
+let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_show_diagnostics_ui=1
 let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_filetype_blacklist={
@@ -222,13 +222,6 @@ call neomake#configure#automake({
 " function! SyntasticCheckHook(errors)
 "   checktime
 " endfunction
-
-" -------------------------------------
-"  vim-indent-guide
-" -------------------------------------
-let g:indent_guides_enable_on_vim_startup = 0
-hi IndentGuidesOdd ctermbg=236
-hi IndentGuidesEven ctermbg=235
 
 " -------------------------------------
 "  neat-fold
