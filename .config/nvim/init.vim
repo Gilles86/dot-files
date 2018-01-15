@@ -106,6 +106,8 @@ nnoremap L :bnext<cr>
 nnoremap H :bprev<cr>
 nnoremap K :YcmCompleter GetType<cr>
 nnoremap gD :YcmCompleter GoToDefinition<cr>
+nnoremap [* :Ggrep <cword> --<CR><CR>:copen<CR>
+nnoremap ]* *``:Ggrep <cword> --<CR><CR>
 nnoremap <C-n> :noh<cr>
 "  vim-fugitive
 cnoremap J <down>
@@ -141,7 +143,7 @@ let g:jsx_ext_required = 1
 " -------------------------------------
 let g:ycm_collect_identifiers_from_comments_and_strings = 1
 let g:ycm_always_populate_location_list = 1
-let g:ycm_global_ycm_extra_conf='~/.config/nvim/.ycm_extra_conf.py'
+let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf.py'
 let g:ycm_extra_conf_globlist=['~/.config/nvim/*']
 let g:ycm_auto_trigger=1
 let g:ycm_enable_diagnostic_highlighting=1
@@ -152,6 +154,7 @@ let g:ycm_min_num_of_chars_for_completion=2
 let g:ycm_open_loclist_on_ycm_diags=1
 let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_show_diagnostics_ui=1
+let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_filetype_blacklist={
             \ 'tagbar' : 1,
