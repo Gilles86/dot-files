@@ -6,22 +6,24 @@ if empty(glob('~/.config/nvim/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.config/nvim/plugged')
-   " Plug 'othree/yajs.vim'
-   Plug 'pangloss/vim-javascript'
-   Plug 'mxw/vim-jsx'
+   "Plug 'othree/yajs.vim'
+   "Plug 'pangloss/vim-javascript'
+   "Plug 'mxw/vim-jsx'
 
-   " Plug 'leafgarland/typescript-vim'
-   Plug 'HerringtonDarkholme/yats.vim'
-   " Plug 'fleischie/vim-styled-components'
-   Plug 'hail2u/vim-css3-syntax'
+   "Plug 'leafgarland/typescript-vim'
+   "Plug 'HerringtonDarkholme/yats.vim'
+   "Plug 'fleischie/vim-styled-components'
+   "Plug 'hail2u/vim-css3-syntax'
 
-   " Plug 'othree/es.next.syntax.vim'
-   " Plug 'mxw/vim-jsx'
-   " Plug 'fleischie/vim-styled-components'
+   Plug 'sheerun/vim-polyglot'
 
-   Plug 'othree/javascript-libraries-syntax.vim'
-   Plug 'keith/swift.vim'
-   Plug 'vim-perl/vim-perl', { 'for': 'perl', 'do': 'make clean carp dancer highlight-all-pragmas moose test-more try-tiny' }
+   "Plug 'othree/es.next.syntax.vim'
+   "Plug 'mxw/vim-jsx'
+   "Plug 'fleischie/vim-styled-components'
+
+   "Plug 'othree/javascript-libraries-syntax.vim'
+   "Plug 'keith/swift.vim'
+   "Plug 'vim-perl/vim-perl', { 'for': 'perl', 'do': 'make clean carp dancer highlight-all-pragmas moose test-more try-tiny' }
 
    Plug 'Valloric/YouCompleteMe'
 
@@ -106,6 +108,7 @@ nnoremap L :bnext<cr>
 nnoremap H :bprev<cr>
 nnoremap K :YcmCompleter GetType<cr>
 nnoremap gD :YcmCompleter GoToDefinition<cr>
+nnoremap gF :YcmCompleter GoToInclude<cr>
 nnoremap [* :Ggrep <cword> --<CR><CR>:copen<CR>
 nnoremap ]* *``:Ggrep <cword> --<CR><CR>
 nnoremap <C-n> :noh<cr>
