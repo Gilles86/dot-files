@@ -14,9 +14,6 @@ call plug#begin('~/.config/nvim/plugged')
    "Plug 'HerringtonDarkholme/yats.vim'
    "Plug 'fleischie/vim-styled-components'
    "Plug 'hail2u/vim-css3-syntax'
-
-   Plug 'sheerun/vim-polyglot'
-
    "Plug 'othree/es.next.syntax.vim'
    "Plug 'mxw/vim-jsx'
    "Plug 'fleischie/vim-styled-components'
@@ -24,6 +21,10 @@ call plug#begin('~/.config/nvim/plugged')
    "Plug 'othree/javascript-libraries-syntax.vim'
    "Plug 'keith/swift.vim'
    "Plug 'vim-perl/vim-perl', { 'for': 'perl', 'do': 'make clean carp dancer highlight-all-pragmas moose test-more try-tiny' }
+
+   Plug 'sheerun/vim-polyglot'
+   Plug 'rhysd/vim-clang-format'
+
 
    Plug 'Valloric/YouCompleteMe'
 
@@ -97,6 +98,12 @@ set expandtab
 syntax on
 colorscheme monokai
 set t_Co=256
+highlight Normal ctermbg=232
+highlight Search cterm=NONE ctermfg=214 ctermbg=236
+highlight ColorColumn ctermbg=234
+highlight YcmErrorLine ctermbg=233 ctermfg=204
+highlight YcmErrorSection ctermbg=236 ctermfg=196
+set colorcolumn=81
 
 " -------------------------------------
 "  Mappings
@@ -107,8 +114,9 @@ nnoremap Z <c-z>
 nnoremap L :bnext<cr>
 nnoremap H :bprev<cr>
 nnoremap K :YcmCompleter GetType<cr>
-nnoremap gD :YcmCompleter GoToDefinition<cr>
-nnoremap gF :YcmCompleter GoToInclude<cr>
+autocmd FileType cpp map <buffer> gD :YcmCompleter GoToDefinition<cr>
+autocmd FileType cpp map <buffer> gd :YcmCompleter GoToDeclaration<cr>
+autocmd FileType cpp map <buffer> gF :YcmCompleter GoToInclude<cr>
 nnoremap [* :Ggrep <cword> --<CR><CR>:copen<CR>
 nnoremap ]* *``:Ggrep <cword> --<CR><CR>
 nnoremap <C-n> :noh<cr>
@@ -159,6 +167,8 @@ let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_show_diagnostics_ui=1
 let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_collect_identifiers_from_tags_files = 1
+let g:ycm_error_symbol = "✗"
+let g:ycm_warning_symbol =  "∙∙"
 let g:ycm_filetype_blacklist={
             \ 'tagbar' : 1,
             \ 'qf' : 1,
@@ -246,8 +256,6 @@ endfunction
 set foldtext=NeatFoldText()
 " }}}2
 
-:hi Search cterm=NONE ctermfg=yellow ctermbg=darkgray
-
 " -------------------------------------
 "  gf-node-friendly
 " -------------------------------------
@@ -268,4 +276,3 @@ augroup VimCSS3Syntax
 
   autocmd FileType css setlocal iskeyword+=-
 augroup END
-
