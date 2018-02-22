@@ -6,26 +6,11 @@ if empty(glob('~/.config/nvim/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.config/nvim/plugged')
-   "Plug 'othree/yajs.vim'
-   "Plug 'pangloss/vim-javascript'
-   "Plug 'mxw/vim-jsx'
-
-   "Plug 'leafgarland/typescript-vim'
-   "Plug 'HerringtonDarkholme/yats.vim'
-   "Plug 'fleischie/vim-styled-components'
-   "Plug 'hail2u/vim-css3-syntax'
-   "Plug 'othree/es.next.syntax.vim'
-   "Plug 'mxw/vim-jsx'
-   "Plug 'fleischie/vim-styled-components'
-
-   "Plug 'othree/javascript-libraries-syntax.vim'
-   "Plug 'keith/swift.vim'
-   "Plug 'vim-perl/vim-perl', { 'for': 'perl', 'do': 'make clean carp dancer highlight-all-pragmas moose test-more try-tiny' }
-
    Plug 'sheerun/vim-polyglot'
    Plug 'rhysd/vim-clang-format'
+   "Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
-
+   Plug 'hail2u/vim-css3-syntax'
    Plug 'Valloric/YouCompleteMe'
 
    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -49,13 +34,13 @@ call plug#begin('~/.config/nvim/plugged')
 
    " Plug 'vim-syntastic/syntastic', { 'do': 'npm install -g tslint' }
    Plug 'neomake/neomake'
-
-   Plug 'mattn/webapi-vim', { 'on': 'Gist' }
-   Plug 'mattn/gist-vim', { 'on': 'Gist' }
-   Plug 'jalvesaq/Nvim-R', { 'for': 'r' }
-
-   Plug 'vim-perl/vim-perl', { 'for': 'perl', 'do': 'make clean carp dancer highlight-all-pragmas moose test-more try-tiny' }
 call plug#end()
+
+" -------------------------------------
+"  deoplete
+" -------------------------------------
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#sources#clang#clang_complete_database = '/Users/amin/projects/cpp-pricing/build'
 
 " -------------------------------------
 "  Configurations
@@ -69,28 +54,29 @@ set foldmethod=syntax
 "set relativenumber
 set numberwidth=2
 set wrap
+set linebreak
+set shiftwidth=4
+set tabstop=4
+set expandtab
+set background=dark
+set hidden
+set hlsearch
+set ignorecase
+set smartcase
 nnoremap j gj
 nnoremap k gk
 vnoremap j gj
 vnoremap k gk
 syntax enable
-set background=dark
 filetype plugin on
 let g:solarized_termcolors=256
 let g:netrw_banner=0
 au BufNewFile,BufRead *.es6 set filetype=javascript
 au BufNewFile,BufRead *.vash set filetype=html
 au BufNewFile,BufRead *.tt set filetype=html
-" au BufNewFile,BufRead *.js set filetype=typescript
 au BufNewFile,BufRead *.css,*.scss,*.less setlocal foldmethod=marker foldmarker={,}
-set hidden
+" au BufNewFile,BufRead *.js set filetype=typescript
 " set diffopt+=vertical
-" -------------------------------------
-"  Indentation
-" -------------------------------------
-set shiftwidth=4
-set tabstop=4
-set expandtab
 
 " -------------------------------------
 "  crusoexia/vim-monokai
@@ -98,12 +84,15 @@ set expandtab
 syntax on
 colorscheme monokai
 set t_Co=256
+set path+=**
+set wildmenu
 highlight Normal ctermbg=232
 highlight Search cterm=NONE ctermfg=214 ctermbg=236
-highlight ColorColumn ctermbg=234
 highlight YcmErrorLine ctermbg=233 ctermfg=204
 highlight YcmErrorSection ctermbg=236 ctermfg=196
-set colorcolumn=81
+highlight ColorColumn ctermbg=238 
+highlight Error ctermbg=233 ctermfg=204
+call matchadd('ColorColumn', '\%81v', 100)
 
 " -------------------------------------
 "  Mappings
@@ -130,24 +119,13 @@ map <space> <leader>
 nmap <leader>w <C-W>
 nnoremap R :! ./%<cr>
 nnoremap <leader>r R
-" nmap ? yaw:Rhelp <c-r>"<cr>
+nmap ? yaw:set hlsearch <bar> let @/='\<'.expand("<cword>").'\>'<cr>md:r! echo "/********" && def <c-r>" && echo "********/"<cr>:set nohlsearch<cr>`d
 
 " -------------------------------------
 "  FZF
 " -------------------------------------
 nnoremap <c-p> :GFiles<cr>
 nnoremap E :Files<cr>
-
-" -------------------------------------
-"  javascript-libraries-syntax  
-" -------------------------------------
-let g:used_javascript_libs = 'underscore,jquery,requirejs'
-let g:typescript_indent_disable = 1
-
-" -------------------------------------
-"  vim-jsx
-" -------------------------------------
-let g:jsx_ext_required = 1
 
 " -------------------------------------
 "  YouCompleteMe
@@ -193,7 +171,8 @@ let g:ycm_semantic_triggers['typescript'] = ['.']
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#buffers_label = '¯\_(ツ)_/¯'
+" let g:airline#extensions#tabline#buffers_label = '¯\_(ツ)_/¯'
+let g:airline#extensions#tabline#buffers_label = '♪~ ᕕ(ᐛ)ᕗ'
 let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#neomake#enabled = 1
 let g:airline_theme='dark_minimal'
@@ -269,10 +248,20 @@ augroup suffixes
  augroup END
 
 " -------------------------------------
-"  hail2u/vim-css3-syntax
+"  vim-clang-format
 " -------------------------------------
-augroup VimCSS3Syntax
-  autocmd!
+" let g:clang_format#command = '/usr/local/opt/llvm/bin/clang-format'
+" let g:clang_format#style_options = {
+"             \ "AllowShortIfStatementsOnASingleLine" : "true",
+"             \ "AlwaysBreakTemplateDeclarations" : "true", 
+"             \ "ColumnLimit" : 100 }
 
-  autocmd FileType css setlocal iskeyword+=-
-augroup END
+" -------------------------------------
+"  toggle syntax-coloring
+" -------------------------------------
+nnoremap <silent> <Leader>s
+             \ : if exists("syntax_on") <BAR>
+             \    syntax off <BAR>
+             \ else <BAR>  
+             \    syntax enable <BAR>
+             \ endif<CR>   

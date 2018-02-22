@@ -6,6 +6,7 @@ nnoremap <C-p> :action GotoFile<cr>
 nnoremap <C-n> :nohlsearch<cr>
 nnoremap gcc :action CommentByLineComment<CR>
 nnoremap <space>r :source ~/.ideavimrc<CR>
+nnoremap <space>R :w<cr>:action Android.HotswapChanges<cr>
 
 set surround
 set scrolloff=5 sidescrolloff=10
