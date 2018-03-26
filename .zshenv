@@ -4,6 +4,7 @@ alias P='ping 8.8.8.8'
 alias t='node ~/projects/dict/index.js'
 alias jtags="ctags -R . && sed -i '' -E '/^(if|switch|function|module\.exports|it|describe).+language:js$/d' tags"
 export PATH=~/Library/Android/sdk/platform-tools:$PATH
+export PATH=/Applications/calibre.app/Contents/MacOS/:$PATH
 export ANDROID_SDK_ROOT="/usr/local/share/android-sdk"
 export ANDROID_HOME="/usr/local/share/android-sdk"
 export ANDROID_NDK_HOME="/usr/local/share/android-ndk"

@@ -17,12 +17,13 @@ call plug#begin('~/.config/nvim/plugged')
    Plug 'junegunn/fzf.vim'
 
    Plug 'vim-airline/vim-airline'
-   Plug 'vim-airline/vim-airline-themes'
+   " Plug 'vim-airline/vim-airline-themes'
 
    Plug 'crusoexia/vim-monokai'
    " Plug 'dracula/vim'
    Plug 'aunsira/macvim-light'
    Plug 'float168/vim-colors-cherryblossom'
+   Plug 'scrooloose/nerdtree'
 
    Plug 'tpope/vim-commentary'
    Plug 'tpope/vim-surround'
@@ -67,6 +68,10 @@ nnoremap j gj
 nnoremap k gk
 vnoremap j gj
 vnoremap k gk
+nnoremap gj j
+nnoremap gk k
+vnoremap gj j
+vnoremap gk k
 syntax enable
 filetype plugin on
 let g:solarized_termcolors=256
@@ -97,8 +102,9 @@ call matchadd('ColorColumn', '\%81v', 100)
 " -------------------------------------
 "  Mappings
 " -------------------------------------
+nmap w <C-W>
 nnoremap W :w<cr>
-nnoremap Q :bd<cr>
+nnoremap Q :bw<cr>
 nnoremap Z <c-z>
 nnoremap L :bnext<cr>
 nnoremap H :bprev<cr>
@@ -109,6 +115,7 @@ autocmd FileType cpp map <buffer> gF :YcmCompleter GoToInclude<cr>
 nnoremap [* :Ggrep <cword> --<CR><CR>:copen<CR>
 nnoremap ]* *``:Ggrep <cword> --<CR><CR>
 nnoremap <C-n> :noh<cr>
+nnoremap <leader><space> :NERDTreeFind %<CR>
 "  vim-fugitive
 cnoremap J <down>
 cnoremap K <up>
@@ -116,10 +123,11 @@ cnoremap jjj J
 cnoremap kkk K
 cnoremap Noh noh
 map <space> <leader>
-nmap <leader>w <C-W>
 nnoremap R :! ./%<cr>
 nnoremap <leader>r R
-nmap ? yaw:set hlsearch <bar> let @/='\<'.expand("<cword>").'\>'<cr>md:r! echo "/********" && def <c-r>" && echo "********/"<cr>:set nohlsearch<cr>`d
+" nmap ? yaw:set hlsearch <bar> let @/='\<'.expand("<cword>").'\>'<cr>md:r! echo "/********" && def <c-r>" && echo "********/"<cr>:set nohlsearch<cr>`d
+
+nnoremap <C-w>o :tab sp<cr>
 
 " -------------------------------------
 "  FZF
@@ -168,14 +176,30 @@ let g:ycm_semantic_triggers['typescript'] = ['.']
 " -------------------------------------
 "  vim-airline
 " -------------------------------------
+function! airline#extensions#tabline#formatters#default#format(bufnr, buffers)
+    let bufname = fnamemodify(bufname(a:bufnr), ':t')
+    let tokens = split(bufname, '\ze\u\|[-_]\zs')
+    call map(tokens, {i,v -> matchstr(v, '\a')})
+    let ext = fnamemodify(bufname, ':e')
+    let shortened = join(tokens, '').(!empty(ext) ? '.'.ext[0] : '')
+    " return shortened
+    return len(shortened) >= 5 ? shortened : bufname
+endfunction
+let g:airline_left_sep = ''
+let g:airline_right_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_alt_sep = ''
 let g:airline_powerline_fonts = 1
+let g:airline_detect_modified=1
 let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline#extensions#tabline#enabled = 1
+" let g:airline#extensions#tabline#fnametruncate = 8
+let g:airline#extensions#tabline#formatter = 'default'
 " let g:airline#extensions#tabline#buffers_label = '¯\_(ツ)_/¯'
 let g:airline#extensions#tabline#buffers_label = '♪~ ᕕ(ᐛ)ᕗ'
 let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#neomake#enabled = 1
-let g:airline_theme='dark_minimal'
+let g:airline_theme='dark'
 let g:airline_extensions = ['tabline', 'branch', 'neomake']
 
 " -------------------------------------
@@ -265,3 +289,12 @@ nnoremap <silent> <Leader>s
              \ else <BAR>  
              \    syntax enable <BAR>
              \ endif<CR>   
+
+" -------------------------------------
+"  mouse support inside tmux
+" -------------------------------------
+set mouse+=a
+if &term =~ '^screen'
+    " tmux knows the extended mouse mode
+    set ttymouse=xterm2
+endif
