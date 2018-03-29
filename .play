@@ -1,0 +1,59 @@
+#!/bin/zsh
+
+function progress() {
+    FILL_CHAR="▮"
+    EMPTY_CHAR="▯"
+
+    MAXCHAR=80
+    progress=$1
+
+    filled=`echo "scale=0; $progress / 1.25" | bc`
+    empty=`echo "scale=0; $MAXCHAR - $filled" | bc`
+
+    if [[ $filled -gt 0 ]]; then
+        echo -ne `yes $FILL_CHAR | head -n$filled | tr -d '\n'`
+    fi
+
+    if [[ $empty -gt 0 ]]; then
+        echo -ne `yes $EMPTY_CHAR | head -n$empty | tr -d '\n'`
+    fi
+
+    echo -ne '\r'
+}
+
+# trap ctrl-c and call ctrl_c()
+trap ctrl_c INT
+trap ctrl_c EXIT
+
+function ctrl_c() {
+    # stop playing all files
+    killall afplay > /dev/null 2>&1
+
+    # make cursor normal
+    tput cnorm
+    exit 0
+}
+
+
+f="$1"
+
+if [ ! -f $f ]; then
+    afplay "$f"
+    exit
+fi
+
+# get file duration
+duration=`afinfo "$f" | grep "estimated duration" | awk '{ print $3 }' | bc`
+
+# play the file in background and disown the process
+afplay "$f" &!
+
+# hide the blinking cursor
+tput civis
+
+# update progress every second
+for t in $(seq 1 $duration); do
+    progress=`echo "scale=0; $t * 100 / $duration" | bc`
+    echo -ne `progress $progress`
+    sleep 1
+done

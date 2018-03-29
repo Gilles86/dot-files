@@ -1,0 +1,2 @@
+filetype *.mp3 ~/.play
+nmap w <c-w>
