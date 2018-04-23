@@ -11,13 +11,17 @@ call plug#begin('~/.config/nvim/plugged')
    "Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
    Plug 'hail2u/vim-css3-syntax'
-   Plug 'Valloric/YouCompleteMe'
+   " Plug 'Valloric/YouCompleteMe'
+   Plug 'roxma/nvim-completion-manager'
+   Plug 'gaalcaras/ncm-R'
+
+   Plug 'w0rp/ale'
 
    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
    Plug 'junegunn/fzf.vim'
 
    Plug 'vim-airline/vim-airline'
-   Plug 'vim-airline/vim-airline-themes'
+   " Plug 'vim-airline/vim-airline-themes'
 
    Plug 'crusoexia/vim-monokai'
    " Plug 'dracula/vim'
@@ -31,16 +35,12 @@ call plug#begin('~/.config/nvim/plugged')
    Plug 'tpope/vim-unimpaired'
    " Plug 'justinmk/vim-sneak'
    " Plug 'jiangmiao/auto-pairs'
+   Plug 'jalvesaq/Nvim-R'
+   Plug 'rizzatti/dash.vim'
 
    " Plug 'vim-syntastic/syntastic', { 'do': 'npm install -g tslint' }
-   Plug 'neomake/neomake'
+   " Plug 'neomake/neomake'
 call plug#end()
-
-" -------------------------------------
-"  deoplete
-" -------------------------------------
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#sources#clang#clang_complete_database = '/Users/amin/projects/cpp-pricing/build'
 
 " -------------------------------------
 "  Configurations
@@ -78,6 +78,14 @@ au BufNewFile,BufRead *.css,*.scss,*.less setlocal foldmethod=marker foldmarker=
 " au BufNewFile,BufRead *.js set filetype=typescript
 " set diffopt+=vertical
 
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+let g:ale_fixers = {
+\   'javascript': ['eslint'],
+\   'r': ['lintr'],
+\}
+
 " -------------------------------------
 "  crusoexia/vim-monokai
 " -------------------------------------
@@ -103,9 +111,9 @@ nnoremap Z <c-z>
 nnoremap L :bnext<cr>
 nnoremap H :bprev<cr>
 nnoremap K :YcmCompleter GetType<cr>
-autocmd FileType cpp map <buffer> gD :YcmCompleter GoToDefinition<cr>
-autocmd FileType cpp map <buffer> gd :YcmCompleter GoToDeclaration<cr>
-autocmd FileType cpp map <buffer> gF :YcmCompleter GoToInclude<cr>
+autocmd BufNewFile,BufRead FileType cpp map <buffer> gD :YcmCompleter GoToDefinition<cr>
+autocmd BufNewFile,BufRead FileType cpp map <buffer> gd :YcmCompleter GoToDeclaration<cr>
+autocmd BufNewFile,BufRead FileType cpp map <buffer> gF :YcmCompleter GoToInclude<cr>
 nnoremap [* :Ggrep <cword> --<CR><CR>:copen<CR>
 nnoremap ]* *``:Ggrep <cword> --<CR><CR>
 nnoremap <C-n> :noh<cr>
@@ -115,11 +123,9 @@ cnoremap K <up>
 cnoremap jjj J
 cnoremap kkk K
 cnoremap Noh noh
-map <space> <leader>
-nmap <leader>w <C-W>
+nmap w <C-W>
+nmap <space>d <Plug>DashSearch<cr>
 nnoremap R :! ./%<cr>
-nnoremap <leader>r R
-nmap ? yaw:set hlsearch <bar> let @/='\<'.expand("<cword>").'\>'<cr>md:r! echo "/********" && def <c-r>" && echo "********/"<cr>:set nohlsearch<cr>`d
 
 " -------------------------------------
 "  FZF
@@ -145,8 +151,8 @@ let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_show_diagnostics_ui=1
 let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_collect_identifiers_from_tags_files = 1
-let g:ycm_error_symbol = "✗"
-let g:ycm_warning_symbol =  "∙∙"
+let g:ycm_error_symbol = '✗'
+let g:ycm_warning_symbol =  '∙∙'
 let g:ycm_filetype_blacklist={
             \ 'tagbar' : 1,
             \ 'qf' : 1,
@@ -160,7 +166,7 @@ let g:ycm_filetype_blacklist={
             \ 'infolog' : 1,
             \ 'mail' : 1
             \}
-if !exists("g:ycm_semantic_triggers")
+if !exists('g:ycm_semantic_triggers')
    let g:ycm_semantic_triggers = {}
 endif
 let g:ycm_semantic_triggers['typescript'] = ['.']
@@ -174,20 +180,20 @@ let g:airline#extensions#tabline#enabled = 1
 " let g:airline#extensions#tabline#buffers_label = '¯\_(ツ)_/¯'
 let g:airline#extensions#tabline#buffers_label = '♪~ ᕕ(ᐛ)ᕗ'
 let g:airline#extensions#branch#enabled = 1
-let g:airline#extensions#neomake#enabled = 1
-let g:airline_theme='dark_minimal'
-let g:airline_extensions = ['tabline', 'branch', 'neomake']
+let g:airline#extensions#neomake#enabled = 0
+" let g:airline_theme='dark_minimal'
+let g:airline_extensions = ['tabline', 'branch']
 
 " -------------------------------------
 "  neomake
 " -------------------------------------
-let g:neomake_javascript_enabled_makers = ['eslint']
-call neomake#configure#automake({
-  \ 'TextChanged': {},
-  \ 'InsertLeave': {},
-  \ 'BufWritePost': {'delay': 0},
-  \ 'BufWinEnter': {},
-  \ }, 500)
+" let g:neomake_javascript_enabled_makers = ['eslint']
+" call neomake#configure#automake({
+"   \ 'TextChanged': {},
+"   \ 'InsertLeave': {},
+"   \ 'BufWritePost': {'delay': 0},
+"   \ 'BufWinEnter': {},
+"   \ }, 500)
 
 " -------------------------------------
 "  syntastic
@@ -222,15 +228,15 @@ call neomake#configure#automake({
 "  neat-fold
 " -------------------------------------
 function! NeatFoldText() "{{{2
-  let leading_spaces = len(getline(v:foldstart)) - len(substitute(getline(v:foldstart), '^\s*\(.\{-}\)\s*$', '\1', ''))
-  let line = ' ' . substitute(getline(v:foldstart), '^\s*"\?\s*\|\s*"\?\s*{{' . '{\d*\s*', '', 'g') . ' '
-  let lines_count = v:foldend - v:foldstart + 1
-  let lines_count_text = '| ' . printf("%10s", lines_count . ' lines') . ' |'
-  let foldchar = matchstr(&fillchars, 'fold:\zs.')
-  let foldtextstart = strpart('+' . repeat(foldchar, leading_spaces-2) . line, 0, (winwidth(0)*2)/3)
-  let foldtextend = lines_count_text . repeat(foldchar, 8)
-  let foldtextlength = strlen(substitute(foldtextstart . foldtextend, '.', 'x', 'g')) + &foldcolumn
-  return foldtextstart . repeat(foldchar, winwidth(0)-foldtextlength) . foldtextend
+  let l:leading_spaces = len(getline(v:foldstart)) - len(substitute(getline(v:foldstart), '^\s*\(.\{-}\)\s*$', '\1', ''))
+  let l:line = ' ' . substitute(getline(v:foldstart), '^\s*"\?\s*\|\s*"\?\s*{{' . '{\d*\s*', '', 'g') . ' '
+  let l:lines_count = v:foldend - v:foldstart + 1
+  let l:lines_count_text = '| ' . printf('%10s', l:lines_count . ' lines') . ' |'
+  let l:foldchar = matchstr(&fillchars, 'fold:\zs.')
+  let l:foldtextstart = strpart('+' . repeat(l:foldchar, l:leading_spaces-2) . l:line, 0, (winwidth(0)*2)/3)
+  let l:foldtextend = l:lines_count_text . repeat(l:foldchar, 8)
+  let l:foldtextlength = strlen(substitute(l:foldtextstart . l:foldtextend, '.', 'x', 'g')) + &foldcolumn
+  return l:foldtextstart . repeat(l:foldchar, winwidth(0)-l:foldtextlength) . l:foldtextend
 endfunction
 set foldtext=NeatFoldText()
 " }}}2
@@ -240,10 +246,10 @@ set foldtext=NeatFoldText()
 " -------------------------------------
 augroup suffixes
     autocmd!
-    let associations = [["javascript", ".js,.jsx,.es6,.json,.scss"], ["python", ".py,.pyw"] ]
+    let g:associations = [['javascript', '.js,.jsx,.es6,.json,.scss'], ['python', '.py,.pyw'] ]
 
-    for ft in associations
-        execute "autocmd FileType " . ft[0] . " setlocal suffixesadd=" . ft[1]
+    for g:ft in g:associations
+        execute 'autocmd FileType ' . g:ft[0] . ' setlocal suffixesadd=' . g:ft[1]
     endfor
  augroup END
 
