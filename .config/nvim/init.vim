@@ -18,6 +18,7 @@ call plug#begin('~/.config/nvim/plugged')
    Plug 'vim-airline/vim-airline'
    Plug 'crusoexia/vim-monokai'
    Plug 'scrooloose/nerdtree'
+   Plug 'sbdchd/neoformat'
 
    Plug 'tpope/vim-commentary'
    Plug 'tpope/vim-surround'
@@ -91,6 +92,7 @@ nnoremap Z <c-z>
 nnoremap L :bnext<cr>
 nnoremap H :bprev<cr>
 nnoremap K :YcmCompleter GetType<cr>
+nnoremap =% :Neoformat<cr>
 autocmd FileType cpp map <buffer> gD :YcmCompleter GoToDefinition<cr>
 autocmd FileType cpp map <buffer> gd :YcmCompleter GoToDeclaration<cr>
 autocmd FileType cpp map <buffer> gF :YcmCompleter GoToInclude<cr>
