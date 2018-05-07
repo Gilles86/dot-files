@@ -19,6 +19,7 @@ call plug#begin('~/.config/nvim/plugged')
    Plug 'crusoexia/vim-monokai'
    Plug 'scrooloose/nerdtree'
    Plug 'sbdchd/neoformat'
+   Plug 'sakhnik/nvim-gdb'
 
    Plug 'tpope/vim-commentary'
    Plug 'tpope/vim-surround'
@@ -96,7 +97,11 @@ nnoremap =% :Neoformat<cr>
 autocmd FileType cpp map <buffer> gD :YcmCompleter GoToDefinition<cr>
 autocmd FileType cpp map <buffer> gd :YcmCompleter GoToDeclaration<cr>
 autocmd FileType cpp map <buffer> gF :YcmCompleter GoToInclude<cr>
+autocmd FileType cpp nnoremap <buffer> ? :GdbEvalWord<cr> 
+autocmd FileType cpp vnoremap <buffer> ? :<bs><bs><bs><bs><bs>GdbEvalRange<cr>
 autocmd Filetype cpp if getfsize(@%) > 1000000 | setlocal syntax=OFF | endif
+nnoremap <space>r :!cmake --build build/<cr><cr>:GdbStartLLDB lldb ./build/vk<cr>
+
 nnoremap [* :Ggrep <cword> --<CR><CR>:copen<CR>
 nnoremap ]* *``:Ggrep <cword> --<CR><CR>
 nnoremap <C-n> :noh<cr>
