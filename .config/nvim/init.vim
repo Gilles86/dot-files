@@ -11,6 +11,7 @@ call plug#begin('~/.config/nvim/plugged')
 
    Plug 'hail2u/vim-css3-syntax'
    Plug 'Valloric/YouCompleteMe'
+   Plug 'tenfyzhong/CompleteParameter.vim'
 
    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
    Plug 'junegunn/fzf.vim'
@@ -162,6 +163,17 @@ if !exists("g:ycm_semantic_triggers")
    let g:ycm_semantic_triggers = {}
 endif
 let g:ycm_semantic_triggers['typescript'] = ['.']
+
+" -------------------------------------
+"  CompleteParameter
+" -------------------------------------
+let g:complete_parameter_echo_signature = 1
+inoremap <silent><expr> ( complete_parameter#pre_complete("()")
+smap <c-right> <Plug>(complete_parameter#goto_next_parameter)
+imap <c-right> <Plug>(complete_parameter#goto_next_parameter)
+smap <c-left> <Plug>(complete_parameter#goto_previous_parameter)
+imap <c-left> <Plug>(complete_parameter#goto_previous_parameter)
+
 
 " -------------------------------------
 "  vim-airline
