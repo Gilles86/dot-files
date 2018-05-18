@@ -11,6 +11,7 @@ call plug#begin('~/.config/nvim/plugged')
 
    Plug 'hail2u/vim-css3-syntax'
    Plug 'Valloric/YouCompleteMe'
+   Plug 'tenfyzhong/CompleteParameter.vim'
 
    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
    Plug 'junegunn/fzf.vim'
@@ -18,6 +19,8 @@ call plug#begin('~/.config/nvim/plugged')
    Plug 'vim-airline/vim-airline'
    Plug 'crusoexia/vim-monokai'
    Plug 'scrooloose/nerdtree'
+   Plug 'sbdchd/neoformat'
+   Plug 'sakhnik/nvim-gdb'
 
    Plug 'tpope/vim-commentary'
    Plug 'tpope/vim-surround'
@@ -29,7 +32,6 @@ call plug#begin('~/.config/nvim/plugged')
    " Plug 'vim-syntastic/syntastic', { 'do': 'npm install -g tslint' }
    " Plug 'neomake/neomake'
 call plug#end()
-
 
 " -------------------------------------
 "  Configurations
@@ -93,11 +95,17 @@ nnoremap Z <c-z>
 nnoremap L :bnext<cr>
 nnoremap H :bprev<cr>
 nnoremap K :YcmCompleter GetType<cr>
+nnoremap =% :Neoformat<cr>
 autocmd FileType cpp map <buffer> gD :YcmCompleter GoToDefinition<cr>
 autocmd FileType cpp map <buffer> gd :YcmCompleter GoToDeclaration<cr>
 autocmd FileType cpp map <buffer> gF :YcmCompleter GoToInclude<cr>
-nnoremap [* :Ggrep <cword> --<cr><cr>:copen<cr>
-nnoremap ]* *``:Ggrep <cword> --<cr><cr>
+autocmd FileType cpp nnoremap <buffer> ? :GdbEvalWord<cr> 
+autocmd FileType cpp vnoremap <buffer> ? :<bs><bs><bs><bs><bs>GdbEvalRange<cr>
+autocmd Filetype cpp if getfsize(@%) > 1000000 | setlocal syntax=OFF | endif
+nnoremap <space>r :!cmake --build build/<cr><cr>:GdbStartLLDB lldb ./build/vk<cr>
+
+nnoremap [* :Ggrep <cword> --<CR><CR>:copen<CR>
+nnoremap ]* *``:Ggrep <cword> --<CR><CR>
 nnoremap <C-n> :noh<cr>
 nnoremap <leader><space> :NERDTreeFind %<CR>
 tnoremap <esc><esc> <C-\><C-n>
@@ -126,6 +134,7 @@ let g:ycm_always_populate_location_list = 1
 let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf.py'
 let g:ycm_extra_conf_globlist=['~/.config/nvim/*']
 let g:ycm_auto_trigger=1
+let g:ycm_confirm_extra_conf = 0
 let g:ycm_enable_diagnostic_highlighting=1
 let g:ycm_enable_diagnostic_signs=1
 let g:ycm_max_diagnostics_to_display=10000
@@ -155,6 +164,17 @@ if !exists("g:ycm_semantic_triggers")
    let g:ycm_semantic_triggers = {}
 endif
 let g:ycm_semantic_triggers['typescript'] = ['.']
+
+" -------------------------------------
+"  CompleteParameter
+" -------------------------------------
+let g:complete_parameter_echo_signature = 1
+inoremap <silent><expr> ( complete_parameter#pre_complete("()")
+smap <c-right> <Plug>(complete_parameter#goto_next_parameter)
+imap <c-right> <Plug>(complete_parameter#goto_next_parameter)
+smap <c-left> <Plug>(complete_parameter#goto_previous_parameter)
+imap <c-left> <Plug>(complete_parameter#goto_previous_parameter)
+
 
 " -------------------------------------
 "  vim-airline
