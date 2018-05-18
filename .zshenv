@@ -9,7 +9,7 @@ export ANDROID_SDK_ROOT="/usr/local/share/android-sdk"
 export ANDROID_HOME="/usr/local/share/android-sdk"
 export ANDROID_NDK_HOME="/usr/local/share/android-ndk"
 export ANDROID_NDK="/usr/local/share/android-ndk"
-export JAVA_HOME='/Library/Java/JavaVirtualMachines/jdk1.8.0_162.jdk/Contents/Home/'
+export JAVA_HOME='/Library/Java/JavaVirtualMachines/jdk1.8.0_74.jdk/Contents/Home/'
 
 alias g='git'
 alias ga='git add'
@@ -28,4 +28,6 @@ alias glgg='git log --graph --color'
 alias gm='git merge'
 alias gp='git push'
 alias gs='git status'
+alias svg='svgo --pretty --disable=cleanupIDs '
 alias gg='git -c color.grep.linenumber="bold yellow" -c color.grep.filename="bold green" grep --break --heading --line-number'
+alias ydl='youtube-dl -f "bestvideo[ext=mp4]+bestaudio[ext=m4a]/mp4"'

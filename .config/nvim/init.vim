@@ -24,6 +24,7 @@ call plug#begin('~/.config/nvim/plugged')
    Plug 'tpope/vim-fugitive'
    Plug 'tpope/vim-repeat'
    Plug 'tpope/vim-unimpaired'
+   Plug 'vim-scripts/Conque-GDB'
 
    " Plug 'vim-syntastic/syntastic', { 'do': 'npm install -g tslint' }
    " Plug 'neomake/neomake'
@@ -95,11 +96,11 @@ nnoremap K :YcmCompleter GetType<cr>
 autocmd FileType cpp map <buffer> gD :YcmCompleter GoToDefinition<cr>
 autocmd FileType cpp map <buffer> gd :YcmCompleter GoToDeclaration<cr>
 autocmd FileType cpp map <buffer> gF :YcmCompleter GoToInclude<cr>
-nnoremap [* :Ggrep <cword> --<CR><CR>:copen<CR>
-nnoremap ]* *``:Ggrep <cword> --<CR><CR>
+nnoremap [* :Ggrep <cword> --<cr><cr>:copen<cr>
+nnoremap ]* *``:Ggrep <cword> --<cr><cr>
 nnoremap <C-n> :noh<cr>
 nnoremap <leader><space> :NERDTreeFind %<CR>
-"  vim-fugitive
+tnoremap <esc><esc> <C-\><C-n>
 cnoremap J <down>
 cnoremap K <up>
 cnoremap jjj J
