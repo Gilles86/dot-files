@@ -9,7 +9,7 @@ export ANDROID_SDK_ROOT="/usr/local/share/android-sdk"
 export ANDROID_HOME="/usr/local/share/android-sdk"
 export ANDROID_NDK_HOME="/usr/local/share/android-ndk"
 export ANDROID_NDK="/usr/local/share/android-ndk"
-export JAVA_HOME='/Library/Java/JavaVirtualMachines/jdk1.8.0_74.jdk/Contents/Home/'
+export JAVA_HOME='/Library/Java/Home/'
 
 alias g='git'
 alias ga='git add'
