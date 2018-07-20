@@ -16,7 +16,7 @@ pip install neovim
 echo "alias vv='VIMRUNTIME=~/.amin/neovim-master/runtime  ~/.amin/neovim-master/build/bin/nvim -u ~/.amin/neovim-master/nvim/init.vim'" >> ~/.bashrc 
 source ~/.bashrc
 
+VIMRUNTIME=~/.amin/neovim-master/runtime  ~/.amin/neovim-master/build/bin/nvim -u ~/.amin/neovim-master/nvim/init.vim
 VIMRUNTIME=~/.amin/neovim-master/runtime  ~/.amin/neovim-master/build/bin/nvim -u ~/.amin/neovim-master/nvim/init.vim -c q "helptags ~/.amin/neovim-master/runtime/doc/"
-VIMRUNTIME=~/.amin/neovim-master/runtime  ~/.amin/neovim-master/build/bin/nvim -u ~/.amin/neovim-master/nvim/init.vim +q
 
- ~/.amin/neovim-master/nvim/plugged/YouCompleteMe/install.py --clang-completer
+~/.amin/neovim-master/nvim/plugged/YouCompleteMe/install.py --clang-completer
