@@ -1,6 +1,6 @@
 " Install Vim Plug if not installed
 if empty(glob('~/.amin/neovim-master/nvim/autoload/plug.vim'))
-  silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
+  silent !curl -fLo ~/.amin/neovim-master/nvim/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   autocmd VimEnter * PlugInstall
 endif
