@@ -9,6 +9,7 @@ nnoremap <space>r :source ~/.ideavimrc<CR>
 nnoremap <space>R :w<cr>:action Android.HotswapChanges<cr>
 nnoremap <bar> :action ParameterInfo<cr>
 nmap w <c-w>
+nnoremap B :action ToggleLineBreakpoint<cr>
 
 set surround
 set scrolloff=5 sidescrolloff=10

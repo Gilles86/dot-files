@@ -103,6 +103,7 @@ autocmd FileType cpp nnoremap <buffer> ? :GdbEvalWord<cr>
 autocmd FileType cpp vnoremap <buffer> ? :<bs><bs><bs><bs><bs>GdbEvalRange<cr>
 autocmd Filetype cpp if getfsize(@%) > 1000000 | setlocal syntax=OFF | endif
 nnoremap <space>r :!cmake --build build/<cr><cr>:GdbStartLLDB lldb ./build/vk<cr>
+autocmd Filetype cmake nnoremap K yaw:new<cr>:r! cmake -help <c-r>"<cr>:file cmake-help<cr>:set nomodified<cr>:set filetype=cmake<cr>gg
 
 nnoremap [* :Ggrep <cword> --<CR><CR>:copen<CR>
 nnoremap ]* *``:Ggrep <cword> --<CR><CR>
