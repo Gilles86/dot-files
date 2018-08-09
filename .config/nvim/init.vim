@@ -7,11 +7,8 @@ endif
 
 call plug#begin('~/.config/nvim/plugged')
    Plug 'sheerun/vim-polyglot'
-   Plug 'rhysd/vim-clang-format'
 
-   Plug 'hail2u/vim-css3-syntax'
    Plug 'Valloric/YouCompleteMe'
-   Plug 'tenfyzhong/CompleteParameter.vim'
 
    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
    Plug 'junegunn/fzf.vim'
@@ -20,16 +17,14 @@ call plug#begin('~/.config/nvim/plugged')
    Plug 'crusoexia/vim-monokai'
    Plug 'scrooloose/nerdtree'
    Plug 'sbdchd/neoformat'
-   Plug 'sakhnik/nvim-gdb'
+   Plug 'sjl/clam.vim'
 
    Plug 'tpope/vim-commentary'
    Plug 'tpope/vim-surround'
    Plug 'tpope/vim-fugitive'
    Plug 'tpope/vim-repeat'
    Plug 'tpope/vim-unimpaired'
-   Plug 'vim-scripts/Conque-GDB'
 
-   " Plug 'vim-syntastic/syntastic', { 'do': 'npm install -g tslint' }
    " Plug 'neomake/neomake'
 call plug#end()
 
@@ -94,16 +89,15 @@ nnoremap Q :bw<cr>
 nnoremap Z <c-z>
 nnoremap L :bnext<cr>
 nnoremap H :bprev<cr>
-nnoremap K :YcmCompleter GetType<cr>
 nnoremap =% :Neoformat<cr>
-autocmd FileType cpp map <buffer> gD :YcmCompleter GoToDefinition<cr>
-autocmd FileType cpp map <buffer> gd :YcmCompleter GoToDeclaration<cr>
-autocmd FileType cpp map <buffer> gF :YcmCompleter GoToInclude<cr>
-autocmd FileType cpp nnoremap <buffer> ? :GdbEvalWord<cr> 
-autocmd FileType cpp vnoremap <buffer> ? :<bs><bs><bs><bs><bs>GdbEvalRange<cr>
-autocmd Filetype cpp if getfsize(@%) > 1000000 | setlocal syntax=OFF | endif
-nnoremap <space>r :!cmake --build build/<cr><cr>:GdbStartLLDB lldb ./build/vk<cr>
+autocmd Filetype cpp   if getfsize(@%) > 1000000 | setlocal syntax=OFF | endif
+autocmd FileType cpp   map <buffer> gD :YcmCompleter GoToDefinition<cr>
+autocmd FileType cpp   map <buffer> gd :YcmCompleter GoToDeclaration<cr>
+autocmd FileType cpp   map <buffer> gF :YcmCompleter GoToInclude<cr>
+autocmd FileType cpp   nnoremap <buffer> K :YcmCompleter GetType<cr>
+autocmd Filetype cmake nnoremap <buffer> K :Clam cmake --help <cword><cr>:set filetype=cmake<cr>gg
 
+map <space> <leader>
 nnoremap [* :Ggrep <cword> --<CR><CR>:copen<CR>
 nnoremap ]* *``:Ggrep <cword> --<CR><CR>
 nnoremap <C-n> :noh<cr>
@@ -114,9 +108,8 @@ cnoremap K <up>
 cnoremap jjj J
 cnoremap kkk K
 cnoremap Noh noh
-map <space> <leader>
-nnoremap R :! ./%<cr>
-nnoremap <leader>r R
+nnoremap ! :Clam<space>
+vnoremap ! :ClamVisual<space>
 
 nnoremap <C-w>o :tab sp<cr>
 
@@ -144,7 +137,6 @@ let g:ycm_open_loclist_on_ycm_diags=1
 let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_show_diagnostics_ui=1
 let g:ycm_collect_identifiers_from_tags_files = 1
-let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_error_symbol = "✗"
 let g:ycm_warning_symbol =  "∙∙"
 let g:ycm_filetype_blacklist={
@@ -164,17 +156,6 @@ if !exists("g:ycm_semantic_triggers")
    let g:ycm_semantic_triggers = {}
 endif
 let g:ycm_semantic_triggers['typescript'] = ['.']
-
-" -------------------------------------
-"  CompleteParameter
-" -------------------------------------
-let g:complete_parameter_echo_signature = 1
-inoremap <silent><expr> ( complete_parameter#pre_complete("()")
-smap <c-right> <Plug>(complete_parameter#goto_next_parameter)
-imap <c-right> <Plug>(complete_parameter#goto_next_parameter)
-smap <c-left> <Plug>(complete_parameter#goto_previous_parameter)
-imap <c-left> <Plug>(complete_parameter#goto_previous_parameter)
-
 
 " -------------------------------------
 "  vim-airline
@@ -210,38 +191,7 @@ let g:airline_extensions = ['tabline', 'branch']
 "  neomake
 " -------------------------------------
 " let g:neomake_javascript_enabled_makers = ['eslint']
-" call neomake#configure#automake({
-"   \ 'TextChanged': {},
-"   \ 'InsertLeave': {},
-"   \ 'BufWritePost': {'delay': 0},
-"   \ 'BufWinEnter': {},
-"   \ }, 500)
-
-" -------------------------------------
-"  syntastic
-" -------------------------------------
-" set statusline+=%#warningmsg#
-" set statusline+=%{SyntasticStatuslineFlag()}
-" set statusline+=%*
-
-" let g:syntastic_always_populate_loc_list = 0
-" let g:syntastic_auto_loc_list = 1
-" let g:syntastic_check_on_open = 0
-" let g:syntastic_check_on_wq = 0
-" " let g:syntastic_mode_map = { "mode": "active", "passive_filetypes": ["go", "javascript", "html", "css", "scss", "typescript"] }
-" " let g:syntastic_swift_checkers = ['swiftpm'] 
-" let g:syntastic_html_checkers = [''] 
-" let g:syntastic_html_checkers = [''] 
-" let g:syntastic_javascript_eslint_exe='$(npm bin)/eslint'
-" let g:syntastic_javascript_checkers=['eslint']
-" let g:syntastic_typescript_checkers = ['eslint']
-" let g:syntastic_error_symbol = "✗"
-" let g:syntastic_style_error_symbol = "✗"
-" let g:syntastic_warning_symbol = "∙∙"
-" let g:syntastic_style_warning_symbol = "∙∙"
-" function! SyntasticCheckHook(errors)
-"   checktime
-" endfunction
+" call neomake#configure#automake('nrwi', 500)
 
 " -------------------------------------
 "  neat-fold
