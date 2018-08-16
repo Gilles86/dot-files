@@ -16,7 +16,7 @@ call plug#begin('~/.config/nvim/plugged')
    Plug 'vim-airline/vim-airline'
    Plug 'crusoexia/vim-monokai'
    Plug 'scrooloose/nerdtree'
-   Plug 'sbdchd/neoformat'
+   Plug 'sbdchd/neoformat' " Install clang-format for this to work
    Plug 'sjl/clam.vim'
 
    Plug 'tpope/vim-commentary'
@@ -24,6 +24,7 @@ call plug#begin('~/.config/nvim/plugged')
    Plug 'tpope/vim-fugitive'
    Plug 'tpope/vim-repeat'
    Plug 'tpope/vim-unimpaired'
+   Plug 'tpope/vim-abolish'
 
    " Plug 'neomake/neomake'
 call plug#end()
@@ -45,6 +46,9 @@ set hidden
 set hlsearch
 set ignorecase
 set smartcase
+set breakindent
+set showbreak=~~
+set synmaxcol=200
 nnoremap j gj
 nnoremap k gk
 vnoremap j gj
@@ -90,19 +94,21 @@ nnoremap Z <c-z>
 nnoremap L :bnext<cr>
 nnoremap H :bprev<cr>
 nnoremap =% :Neoformat<cr>
-autocmd Filetype cpp   if getfsize(@%) > 1000000 | setlocal syntax=OFF | endif
 autocmd FileType cpp   map <buffer> gD :YcmCompleter GoToDefinition<cr>
 autocmd FileType cpp   map <buffer> gd :YcmCompleter GoToDeclaration<cr>
 autocmd FileType cpp   map <buffer> gF :YcmCompleter GoToInclude<cr>
 autocmd FileType cpp   nnoremap <buffer> K :YcmCompleter GetType<cr>
 autocmd Filetype cmake nnoremap <buffer> K :Clam cmake --help <cword><cr>:set filetype=cmake<cr>gg
+autocmd FileType javascript.jsx map <buffer> gD :YcmCompleter GoToDefinition<cr>
+autocmd FileType javascript.jsx map <buffer> gd :YcmCompleter GoToDeclaration<cr>
+autocmd FileType javascript.jsx map <buffer> gF :YcmCompleter GoToInclude<cr>
+autocmd FileType javascript.jsx nnoremap <buffer> K :YcmCompleter GetType<cr>
 
 map <space> <leader>
 nnoremap [* :Ggrep <cword> --<CR><CR>:copen<CR>
 nnoremap ]* *``:Ggrep <cword> --<CR><CR>
 nnoremap <C-n> :noh<cr>
 nnoremap <leader><space> :NERDTreeFind %<CR>
-tnoremap <esc><esc> <C-\><C-n>
 cnoremap J <down>
 cnoremap K <up>
 cnoremap jjj J
@@ -221,16 +227,6 @@ augroup suffixes
         execute "autocmd FileType " . ft[0] . " setlocal suffixesadd=" . ft[1]
     endfor
  augroup END
-
-" -------------------------------------
-"  toggle syntax-coloring
-" -------------------------------------
-nnoremap <silent> <Leader>s
-             \ : if exists("syntax_on") <BAR>
-             \    syntax off <BAR>
-             \ else <BAR>  
-             \    syntax enable <BAR>
-             \ endif<CR>   
 
 " -------------------------------------
 "  mouse support inside tmux
