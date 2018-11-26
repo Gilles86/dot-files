@@ -1,15 +1,25 @@
 alias v='nvim'
 alias btc='bitcoin-chart-cli'
 alias P='ping 8.8.8.8'
-alias t='node ~/projects/dict/index.js'
 alias jtags="ctags -R . && sed -i '' -E '/^(if|switch|function|module\.exports|it|describe).+language:js$/d' tags"
 export PATH=~/Library/Android/sdk/platform-tools:$PATH
 export PATH=/Applications/calibre.app/Contents/MacOS/:$PATH
+export PATH=~/PostgreSQL/pg11/bin:$PATH
 export ANDROID_SDK_ROOT="/usr/local/share/android-sdk"
 export ANDROID_HOME="/usr/local/share/android-sdk"
 export ANDROID_NDK_HOME="/usr/local/share/android-ndk"
 export ANDROID_NDK="/usr/local/share/android-ndk"
 export JAVA_HOME='/Library/Java/Home/'
+
+export GOROOT="/usr/local/opt/go/libexec"
+export GOPATH="/Users/amin/.go"
+
+export PATH="/Users/amin/projects/emsdk":$PATH
+export PATH="/Users/amin/projects/emsdk/clang/e1.38.20_64bit":$PATH
+export PATH="/Users/amin/projects/emsdk/node/8.9.1_64bit/bin":$PATH
+export PATH="/Users/amin/projects/emsdk/emscripten/1.38.20":$PATH
+export PATH=$PATH:"/usr/local/opt/go/libexec/bin"
+export PATH=$PATH:"/Users/amin/.go/bin"
 
 alias g='git'
 alias ga='git add'

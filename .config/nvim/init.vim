@@ -6,9 +6,12 @@ if empty(glob('~/.config/nvim/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.config/nvim/plugged')
+   Plug 'fatih/vim-go'
    Plug 'sheerun/vim-polyglot'
 
+   Plug 'davidhalter/jedi'
    Plug 'Valloric/YouCompleteMe'
+   Plug 'vim-syntastic/syntastic'
 
    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
    Plug 'junegunn/fzf.vim'
@@ -25,6 +28,7 @@ call plug#begin('~/.config/nvim/plugged')
    Plug 'tpope/vim-repeat'
    Plug 'tpope/vim-unimpaired'
    Plug 'tpope/vim-abolish'
+   Plug 'jalvesaq/Nvim-R'
 
    " Plug 'neomake/neomake'
 call plug#end()
@@ -38,8 +42,8 @@ set foldmethod=syntax
 set numberwidth=2
 set wrap
 set linebreak
-set shiftwidth=4
-set tabstop=4
+set shiftwidth=2
+set tabstop=2
 set expandtab
 set background=dark
 set hidden
@@ -76,12 +80,13 @@ colorscheme monokai
 set t_Co=256
 set path+=**
 set wildmenu
-highlight Normal ctermbg=232
+" highlight Normal ctermbg=232
 highlight Search cterm=NONE ctermfg=214 ctermbg=236
 highlight YcmErrorLine ctermbg=233 ctermfg=204
 highlight YcmErrorSection ctermbg=236 ctermfg=196
 highlight ColorColumn ctermbg=238 
 highlight Error ctermbg=233 ctermfg=204
+highlight Normal guibg=NONE ctermbg=NONE
 call matchadd('ColorColumn', '\%81v', 100)
 
 " -------------------------------------
@@ -94,9 +99,9 @@ nnoremap Z <c-z>
 nnoremap L :bnext<cr>
 nnoremap H :bprev<cr>
 nnoremap =% :Neoformat<cr>
-autocmd FileType cpp   map <buffer> gD :YcmCompleter GoToDefinition<cr>
-autocmd FileType cpp   map <buffer> gd :YcmCompleter GoToDeclaration<cr>
-autocmd FileType cpp   map <buffer> gF :YcmCompleter GoToInclude<cr>
+autocmd FileType cpp,go   map <buffer> gD :YcmCompleter GoToDefinition<cr>
+autocmd FileType cpp,go   map <buffer> gd :YcmCompleter GoToDeclaration<cr>
+autocmd FileType cpp,go   map <buffer> gF :YcmCompleter GoToInclude<cr>
 autocmd FileType cpp   nnoremap <buffer> K :YcmCompleter GetType<cr>
 autocmd Filetype cmake nnoremap <buffer> K :Clam cmake --help <cword><cr>:set filetype=cmake<cr>gg
 autocmd FileType javascript.jsx map <buffer> gD :YcmCompleter GoToDefinition<cr>
@@ -126,6 +131,26 @@ nnoremap <c-p> :GFiles<cr>
 nnoremap E :Files<cr>
 
 " -------------------------------------
+"  syntastic
+" -------------------------------------
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_error_symbol = "✗"
+let g:syntastic_style_error_symbol = "✗"
+let g:syntastic_warning_symbol = "∙∙"
+let g:syntastic_style_warning_symbol = "∙∙"
+let g:syntastic_solidity_checkers = ['solcjs']
+function! SyntasticCheckHook(errors)
+  checktime
+endfunction
+
+" -------------------------------------
 "  YouCompleteMe
 " -------------------------------------
 let g:ycm_collect_identifiers_from_comments_and_strings = 1
@@ -141,7 +166,8 @@ let g:ycm_min_num_identifier_candidate_chars=0
 let g:ycm_min_num_of_chars_for_completion=2
 let g:ycm_open_loclist_on_ycm_diags=1
 let g:ycm_autoclose_preview_window_after_insertion = 1
-let g:ycm_show_diagnostics_ui=1
+" let g:ycm_show_diagnostics_ui=1
+let g:ycm_show_diagnostics_ui = 0 
 let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_error_symbol = "✗"
 let g:ycm_warning_symbol =  "∙∙"
