@@ -15,8 +15,6 @@ export GOROOT="/usr/local/opt/go/libexec"
 export GOPATH="/Users/amin/.go"
 
 export PATH="/Users/amin/projects/emsdk":$PATH
-export PATH="/Users/amin/projects/emsdk/clang/e1.38.20_64bit":$PATH
-export PATH="/Users/amin/projects/emsdk/node/8.9.1_64bit/bin":$PATH
 export PATH="/Users/amin/projects/emsdk/emscripten/1.38.20":$PATH
 export PATH=$PATH:"/usr/local/opt/go/libexec/bin"
 export PATH=$PATH:"/Users/amin/.go/bin"
