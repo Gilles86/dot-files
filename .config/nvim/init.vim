@@ -11,7 +11,6 @@ call plug#begin('~/.config/nvim/plugged')
 
    Plug 'davidhalter/jedi'
    Plug 'Valloric/YouCompleteMe'
-   Plug 'vim-syntastic/syntastic'
 
    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
    Plug 'junegunn/fzf.vim'
@@ -131,32 +130,12 @@ nnoremap <c-p> :GFiles<cr>
 nnoremap E :Files<cr>
 
 " -------------------------------------
-"  syntastic
-" -------------------------------------
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_error_symbol = "✗"
-let g:syntastic_style_error_symbol = "✗"
-let g:syntastic_warning_symbol = "∙∙"
-let g:syntastic_style_warning_symbol = "∙∙"
-let g:syntastic_solidity_checkers = ['solcjs']
-function! SyntasticCheckHook(errors)
-  checktime
-endfunction
-
-" -------------------------------------
 "  YouCompleteMe
 " -------------------------------------
 let g:ycm_collect_identifiers_from_comments_and_strings = 1
 let g:ycm_always_populate_location_list = 1
-let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf.py'
-let g:ycm_extra_conf_globlist=['~/.config/nvim/*']
+" let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf.py'
+" let g:ycm_extra_conf_globlist=['~/.config/nvim/*']
 let g:ycm_auto_trigger=1
 let g:ycm_confirm_extra_conf = 0
 let g:ycm_enable_diagnostic_highlighting=1
@@ -188,6 +167,7 @@ if !exists("g:ycm_semantic_triggers")
    let g:ycm_semantic_triggers = {}
 endif
 let g:ycm_semantic_triggers['typescript'] = ['.']
+let g:ycm_semantic_triggers['cpp'] = ['.', '::']
 
 " -------------------------------------
 "  vim-airline

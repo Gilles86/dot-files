@@ -7,12 +7,12 @@ endif
 
 
 
-call plug#begin('~/.config/nvim/plugged')
+call plug#begin('~/.vim/plugged')
    Plug 'sheerun/vim-polyglot'
 
    Plug 'hail2u/vim-css3-syntax'
+   Plug 'ervandew/supertab'
    Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer' }
-   Plug 'tenfyzhong/CompleteParameter.vim'
 
    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
    Plug 'junegunn/fzf.vim'
@@ -29,7 +29,6 @@ call plug#begin('~/.config/nvim/plugged')
 
    Plug 'vim-scripts/perl-support.vim'
 
-   " Plug 'vim-syntastic/syntastic', { 'do': 'npm install -g tslint' }
 call plug#end()
 
 " -------------------------------------
@@ -49,6 +48,7 @@ set hidden
 set hlsearch
 set ignorecase
 set smartcase
+set encoding=utf-8
 nnoremap j gj
 nnoremap k gk
 vnoremap j gj
@@ -72,7 +72,7 @@ au BufNewFile,BufRead *.css,*.scss,*.less setlocal foldmethod=marker foldmarker=
 "  crusoexia/vim-monokai
 " -------------------------------------
 syntax on
-colorscheme monokai
+colorscheme default
 set t_Co=256
 set path+=**
 set wildmenu
@@ -96,17 +96,14 @@ nnoremap L :bnext<cr>
 nnoremap H :bprev<cr>
 nnoremap K :YcmCompleter GetType<cr>
 nnoremap =% :Neoformat<cr>
-autocmd FileType cpp map <buffer> gD :YcmCompleter GoToDefinition<cr>
-autocmd FileType cpp map <buffer> gd :YcmCompleter GoToDeclaration<cr>
-autocmd FileType cpp map <buffer> gF :YcmCompleter GoToInclude<cr>
-autocmd FileType cpp nnoremap <buffer> ? :GdbEvalWord<cr> 
-autocmd FileType cpp vnoremap <buffer> ? :<bs><bs><bs><bs><bs>GdbEvalRange<cr>
-autocmd Filetype cpp if getfsize(@%) > 1000000 | setlocal syntax=OFF | endif
-nnoremap <space>r :!cmake --build build/<cr><cr>:GdbStartLLDB lldb ./build/vk<cr>
+autocmd FileType c,cpp map <buffer> gD :YcmCompleter GoToDefinition<cr>
+autocmd FileType c,cpp map <buffer> gd :YcmCompleter GoToDeclaration<cr>
+autocmd FileType c,cpp map <buffer> gF :YcmCompleter GoToInclude<cr>
 
 nnoremap [* :Ggrep <cword> --<CR><CR>:copen<CR>
 nnoremap ]* *``:Ggrep <cword> --<CR><CR>
 nnoremap <C-n> :noh<cr>
+map <space> <leader>
 nnoremap <leader><space> :NERDTreeFind %<CR>
 "tnoremap <esc><esc> <C-\><C-n>
 cnoremap J <down>
@@ -114,11 +111,6 @@ cnoremap K <up>
 cnoremap jjj J
 cnoremap kkk K
 cnoremap Noh noh
-map <space> <leader>
-nnoremap R :! ./%<cr>
-nnoremap <leader>r R
-
-nnoremap <C-w>o :tab sp<cr>
 
 " -------------------------------------
 "  FZF
@@ -129,17 +121,17 @@ nnoremap E :Files<cr>
 " -------------------------------------
 "  YouCompleteMe
 " -------------------------------------
+let g:ycm_key_list_select_completion = ['<Down>']
+let g:ycm_key_list_previous_completion = ['<Up>']
 let g:ycm_collect_identifiers_from_comments_and_strings = 1
 let g:ycm_always_populate_location_list = 1
-let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf.py'
-let g:ycm_extra_conf_globlist=['~/.config/nvim/*']
 let g:ycm_auto_trigger=1
 let g:ycm_confirm_extra_conf = 0
 let g:ycm_enable_diagnostic_highlighting=1
 let g:ycm_enable_diagnostic_signs=1
 let g:ycm_max_diagnostics_to_display=10000
 let g:ycm_min_num_identifier_candidate_chars=0
-let g:ycm_min_num_of_chars_for_completion=2
+let g:ycm_min_num_of_chars_for_completion=99
 let g:ycm_open_loclist_on_ycm_diags=1
 let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_show_diagnostics_ui=1
@@ -164,16 +156,6 @@ if !exists("g:ycm_semantic_triggers")
    let g:ycm_semantic_triggers = {}
 endif
 let g:ycm_semantic_triggers['typescript'] = ['.']
-
-" -------------------------------------
-"  CompleteParameter
-" -------------------------------------
-let g:complete_parameter_echo_signature = 1
-inoremap <silent><expr> ( complete_parameter#pre_complete("(")
-smap <c-right> <Plug>(complete_parameter#goto_next_parameter)
-imap <c-right> <Plug>(complete_parameter#goto_next_parameter)
-smap <c-left> <Plug>(complete_parameter#goto_previous_parameter)
-imap <c-left> <Plug>(complete_parameter#goto_previous_parameter)
 
 
 " -------------------------------------
@@ -217,31 +199,6 @@ let g:airline_extensions = ['tabline', 'branch']
 "   \ 'BufWinEnter': {},
 "   \ }, 500)
 
-" -------------------------------------
-"  syntastic
-" -------------------------------------
-" set statusline+=%#warningmsg#
-" set statusline+=%{SyntasticStatuslineFlag()}
-" set statusline+=%*
-
-" let g:syntastic_always_populate_loc_list = 0
-" let g:syntastic_auto_loc_list = 1
-" let g:syntastic_check_on_open = 0
-" let g:syntastic_check_on_wq = 0
-" " let g:syntastic_mode_map = { "mode": "active", "passive_filetypes": ["go", "javascript", "html", "css", "scss", "typescript"] }
-" " let g:syntastic_swift_checkers = ['swiftpm'] 
-" let g:syntastic_html_checkers = [''] 
-" let g:syntastic_html_checkers = [''] 
-" let g:syntastic_javascript_eslint_exe='$(npm bin)/eslint'
-" let g:syntastic_javascript_checkers=['eslint']
-" let g:syntastic_typescript_checkers = ['eslint']
-" let g:syntastic_error_symbol = "✗"
-" let g:syntastic_style_error_symbol = "✗"
-" let g:syntastic_warning_symbol = "∙∙"
-" let g:syntastic_style_warning_symbol = "∙∙"
-" function! SyntasticCheckHook(errors)
-"   checktime
-" endfunction
 
 " -------------------------------------
 "  neat-fold
