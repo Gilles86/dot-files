@@ -16,9 +16,9 @@ call plug#begin('~/.vim/plugged')
 
    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
    Plug 'junegunn/fzf.vim'
+   Plug 'justinmk/vim-sneak'
 
    Plug 'vim-airline/vim-airline'
-   Plug 'crusoexia/vim-monokai'
    Plug 'scrooloose/nerdtree'
 
    Plug 'tpope/vim-commentary'
@@ -61,15 +61,10 @@ syntax enable
 filetype plugin on
 let g:solarized_termcolors=256
 let g:netrw_banner=0
-au BufNewFile,BufRead *.es6 set filetype=javascript
-au BufNewFile,BufRead *.vash set filetype=html
-au BufNewFile,BufRead *.tt set filetype=html
-au BufNewFile,BufRead *.css,*.scss,*.less setlocal foldmethod=marker foldmarker={,}
-" au BufNewFile,BufRead *.js set filetype=typescript
-" set diffopt+=vertical
+au BufNewFile,BufRead *.css,*.scss setlocal foldmethod=marker foldmarker={,}
 
 " -------------------------------------
-"  crusoexia/vim-monokai
+"  colorscheme
 " -------------------------------------
 syntax on
 colorscheme default
@@ -84,6 +79,7 @@ highlight ColorColumn ctermbg=238
 highlight Error ctermbg=233 ctermfg=204
 highlight Visual term=reverse cterm=reverse guibg=Grey
 call matchadd('ColorColumn', '\%81v', 100)
+runtime! ftplugin/man.vim
 
 " -------------------------------------
 "  Mappings
@@ -94,8 +90,8 @@ nnoremap Q :bw<cr>
 nnoremap Z <c-z>
 nnoremap L :bnext<cr>
 nnoremap H :bprev<cr>
-nnoremap K :YcmCompleter GetType<cr>
 nnoremap =% :Neoformat<cr>
+autocmd FileType c,cpp map <buffer> K :YcmCompleter GetType<cr>
 autocmd FileType c,cpp map <buffer> gD :YcmCompleter GoToDefinition<cr>
 autocmd FileType c,cpp map <buffer> gd :YcmCompleter GoToDeclaration<cr>
 autocmd FileType c,cpp map <buffer> gF :YcmCompleter GoToInclude<cr>
@@ -117,6 +113,15 @@ cnoremap Noh noh
 " -------------------------------------
 nnoremap <c-p> :GFiles<cr>
 nnoremap E :Files<cr>
+
+" -------------------------------------
+"  sneak
+" -------------------------------------
+let g:sneak#label = 0
+map f <Plug>Sneak_f
+map F <Plug>Sneak_F
+map t <Plug>Sneak_t
+map T <Plug>Sneak_T
 
 " -------------------------------------
 "  YouCompleteMe
