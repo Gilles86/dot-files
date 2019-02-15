@@ -10,7 +10,7 @@ call plug#begin('~/.vim/plugged')
 
    Plug 'ervandew/supertab'
    Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer' }
-   Plug 'rdnetto/YCM-Generator'
+   Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
 
    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
    Plug 'junegunn/fzf.vim'
