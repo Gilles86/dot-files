@@ -30,4 +30,9 @@
         "command": "-workbench.action.debug.start",
         "when": "!inDebugMode"
     },
+    {
+        "key": "ctrl+n",
+        "command": "editor.action.triggerSuggest",
+        "when": "editorHasCompletionItemProvider && textInputFocus && !editorReadonly"
+    },
 ]

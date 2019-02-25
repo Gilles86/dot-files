@@ -6,6 +6,7 @@
     "window.zoomLevel": -1.2,
     "editor.wordWrap": "on",
     "editor.fontSize": 17,
+    "workbench.editor.showTabs": false,
     "editor.wordSeparators": "`~!@#$%^&*()-=+[{]}\\|;'\",.<>/?",
     "editor.lineNumbers": "off",
     "editor.renderLineHighlight": "none",
