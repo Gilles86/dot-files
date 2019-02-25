@@ -62,6 +62,7 @@ set matchpairs+=<:>
 set mouse+=a
 set fileencoding=utf8
 set encoding=utf8
+set tags=./tags;/
 
 "  Mappings ---------------------------
 nnoremap j gj

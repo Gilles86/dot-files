@@ -1,0 +1,33 @@
+// Place your key bindings in this file to overwrite the defaults
+[
+    {
+        "key": "ctrl+shift+u",
+        "command": "workbench.action.debug.run",
+        "when": "!inDebugMode"
+    },
+    {
+        "key": "ctrl+f5",
+        "command": "-workbench.action.debug.run",
+        "when": "!inDebugMode"
+    },
+    {
+        "key": "ctrl+u",
+        "command": "workbench.action.debug.start",
+        "when": "!inDebugMode"
+    },
+    {
+        "key": "ctrl+p",
+        "command": "workbench.action.quickOpen",
+        "when": "!inDebugMode"
+    },
+    {
+        "key": "ctrl+'",
+        "command": "workbench.action.gotoSymbol",
+        "when": "!inDebugMode"
+    },
+    {
+        "key": "f5",
+        "command": "-workbench.action.debug.start",
+        "when": "!inDebugMode"
+    },
+]

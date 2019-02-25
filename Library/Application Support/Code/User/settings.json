@@ -1,0 +1,51 @@
+{
+    "explorer.openEditors.visible": 0,
+    "C_Cpp.intelliSenseEngine": "Default",
+    "workbench.editor.enablePreview": false,
+    "workbench.editor.tabSizing": "shrink",
+    "window.zoomLevel": -1.2,
+    "editor.wordWrap": "on",
+    "editor.fontSize": 17,
+    "editor.wordSeparators": "`~!@#$%^&*()-=+[{]}\\|;'\",.<>/?",
+    "editor.lineNumbers": "off",
+    "editor.renderLineHighlight": "none",
+    "editor.minimap.enabled": false,
+    "editor.folding": false,
+    "editor.glyphMargin": false,
+    "editor.tabCompletion": "on",
+    "vim.enableNeovim": false,
+    "vim.normalModeKeyBindings": [
+        {
+            "before": [ "w" ],
+            "after": [ "<C-w>" ]
+        },
+    ],
+    "vim.normalModeKeyBindingsNonRecursive": [
+        {
+            "before": [ "[","[" ], "after": ["z", "t"],
+            "commands": [ { "command": "gotoNextPreviousMember.previousMember", "args": [] } ],
+        },
+        {
+            "before": [ "]","]" ], "after": ["z", "t"],
+            "commands": [ { "command": "gotoNextPreviousMember.nextMember", "args": [] } ],
+        },
+        // { "before":["<C-n>"], "after":["<C-space>"], },
+        {
+            "before": ["Q"], "after": [ ],
+            "commands": [ { "command": "workbench.action.closeActiveEditor", "args": [] } ]
+        },
+        {
+            "before": ["W"], "after": [ ],
+            "commands": [ { "command": "workbench.action.files.save", "args": [] } ]
+        },
+        {
+            "before": ["K"], "after": [ ],
+            "commands": [ { "command": "editor.action.showHover", "args": [] } ]
+        }
+    ],
+
+    "explorer.confirmDragAndDrop": false,
+    "explorer.confirmDelete": false,
+    "workbench.startupEditor": "newUntitledFile",
+    "workbench.colorTheme": "Quiet Light",
+}
