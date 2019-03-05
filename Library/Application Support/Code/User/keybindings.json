@@ -11,6 +11,16 @@
         "when": "!inDebugMode"
     },
     {
+        "key": "shift+j",
+        "command": "workbench.action.quickOpenNavigateNext",
+        "when": "inQuickOpen"
+    },
+    {
+        "key": "shift+k",
+        "command": "workbench.action.quickOpenNavigatePrevious",
+        "when": "inQuickOpen"
+    },
+    {
         "key": "ctrl+u",
         "command": "workbench.action.debug.start",
         "when": "!inDebugMode"

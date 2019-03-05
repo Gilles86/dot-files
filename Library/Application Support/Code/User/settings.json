@@ -18,7 +18,14 @@
         "editor.renderIndentGuides": false,
     },
     "editor.tabCompletion": "on",
+    "editor.renderIndentGuides": false,
+    "rust-client.channel": "nightly",
+    "[rust]": {
+        "editor.formatOnSave": true
+    },
     "vim.enableNeovim": false,
+    "vim.hlsearch": true,
+    "vim.neovimPath": "/usr/local/bin/nvim",
     "vim.normalModeKeyBindings": [
         {
             "before": [ "w" ],
@@ -32,10 +39,13 @@
             "commands": [ { "command": "gotoNextPreviousMember.previousMember", "args": [] } ],
         },
         {
+            "before": ["<esc>"],
+            "commands": [":nohl"]
+        },
+        {
             "before": [ "]","]" ], "after": ["z", "t"],
             "commands": [ { "command": "gotoNextPreviousMember.nextMember", "args": [] } ],
         },
-        // { "before":["<C-n>"], "after":["<C-space>"], },
         {
             "before": ["Q"], "after": [ ],
             "commands": [ { "command": "workbench.action.closeActiveEditor", "args": [] } ]
@@ -56,4 +66,12 @@
     "workbench.colorTheme": "Default Light+",
     "cmake-tools-helper.cmake_download_path": "/Users/amin/.vscode/extensions/maddouri.cmake-tools-helper-0.2.1/cmake_download",
     "cmake.configureOnOpen": true,
+    "rust.rustup": {
+        "toolchain": "nightly-x86_64-apple-darwin",
+        "nightlyToolchain": "nightly-x86_64-apple-darwin"
+    },
+    "rust.mode": "rls",
+    "rust.rls": {
+        "useRustfmt": true
+    },
 }
