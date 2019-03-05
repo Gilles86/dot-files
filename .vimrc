@@ -97,7 +97,6 @@ cnoremap Noh noh
 
 "  colorscheme ------------------------
 syntax on
-colorscheme default
 set t_Co=256
 set background=dark
 let g:solarized_termcolors=256
@@ -192,3 +191,4 @@ function! NeatFoldText() "{{{2
 endfunction
 set foldtext=NeatFoldText()
 " }}}2 
+colorscheme desert

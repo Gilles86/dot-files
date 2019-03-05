@@ -13,6 +13,10 @@
     "editor.minimap.enabled": false,
     "editor.folding": false,
     "editor.glyphMargin": false,
+    "[rust]": {
+        "editor.formatOnSave": true,
+        "editor.renderIndentGuides": false,
+    },
     "editor.tabCompletion": "on",
     "vim.enableNeovim": false,
     "vim.normalModeKeyBindings": [
@@ -20,6 +24,7 @@
             "before": [ "w" ],
             "after": [ "<C-w>" ]
         },
+
     ],
     "vim.normalModeKeyBindingsNonRecursive": [
         {
@@ -48,5 +53,7 @@
     "explorer.confirmDragAndDrop": false,
     "explorer.confirmDelete": false,
     "workbench.startupEditor": "newUntitledFile",
-    "workbench.colorTheme": "Quiet Light",
+    "workbench.colorTheme": "Default Light+",
+    "cmake-tools-helper.cmake_download_path": "/Users/amin/.vscode/extensions/maddouri.cmake-tools-helper-0.2.1/cmake_download",
+    "cmake.configureOnOpen": true,
 }
