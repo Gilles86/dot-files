@@ -15,6 +15,10 @@
     "editor.glyphMargin": false,
     "editor.tabCompletion": "on",
     "editor.renderIndentGuides": false,
+    "rust-client.channel": "nightly",
+    "[rust]": {
+        "editor.formatOnSave": true
+    },
     "vim.enableNeovim": false,
     "vim.hlsearch": true,
     "vim.neovimPath": "/usr/local/bin/nvim",
