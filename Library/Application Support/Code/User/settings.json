@@ -10,12 +10,19 @@
     "editor.wordSeparators": "`~!@#$%^&*()-=+[{]}\\|;'\",.<>/?",
     "editor.lineNumbers": "off",
     "editor.renderLineHighlight": "none",
+    "explorer.autoReveal": true,
     "editor.minimap.enabled": false,
     "editor.folding": false,
     "editor.glyphMargin": false,
+    "git.decorations.enabled": false,
     "editor.tabCompletion": "on",
+    "workbench.activityBar.visible": false,
+    "editor.lineDecorationsWidth": 0,
+    "editor.scrollbar.useShadows": false,
+    "editor.scrollbar.verticalScrollbarSize": 0,
+    "editor.scrollbar.verticalScrollbarSize": 0,
+    "editor.roundedSelection" : false,
     "editor.renderIndentGuides": false,
-    "rust-client.channel": "nightly",
     "[rust]": {
         "editor.formatOnSave": true
     },
@@ -29,6 +36,18 @@
         },
     ],
     "vim.normalModeKeyBindingsNonRecursive": [
+        {
+            "before": [ "w", "s" ],
+            "commands": [":sp"]
+        },
+        {
+            "before": [ "[", "o", "n" ],
+            "commands": [":set number"]
+        },
+        {
+            "before": [ "]", "o", "n" ],
+            "commands": [":set number!"]
+        },
         {
             "before": [ "[","[" ], "after": ["z", "t"],
             "commands": [ { "command": "gotoNextPreviousMember.previousMember", "args": [] } ],
