@@ -191,5 +191,4 @@ function! NeatFoldText() "{{{2
 endfunction
 set foldtext=NeatFoldText()
 " }}}2 
-"
 colorscheme desert

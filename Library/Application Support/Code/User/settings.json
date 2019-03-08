@@ -15,6 +15,10 @@
     "editor.folding": false,
     "editor.glyphMargin": false,
     "git.decorations.enabled": false,
+    "[rust]": {
+        "editor.formatOnSave": true,
+        "editor.renderIndentGuides": false,
+    },
     "editor.tabCompletion": "on",
     "workbench.activityBar.visible": false,
     "editor.lineDecorationsWidth": 0,
@@ -34,6 +38,7 @@
             "before": [ "w" ],
             "after": [ "<C-w>" ]
         },
+
     ],
     "vim.normalModeKeyBindingsNonRecursive": [
         {
@@ -78,6 +83,8 @@
     "explorer.confirmDelete": false,
     "workbench.startupEditor": "newUntitledFile",
     "workbench.colorTheme": "Default Light+",
+    "cmake-tools-helper.cmake_download_path": "/Users/amin/.vscode/extensions/maddouri.cmake-tools-helper-0.2.1/cmake_download",
+    "cmake.configureOnOpen": true,
     "rust.rustup": {
         "toolchain": "nightly-x86_64-apple-darwin",
         "nightlyToolchain": "nightly-x86_64-apple-darwin"
