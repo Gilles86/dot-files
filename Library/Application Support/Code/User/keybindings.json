@@ -11,7 +11,7 @@
         "when": "!inDebugMode"
     },
     {
-        "key": "shift+j",
+        "key": "ctrl+j",
         "command": "workbench.action.quickOpenNavigateNext",
         "when": "inQuickOpen"
     },
@@ -31,9 +31,9 @@
         "when": "!inDebugMode"
     },
     {
-        "key": "ctrl+'",
+        "key": "ctrl+j",
         "command": "workbench.action.gotoSymbol",
-        "when": "!inDebugMode"
+        "when": "!inDebugMode && !inQuickOpen"
     },
     {
         "key": "f5",

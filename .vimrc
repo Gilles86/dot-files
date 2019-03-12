@@ -105,7 +105,7 @@ runtime! ftplugin/man.vim
 call matchadd('ColorColumn', '\%81v', 100)
 
 hi Search cterm=NONE ctermfg=214 ctermbg=236
-hi ColorColumn ctermbg=238
+hi ColorColumn ctermbg=8
 hi Error ctermbg=233 ctermfg=204
 hi Visual term=reverse cterm=reverse guibg=Grey
 hi Normal ctermbg=NONE guibg=NONE
@@ -176,6 +176,16 @@ let g:ycm_filetype_blacklist={ 'tagbar':1, 'qf':1, 'notes':1, 'markdown':1, 'md'
 let g:tagbar_width = 24
 let g:tagbar_indent = 0
 let g:tagbar_show_linenumbers = 0
+
+function! HighlightBlock()
+    let line=line('.')
+    let cword = expand("<cword>")
+    let pattern = '\%'.line.'l'
+    call matchadd('ColorColumn', pattern, 50)
+    hi ColorColumn ctermbg=8
+endfunction
+nnoremap ) :call HighlightBlock()<cr>j
+nnoremap ( :call clearmatches()<cr>
 
 "  neat-fold --------------------------
 function! NeatFoldText() "{{{2
