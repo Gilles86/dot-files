@@ -88,7 +88,8 @@ autocmd VimEnter *.* silent set laststatus=0
 
 nnoremap [* :Ggrep <cword> --<CR><CR>:copen<CR>
 nnoremap ]* *``:Ggrep <cword> --<CR><CR>
-nnoremap <C-n> :noh<cr>
+nnoremap <C-n> :BTags<cr>
+nnoremap <esc> :noh<cr>
 cnoremap J <down>
 cnoremap K <up>
 cnoremap jjj J
@@ -104,10 +105,6 @@ let g:netrw_banner=0
 runtime! ftplugin/man.vim
 call matchadd('ColorColumn', '\%81v', 100)
 
-hi Search cterm=NONE ctermfg=214 ctermbg=236
-hi ColorColumn ctermbg=8
-hi Error ctermbg=233 ctermfg=204
-hi Visual term=reverse cterm=reverse guibg=Grey
 hi Normal ctermbg=NONE guibg=NONE
 
 "  FZF --------------------------------
@@ -201,4 +198,12 @@ function! NeatFoldText() "{{{2
 endfunction
 set foldtext=NeatFoldText()
 " }}}2 
+
 colorscheme desert
+hi Search cterm=NONE ctermfg=NONE ctermbg=252
+hi Visual cterm=NONE ctermbg=250
+hi ColorColumn ctermbg=255
+hi Error ctermbg=9 ctermfg=0
+set fileencoding=utf8
+set encoding=utf8
+set clipboard=unnamed
