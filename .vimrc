@@ -11,16 +11,18 @@ call plug#begin('~/.vim/plugged')
    Plug 'ervandew/supertab'
    Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer' }
    Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
+   Plug 'prettier/vim-prettier', {'do': 'npm install', 'branch': 'release/1.x' }
 
    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
    Plug 'junegunn/fzf.vim'
+   Plug 'xolox/vim-misc'
+   Plug 'xolox/vim-colorscheme-switcher'
 
    Plug 'vim-airline/vim-airline'
    Plug 'amix/open_file_under_cursor.vim'
    Plug 'majutsushi/tagbar', { 'on':  'Tagbar' }
-   Plug 'scrooloose/nerdtree'
-   Plug 'unkiwii/vim-nerdtree-sync'
-   Plug 'airblade/vim-gitgutter'
+   Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeFind' }
+   Plug 'unkiwii/vim-nerdtree-sync', { 'on': 'NERDTreeFind' }
 
    Plug 'tpope/vim-commentary'
    Plug 'tpope/vim-surround'
@@ -44,7 +46,7 @@ set numberwidth=2
 set wrap
 set linebreak
 set breakindent
-set showbreak=\ \
+set showbreak=\ ~
 
 set shiftwidth=4
 set tabstop=4
@@ -114,6 +116,10 @@ nnoremap T :Tags<cr>
 nnoremap B :Buffers<cr>
 nnoremap e :NERDTreeFind<cr>
 tnoremap <c-n> <c-\><c-n>
+
+"  prettier ---------------------------
+  let g:prettier#autoformat = 0
+  autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html PrettierAsync
 
 "  perldoc ----------------------------
 let g:perldoc_split_modifier = '76v'
