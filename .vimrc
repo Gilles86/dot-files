@@ -65,6 +65,7 @@ set mouse+=a
 set fileencoding=utf8
 set encoding=utf8
 set tags=./tags;/
+set bs=2
 
 "  Mappings ---------------------------
 nnoremap j gj
@@ -115,6 +116,7 @@ nnoremap E :Files<cr>
 nnoremap T :Tags<cr>
 nnoremap B :Buffers<cr>
 nnoremap e :NERDTreeFind<cr>
+imap <C-_> <plug>(fzf-complete-line)
 tnoremap <c-n> <c-\><c-n>
 
 "  prettier ---------------------------
