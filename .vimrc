@@ -13,10 +13,10 @@ call plug#begin('~/.vim/plugged')
    Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
    Plug 'prettier/vim-prettier', {'do': 'npm install', 'branch': 'release/1.x' }
 
+
+   Plug 'haya14busa/incsearch.vim'
    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
    Plug 'junegunn/fzf.vim'
-   Plug 'xolox/vim-misc'
-   Plug 'xolox/vim-colorscheme-switcher'
 
    Plug 'vim-airline/vim-airline'
    Plug 'amix/open_file_under_cursor.vim'
@@ -84,15 +84,11 @@ nnoremap Q :bw<cr>
 nnoremap Z <c-z>
 nnoremap L :bnext<cr>
 nnoremap H :bprev<cr>
-autocmd BufWinLeave *.* mkview!
-autocmd BufWinEnter *.* silent loadview
-autocmd BufWinEnter *.* silent set laststatus=0
-autocmd VimEnter *.* silent set laststatus=0
+autocmd VimEnter *.* silent set laststatus=2
 
 nnoremap [* :Ggrep <cword> --<CR><CR>:copen<CR>
 nnoremap ]* *``:Ggrep <cword> --<CR><CR>
 nnoremap <C-n> :BTags<cr>
-nnoremap <esc> :noh<cr>
 cnoremap J <down>
 cnoremap K <up>
 cnoremap jjj J
@@ -128,6 +124,17 @@ let g:perldoc_split_modifier = '76v'
 
 "  supertab ---------------------------
 let g:SuperTabDefaultCompletionType = "<c-n>"
+"  incsearch --------------------------
+map /  <Plug>(incsearch-forward)
+map ?  <Plug>(incsearch-backward)
+map g/ <Plug>(incsearch-stay)
+let g:incsearch#auto_nohlsearch = 1
+map n  <Plug>(incsearch-nohl-n)
+map N  <Plug>(incsearch-nohl-N)
+map *  <Plug>(incsearch-nohl-*)
+map #  <Plug>(incsearch-nohl-#)
+map g* <Plug>(incsearch-nohl-g*)
+map g# <Plug>(incsearch-nohl-g#)
 
 "  vim-airline ------------------------
 let g:airline_left_sep = ''
