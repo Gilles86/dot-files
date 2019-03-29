@@ -8,11 +8,14 @@ endif
 call plug#begin('~/.vim/plugged')
    Plug 'sheerun/vim-polyglot'
 
-   Plug 'ervandew/supertab'
-   Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer' }
-   Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
-   Plug 'prettier/vim-prettier', {'do': 'npm install', 'branch': 'release/1.x' }
+    " Mac Os
+if system("uname -s") == "Darwin"
+    Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer' }
+    Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
+    Plug 'prettier/vim-prettier', {'do': 'npm install', 'branch': 'release/1.x' }
+endif
 
+   Plug 'ervandew/supertab'
 
    Plug 'haya14busa/incsearch.vim'
    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -85,6 +88,7 @@ nnoremap Z <c-z>
 nnoremap L :bnext<cr>
 nnoremap H :bprev<cr>
 autocmd VimEnter *.* silent set laststatus=2
+autocmd FileType perl setlocal complete-=i
 
 nnoremap [* :Ggrep <cword> --<CR><CR>:copen<CR>
 nnoremap ]* *``:Ggrep <cword> --<CR><CR>
@@ -115,9 +119,6 @@ nnoremap e :NERDTreeFind<cr>
 imap <C-_> <plug>(fzf-complete-line)
 tnoremap <c-n> <c-\><c-n>
 
-"  prettier ---------------------------
-  let g:prettier#autoformat = 0
-  autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html PrettierAsync
 
 "  perldoc ----------------------------
 let g:perldoc_split_modifier = '76v'
@@ -158,31 +159,37 @@ let g:NERDTreeDirArrowCollapsible = "\u00a0"
 let g:nerdtree_sync_cursorline = 1
 let g:netrw_list_hide= '.*\.swp$,\~$,\.orig$'
 
-"  YouCompleteMe ----------------------
-autocmd FileType c,cpp map <buffer> K :YcmCompleter GetType<cr>
-autocmd FileType c,cpp map <buffer> gD :YcmCompleter GoToDefinition<cr>
-autocmd FileType c,cpp map <buffer> gd :YcmCompleter GoToDeclaration<cr>
-autocmd FileType c,cpp map <buffer> gF :YcmCompleter GoToInclude<cr>
-let g:ycm_key_list_select_completion = ['<Down>']
-let g:ycm_key_list_previous_completion = ['<Up>']
-let g:ycm_collect_identifiers_from_comments_and_strings = 1
-let g:ycm_always_populate_location_list = 1
-let g:ycm_auto_trigger=1
-let g:ycm_confirm_extra_conf = 0
-let g:ycm_enable_diagnostic_highlighting=1
-let g:ycm_enable_diagnostic_signs=1
-let g:ycm_max_diagnostics_to_display=10000
-let g:ycm_min_num_identifier_candidate_chars=0
-let g:ycm_min_num_of_chars_for_completion=99
-let g:ycm_open_loclist_on_ycm_diags=1
-let g:ycm_autoclose_preview_window_after_insertion = 1
-let g:ycm_show_diagnostics_ui=1
-let g:ycm_collect_identifiers_from_tags_files = 1
-let g:ycm_collect_identifiers_from_tags_files = 1
-let g:ycm_error_symbol = "✗"
-let g:ycm_warning_symbol =  "∙∙"
-let g:ycm_filetype_blacklist={ 'tagbar':1, 'qf':1, 'notes':1, 'markdown':1, 'md':1,
-            \'unite':1, 'text':1, 'vimwiki':1, 'pandoc':1, 'infolog':1, 'mail':1 }
+if system("uname -s") == "Darwin"
+    "  prettier ---------------------------
+    let g:prettier#autoformat = 0
+    autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html PrettierAsync
+
+    "  YouCompleteMe ----------------------
+    autocmd FileType c,cpp map <buffer> K :YcmCompleter GetType<cr>
+    autocmd FileType c,cpp map <buffer> gD :YcmCompleter GoToDefinition<cr>
+    autocmd FileType c,cpp map <buffer> gd :YcmCompleter GoToDeclaration<cr>
+    autocmd FileType c,cpp map <buffer> gF :YcmCompleter GoToInclude<cr>
+    let g:ycm_key_list_select_completion = ['<Down>']
+    let g:ycm_key_list_previous_completion = ['<Up>']
+    let g:ycm_collect_identifiers_from_comments_and_strings = 1
+    let g:ycm_always_populate_location_list = 1
+    let g:ycm_auto_trigger=1
+    let g:ycm_confirm_extra_conf = 0
+    let g:ycm_enable_diagnostic_highlighting=1
+    let g:ycm_enable_diagnostic_signs=1
+    let g:ycm_max_diagnostics_to_display=10000
+    let g:ycm_min_num_identifier_candidate_chars=0
+    let g:ycm_min_num_of_chars_for_completion=99
+    let g:ycm_open_loclist_on_ycm_diags=1
+    let g:ycm_autoclose_preview_window_after_insertion = 1
+    let g:ycm_show_diagnostics_ui=1
+    let g:ycm_collect_identifiers_from_tags_files = 1
+    let g:ycm_collect_identifiers_from_tags_files = 1
+    let g:ycm_error_symbol = "✗"
+    let g:ycm_warning_symbol =  "∙∙"
+    let g:ycm_filetype_blacklist={ 'tagbar':1, 'qf':1, 'notes':1, 'markdown':1, 'md':1,
+                \'unite':1, 'text':1, 'vimwiki':1, 'pandoc':1, 'infolog':1, 'mail':1 }
+endif
 
 "  Tagbar -----------------------------
 let g:tagbar_width = 24
@@ -219,6 +226,6 @@ hi Search cterm=NONE ctermfg=NONE ctermbg=252
 hi Visual cterm=NONE ctermbg=250
 hi ColorColumn ctermbg=255
 hi Error ctermbg=9 ctermfg=0
-set fileencoding=utf8
-set encoding=utf8
+" set fileencoding=utf8
+" set encoding=utf8
 set clipboard=unnamed
