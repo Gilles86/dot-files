@@ -8,8 +8,7 @@ endif
 call plug#begin('~/.vim/plugged')
    Plug 'sheerun/vim-polyglot'
 
-    " Mac Os
-if system("uname -s") == "Darwin"
+if has("mac")
     Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer' }
     Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
     Plug 'prettier/vim-prettier', {'do': 'npm install', 'branch': 'release/1.x' }
@@ -159,7 +158,7 @@ let g:NERDTreeDirArrowCollapsible = "\u00a0"
 let g:nerdtree_sync_cursorline = 1
 let g:netrw_list_hide= '.*\.swp$,\~$,\.orig$'
 
-if system("uname -s") == "Darwin"
+if has("mac")
     "  prettier ---------------------------
     let g:prettier#autoformat = 0
     autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html PrettierAsync
