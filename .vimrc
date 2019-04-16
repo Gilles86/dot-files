@@ -162,6 +162,7 @@ if has("mac")
     "  prettier ---------------------------
     let g:prettier#autoformat = 0
     autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html PrettierAsync
+    autocmd BufRead *.rs :setlocal tags=./rusty-tags.vi;/,$RUST_SRC_PATH/rusty-tags.vi
 
     "  YouCompleteMe ----------------------
     autocmd FileType c,cpp map <buffer> K :YcmCompleter GetType<cr>
@@ -220,7 +221,7 @@ endfunction
 set foldtext=NeatFoldText()
 " }}}2 
 
-colorscheme desert
+colorscheme default
 hi Search cterm=NONE ctermfg=NONE ctermbg=252
 hi Visual cterm=NONE ctermbg=250
 hi ColorColumn ctermbg=255
