@@ -40,6 +40,7 @@ endif
    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
    Plug 'junegunn/fzf.vim'
 
+   Plug 'AndrewRadev/splitjoin.vim'
    Plug 'vim-airline/vim-airline'
    Plug 'amix/open_file_under_cursor.vim'
    Plug 'majutsushi/tagbar', { 'on':  'Tagbar' }
