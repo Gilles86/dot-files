@@ -5,16 +5,35 @@ if empty(glob('~/.vim/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
+" rusty-tags -------------------------------------
+function! RustyTagsInit(info)
+    if a:info.status == 'installed' || a:info.force
+        !~/.cargo/bin/rustup component list | grep -q rust-src || ~/.cargo/bin/rustup component add rust-src
+        !~/.cargo/bin/cargo install --list | grep -q rusty-tags || ~/.cargo/bin/cargo install rusty-tags
+        !mkdir -p ~/.rusty-tags && echo 'vi_tags = ".tags-rs"' > ~/.rusty-tags/config.toml
+
+        !grep -q 'RUST_SRC_PATH' ~/.bashrc ||
+                    \echo 'export RUST_SRC_PATH=
+                    \$(rustc --print sysroot)/lib/rustlib/src/rust/src/' >> ~/.bashrc
+    endif
+endfunction
+autocmd FileType rust map <buffer> K :echo taglist('Option')[0]['cmd'][2:-3]<cr>
+autocmd BufRead *.rs :setlocal tags=./.tags-rs;/,$RUST_SRC_PATH/.tags-rs
+autocmd BufWritePost *.rs :silent! exec 
+            \"!rusty-tags vi --quiet --start-dir=" . expand('%:p:h') . "&" | redraw!
+
+
 call plug#begin('~/.vim/plugged')
    Plug 'sheerun/vim-polyglot'
 
-if has("mac")
+if has("mac") && 0
     Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer' }
     Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
     Plug 'prettier/vim-prettier', {'do': 'npm install', 'branch': 'release/1.x' }
 endif
 
    Plug 'ervandew/supertab'
+   Plug 'dan-t/rusty-tags', { 'do': function('RustyTagsInit') }
 
    Plug 'haya14busa/incsearch.vim'
    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -59,13 +78,10 @@ set hidden
 set hlsearch
 set ignorecase
 set smartcase
-set encoding=utf-8
 set path+=**
 set wildmenu
 set matchpairs+=<:>
 set mouse+=a
-set fileencoding=utf8
-set encoding=utf8
 set tags=./tags;/
 set bs=2
 
@@ -225,6 +241,3 @@ hi Search cterm=NONE ctermfg=NONE ctermbg=252
 hi Visual cterm=NONE ctermbg=250
 hi ColorColumn ctermbg=255
 hi Error ctermbg=9 ctermfg=0
-" set fileencoding=utf8
-" set encoding=utf8
-set clipboard=unnamed
