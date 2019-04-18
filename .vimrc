@@ -5,23 +5,24 @@ if empty(glob('~/.vim/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-" rusty-tags -------------------------------------
+" rusty-tags --------------------------------------------
 function! RustyTagsInit(info)
-    if a:info.status == 'installed' || a:info.force
-        !~/.cargo/bin/rustup component list | grep -q rust-src || ~/.cargo/bin/rustup component add rust-src
-        !~/.cargo/bin/cargo install --list | grep -q rusty-tags || ~/.cargo/bin/cargo install rusty-tags
-        !mkdir -p ~/.rusty-tags && echo 'vi_tags = ".tags-rs"' > ~/.rusty-tags/config.toml
+if a:info.status == 'installed' || a:info.force
+    !~/.cargo/bin/rustup component list | grep -q rust-src || ~/.cargo/bin/rustup component add rust-src
+    !~/.cargo/bin/cargo install --list | grep -q rusty-tags || ~/.cargo/bin/cargo install rusty-tags
+    !mkdir -p ~/.rusty-tags && echo 'vi_tags = ".tags-rs"' > ~/.rusty-tags/config.toml
 
-        !grep -q 'RUST_SRC_PATH' ~/.bashrc ||
-                    \echo 'export RUST_SRC_PATH=
-                    \$(rustc --print sysroot)/lib/rustlib/src/rust/src/' >> ~/.bashrc
-    endif
+    !grep -q 'RUST_SRC_PATH' ~/.bashrc ||
+                \echo 'export RUST_SRC_PATH=
+                \$(rustc --print sysroot)/lib/rustlib/src/rust/src/' >> ~/.bashrc
+endif
 endfunction
+
 autocmd FileType rust map <buffer> K :echo taglist('<c-r><c-w>')[0]['cmd'][2:-3]<cr>
 autocmd BufRead *.rs :setlocal tags=./.tags-rs;/,$RUST_SRC_PATH/.tags-rs
 autocmd BufWritePost *.rs :silent! exec 
             \"!rusty-tags vi --quiet --start-dir=" . expand('%:p:h') . "&" | redraw!
-
+" -------------------------------------------------------
 
 call plug#begin('~/.vim/plugged')
    Plug 'sheerun/vim-polyglot'
@@ -52,8 +53,6 @@ endif
    Plug 'tpope/vim-unimpaired'
 
    Plug 'aminroosta/perldoc-vim', { 'for': 'perl' }
-   Plug 'vim-scripts/perl-support.vim', { 'for': 'perl' }
-
 call plug#end()
 
 filetype plugin on
@@ -134,12 +133,20 @@ nnoremap e :NERDTreeFind<cr>
 imap <C-_> <plug>(fzf-complete-line)
 tnoremap <c-n> <c-\><c-n>
 
-
 "  perldoc ----------------------------
 let g:perldoc_split_modifier = '76v'
 
 "  supertab ---------------------------
-let g:SuperTabDefaultCompletionType = "<c-n>"
+let g:SuperTabDefaultCompletionType = "context"
+function! MyContext()
+    let curline = getline('.')[0:col('.')]
+    if curline =~ '::\w*$'
+        return "\<c-x>\<c-]>"
+    endif
+    return "\<c-n>"
+endfunction
+let g:SuperTabCompletionContexts = ['MyContext', 's:ContextText', 's:ContextDiscover']
+
 "  incsearch --------------------------
 map /  <Plug>(incsearch-forward)
 map ?  <Plug>(incsearch-backward)
@@ -174,7 +181,7 @@ let g:NERDTreeDirArrowCollapsible = "\u00a0"
 let g:nerdtree_sync_cursorline = 1
 let g:netrw_list_hide= '.*\.swp$,\~$,\.orig$'
 
-if has("mac")
+if has("mac") && 0
     "  prettier ---------------------------
     let g:prettier#autoformat = 0
     autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html PrettierAsync
@@ -221,7 +228,7 @@ nnoremap ) :call HighlightWord()<cr>*``
 nnoremap ( :call clearmatches()<cr>:nohl<cr>
 
 "  neat-fold --------------------------
-function! NeatFoldText() "{{{2
+function! NeatFoldText()
   let leading_spaces = len(getline(v:foldstart)) - len(substitute(getline(v:foldstart), '^\s*\(.\{-}\)\s*$', '\1', ''))
   let line = ' ' . substitute(getline(v:foldstart), '^\s*"\?\s*\|\s*"\?\s*{{' . '{\d*\s*', '', 'g') . ' '
   let lines_count = v:foldend - v:foldstart + 1
@@ -233,7 +240,6 @@ function! NeatFoldText() "{{{2
   return foldtextstart . repeat(foldchar, winwidth(0)-foldtextlength) . foldtextend
 endfunction
 set foldtext=NeatFoldText()
-" }}}2 
 
 colorscheme default
 hi Search cterm=NONE ctermfg=NONE ctermbg=252
