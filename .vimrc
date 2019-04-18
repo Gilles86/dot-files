@@ -35,6 +35,7 @@ endif
 
    Plug 'ervandew/supertab'
    Plug 'dan-t/rusty-tags', { 'do': function('RustyTagsInit') }
+   Plug 'w0rp/ale'
 
    Plug 'haya14busa/incsearch.vim'
    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -108,11 +109,14 @@ autocmd FileType perl setlocal complete-=i
 nnoremap [* :Ggrep <cword> --<CR><CR>:copen<CR>
 nnoremap ]* *``:Ggrep <cword> --<CR><CR>
 nnoremap <C-n> :BTags<cr>
+
 cnoremap J <down>
 cnoremap K <up>
 cnoremap jjj J
 cnoremap kkk K
 cnoremap Noh noh
+
+inoremap {<cr> {}<esc>i<cr><esc>ko
 
 "  colorscheme ------------------------
 syntax on
@@ -136,6 +140,7 @@ tnoremap <c-n> <c-\><c-n>
 
 "  perldoc ----------------------------
 let g:perldoc_split_modifier = '76v'
+"  ale --------------------------------
 
 "  supertab ---------------------------
 let g:SuperTabDefaultCompletionType = "context"
@@ -222,8 +227,8 @@ let g:tagbar_show_linenumbers = 0
 function! HighlightWord()
     let line=line('.')
     let cword = expand("<cword>")
-    call matchadd('ColorColumn', cword, 50)
-    hi ColorColumn ctermbg=8
+    call matchadd('HighlightWord', cword, 50)
+    hi HighlightWord ctermbg=8
 endfunction
 nnoremap ) :call HighlightWord()<cr>*``
 nnoremap ( :call clearmatches()<cr>:nohl<cr>
@@ -246,4 +251,7 @@ colorscheme default
 hi Search cterm=NONE ctermfg=NONE ctermbg=252
 hi Visual cterm=NONE ctermbg=250
 hi ColorColumn ctermbg=255
+hi HighlightRow ctermbg=255
 hi Error ctermbg=9 ctermfg=0
+
+highlight link ALEErrorLine HighlightRow
