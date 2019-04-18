@@ -17,7 +17,7 @@ function! RustyTagsInit(info)
                     \$(rustc --print sysroot)/lib/rustlib/src/rust/src/' >> ~/.bashrc
     endif
 endfunction
-autocmd FileType rust map <buffer> K :echo taglist('Option')[0]['cmd'][2:-3]<cr>
+autocmd FileType rust map <buffer> K :echo taglist('<c-r><c-w>')[0]['cmd'][2:-3]<cr>
 autocmd BufRead *.rs :setlocal tags=./.tags-rs;/,$RUST_SRC_PATH/.tags-rs
 autocmd BufWritePost *.rs :silent! exec 
             \"!rusty-tags vi --quiet --start-dir=" . expand('%:p:h') . "&" | redraw!
@@ -178,7 +178,6 @@ if has("mac")
     "  prettier ---------------------------
     let g:prettier#autoformat = 0
     autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html PrettierAsync
-    autocmd BufRead *.rs :setlocal tags=./rusty-tags.vi;/,$RUST_SRC_PATH/rusty-tags.vi
 
     "  YouCompleteMe ----------------------
     autocmd FileType c,cpp map <buffer> K :YcmCompleter GetType<cr>
@@ -212,15 +211,14 @@ let g:tagbar_width = 24
 let g:tagbar_indent = 0
 let g:tagbar_show_linenumbers = 0
 
-function! HighlightBlock()
+function! HighlightWord()
     let line=line('.')
     let cword = expand("<cword>")
-    let pattern = '\%'.line.'l'
-    call matchadd('ColorColumn', pattern, 50)
+    call matchadd('ColorColumn', cword, 50)
     hi ColorColumn ctermbg=8
 endfunction
-nnoremap ) :call HighlightBlock()<cr>j
-nnoremap ( :call clearmatches()<cr>
+nnoremap ) :call HighlightWord()<cr>*``
+nnoremap ( :call clearmatches()<cr>:nohl<cr>
 
 "  neat-fold --------------------------
 function! NeatFoldText() "{{{2
