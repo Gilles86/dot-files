@@ -8,6 +8,7 @@ endif
 " rusty-tags --------------------------------------------
 function! RustyTagsInit(info)
 if a:info.status == 'installed' || a:info.force
+    ![ ! -d ~/.cargo/bin/ ] && curl https://sh.rustup.rs -sSf | sh
     !~/.cargo/bin/rustup component list | grep -q rust-src || ~/.cargo/bin/rustup component add rust-src
     !~/.cargo/bin/cargo install --list | grep -q rusty-tags || ~/.cargo/bin/cargo install rusty-tags
     !mkdir -p ~/.rusty-tags && echo 'vi_tags = ".tags-rs"' > ~/.rusty-tags/config.toml
