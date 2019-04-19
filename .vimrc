@@ -33,6 +33,9 @@ if has("mac") && 0
     Plug 'prettier/vim-prettier', {'do': 'npm install', 'branch': 'release/1.x' }
 endif
 
+   Plug 'SirVer/ultisnips'
+   Plug 'honza/vim-snippets'
+
    Plug 'ervandew/supertab'
    Plug 'dan-t/rusty-tags', { 'do': function('RustyTagsInit') }
    Plug 'w0rp/ale'
@@ -138,9 +141,13 @@ nnoremap e :NERDTreeFind<cr>
 imap <C-_> <plug>(fzf-complete-line)
 tnoremap <c-n> <c-\><c-n>
 
+" vim-snippets -------------------------
+ let g:UltiSnipsExpandTrigger="<S-tab>"
+ let g:UltiSnipsJumpForwardTrigger="<c-m>"
+ let g:UltiSnipsJumpBackwardTrigger="<c-M>"
+
 "  perldoc ----------------------------
 let g:perldoc_split_modifier = '76v'
-"  ale --------------------------------
 
 "  supertab ---------------------------
 let g:SuperTabDefaultCompletionType = "context"
@@ -191,6 +198,8 @@ if has("mac") && 0
     "  prettier ---------------------------
     let g:prettier#autoformat = 0
     autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html PrettierAsync
+
+    autocmd FileType rust map <buffer> K :echo taglist("<c-r><c-w>")[0]['cmd']<cr>
 
     "  YouCompleteMe ----------------------
     autocmd FileType c,cpp map <buffer> K :YcmCompleter GetType<cr>
