@@ -83,11 +83,13 @@ set scrolloff=7
 set foldlevel=99
 set foldmethod=syntax
 set numberwidth=2
+set scl=no
 
 set wrap
 set linebreak
 set breakindent
 set showbreak=\ ~
+set completeopt-=preview
 
 set shiftwidth=4
 set tabstop=4
@@ -172,10 +174,10 @@ let g:deoplete#enable_at_startup = 1
 let g:SuperTabDefaultCompletionType = "<c-n>"
 
 "  incsearch --------------------------
+let g:incsearch#auto_nohlsearch = 1
 map /  <Plug>(incsearch-forward)
 map ?  <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
-let g:incsearch#auto_nohlsearch = 1
 map n  <Plug>(incsearch-nohl-n)
 map N  <Plug>(incsearch-nohl-N)
 map *  <Plug>(incsearch-nohl-*)
@@ -191,10 +193,7 @@ let g:airline_right_alt_sep = ''
 let g:airline_powerline_fonts = 1
 let g:airline_detect_modified=1
 let g:airline_statusline_ontop=1
-" let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline#extensions#tabline#enabled = 1
-" let g:airline#extensions#tabline#formatter = 'default'
-" let g:airline#extensions#tabline#buffers_label = 'ಠ‿↼'
 let g:airline#extensions#branch#enabled = 1
 let g:airline_theme='dark'
 let g:airline_extensions = ['tabline', 'branch']
@@ -244,6 +243,7 @@ let g:tagbar_width = 24
 let g:tagbar_indent = 0
 let g:tagbar_show_linenumbers = 0
 
+"  highight-word ----------------------
 function! HighlightWord()
     let line=line('.')
     let cword = expand("<cword>")
@@ -257,10 +257,17 @@ nnoremap ( :call clearmatches()<cr>:nohl<cr>
 if has('nvim')
     let g:deoplete#sources#rust#racer_binary=systemlist('which racer')[0]
     let g:deoplete#sources#rust#rust_source_path=$RUST_SRC_PATH
-    " let g:deoplete#sources#rust#disable_keymap=1
-    " nnoremap <buffer> gd <plug>DeopleteRustGoToDefinitionDefault
-    " nnomnoreap <buffer> K  <plug>DeopleteRustShowDocumentation
+
+    call deoplete#custom#option({ 'min_pattern_length': 5 })
 endif
+
+" syn-stack ---------------------------
+function! SynStack()
+  if !exists("*synstack")
+    return
+  endif
+  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+endfunc
 
 "  neat-fold --------------------------
 function! NeatFoldText()
@@ -282,9 +289,24 @@ else
     colorscheme default
 endif
 
+" hilighting --------------------------
 hi Search cterm=NONE ctermfg=NONE ctermbg=252
-hi Visual cterm=NONE ctermbg=250
+hi Visual cterm=NONE ctermbg=250 ctermfg=238
 hi ColorColumn ctermbg=255
 hi Error ctermbg=9 ctermfg=0
 
+" highlighting pop-up -----------------
 hi ALEErrorLine ctermbg=255
+hi Pmenu ctermbg=15
+hi PmenuSel ctermbg=250 
+hi PmenuSbar ctermbg=248
+
+" highlighting rust -------------------
+hi rustFuncCall ctermfg=232
+hi rustModPath ctermfg=19
+hi rustMacro ctermfg=0
+hi rustString ctermfg=18
+hi link rustModPathSep rustModPath
+hi link rustKeyword rustStorage
+hi link rustConditional rustStorage
+hi link rustDecNumber rustString
