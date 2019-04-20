@@ -1,17 +1,26 @@
 " Install Vim Plug if not installed
-if empty(glob('~/.vim/autoload/plug.vim'))
+if !has('nvim') && empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+if has('nvim') && empty(glob('~/.nvim/autoload/plug.vim'))
+  silent !curl -fLo ~/.nvim/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
 " rusty-tags --------------------------------------------
-function! RustyTagsInit(info)
+function! RustInit(info)
 if a:info.status == 'installed' || a:info.force
     !curl https://sh.rustup.rs -sSf | sh -s -- -y
     !~/.cargo/bin/rustup component list | grep -q rust-src || ~/.cargo/bin/rustup component add rust-src
     !~/.cargo/bin/cargo install --list | grep -q rusty-tags || ~/.cargo/bin/cargo install rusty-tags
     !mkdir -p ~/.rusty-tags && echo 'vi_tags = ".tags-rs"' > ~/.rusty-tags/config.toml
+
+    if has('nvim')
+        !~/.cargo/bin/cargo install --list | grep -q racer || ~/.cargo/bin/cargo install racer
+    endif
 
     !grep -q 'RUST_SRC_PATH' ~/.bashrc ||
                 \echo 'export RUST_SRC_PATH=
@@ -25,20 +34,26 @@ autocmd BufWritePost *.rs :silent! exec
             \"!rusty-tags vi --quiet --start-dir=" . expand('%:p:h') . "&" | redraw!
 " -------------------------------------------------------
 
-call plug#begin('~/.vim/plugged')
+call plug#begin(has('nvim') ? '~/.nvim/plugged' : '~/.vim/plugged')
    Plug 'sheerun/vim-polyglot'
 
 if has("mac") && 0
-    Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer' }
+    Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --rust-completer' }
     Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
     Plug 'prettier/vim-prettier', {'do': 'npm install', 'branch': 'release/1.x' }
 endif
 
+if has('nvim')
+   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+   Plug 'sebastianmarkow/deoplete-rust'
+
+endif
+
+   Plug 'ervandew/supertab'
    Plug 'SirVer/ultisnips'
    Plug 'honza/vim-snippets'
 
-   Plug 'ervandew/supertab'
-   Plug 'dan-t/rusty-tags', { 'do': function('RustyTagsInit') }
+   Plug 'dan-t/rusty-tags', { 'do': function('RustInit') }
    Plug 'w0rp/ale'
 
    Plug 'haya14busa/incsearch.vim'
@@ -150,16 +165,11 @@ tnoremap <c-n> <c-\><c-n>
 "  perldoc ----------------------------
 let g:perldoc_split_modifier = '76v'
 
+"  deoplete ---------------------------
+let g:deoplete#enable_at_startup = 1
+
 "  supertab ---------------------------
-let g:SuperTabDefaultCompletionType = "context"
-function! MyContext()
-    let curline = getline('.')[0:col('.')]
-    if curline =~ '::\w*$'
-        return "\<c-x>\<c-]>"
-    endif
-    return "\<c-n>"
-endfunction
-let g:SuperTabCompletionContexts = ['MyContext', 's:ContextText', 's:ContextDiscover']
+let g:SuperTabDefaultCompletionType = "<c-n>"
 
 "  incsearch --------------------------
 map /  <Plug>(incsearch-forward)
@@ -204,8 +214,8 @@ if has("mac") && 0
 
     "  YouCompleteMe ----------------------
     autocmd FileType c,cpp map <buffer> K :YcmCompleter GetType<cr>
-    autocmd FileType c,cpp map <buffer> gD :YcmCompleter GoToDefinition<cr>
-    autocmd FileType c,cpp map <buffer> gd :YcmCompleter GoToDeclaration<cr>
+    autocmd FileType c,cpp,rust map <buffer> gD :YcmCompleter GoToDefinition<cr>
+    autocmd FileType c,cpp,rust map <buffer> gd :YcmCompleter GoToDeclaration<cr>
     autocmd FileType c,cpp map <buffer> gF :YcmCompleter GoToInclude<cr>
     let g:ycm_key_list_select_completion = ['<Down>']
     let g:ycm_key_list_previous_completion = ['<Up>']
@@ -243,6 +253,15 @@ endfunction
 nnoremap ) :call HighlightWord()<cr>*``
 nnoremap ( :call clearmatches()<cr>:nohl<cr>
 
+" deoplete ----------------------------
+if has('nvim')
+    let g:deoplete#sources#rust#racer_binary=systemlist('which racer')[0]
+    let g:deoplete#sources#rust#rust_source_path=$RUST_SRC_PATH
+    " let g:deoplete#sources#rust#disable_keymap=1
+    " nnoremap <buffer> gd <plug>DeopleteRustGoToDefinitionDefault
+    " nnomnoreap <buffer> K  <plug>DeopleteRustShowDocumentation
+endif
+
 "  neat-fold --------------------------
 function! NeatFoldText()
   let leading_spaces = len(getline(v:foldstart)) - len(substitute(getline(v:foldstart), '^\s*\(.\{-}\)\s*$', '\1', ''))
@@ -257,11 +276,15 @@ function! NeatFoldText()
 endfunction
 set foldtext=NeatFoldText()
 
-colorscheme default
+if has('nvim')
+    colorscheme zellner
+else
+    colorscheme default
+endif
+
 hi Search cterm=NONE ctermfg=NONE ctermbg=252
 hi Visual cterm=NONE ctermbg=250
 hi ColorColumn ctermbg=255
-hi HighlightRow ctermbg=255
 hi Error ctermbg=9 ctermfg=0
 
-highlight link ALEErrorLine HighlightRow
+hi ALEErrorLine ctermbg=255
