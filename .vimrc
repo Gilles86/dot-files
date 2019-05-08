@@ -28,7 +28,7 @@ if a:info.status == 'installed' || a:info.force
 endif
 endfunction
 
-autocmd FileType rust map <buffer> K :echo taglist('<c-r><c-w>')[0]['cmd'][2:-3]<cr>
+" autocmd FileType rust map <buffer> K :echo taglist('<c-r><c-w>')[0]['cmd'][2:-3]<cr>
 autocmd BufRead *.rs :setlocal tags=./.tags-rs;/,$RUST_SRC_PATH/.tags-rs
 autocmd BufWritePost *.rs :silent! exec 
             \"!rusty-tags vi --quiet --start-dir=" . expand('%:p:h') . "&" | redraw!
@@ -158,7 +158,7 @@ nnoremap T :Tags<cr>
 nnoremap B :Buffers<cr>
 nnoremap e :NERDTreeFind<cr>
 imap <C-_> <plug>(fzf-complete-line)
-tnoremap <c-n> <c-\><c-n>
+tnoremap <C-_> <c-\><c-n>
 
 " vim-snippets -------------------------
  let g:UltiSnipsExpandTrigger="<S-tab>"
@@ -255,11 +255,13 @@ nnoremap ) :call HighlightWord()<cr>*``
 nnoremap ( :call clearmatches()<cr>:nohl<cr>
 
 " deoplete ----------------------------
-if has('nvim')
-    let g:deoplete#sources#rust#racer_binary=systemlist('which racer')[0]
-    let g:deoplete#sources#rust#rust_source_path=$RUST_SRC_PATH
-
-    call deoplete#custom#option({ 'min_pattern_length': 5 })
+if has('nvim') && !empty(glob('~/.nvim/autoload/plug.vim'))
+    let racerpath = systemlist('which racer')
+    if len(racerpath) 
+        let g:deoplete#sources#rust#racer_binary=systemlist('which racer')[0]
+        let g:deoplete#sources#rust#rust_source_path=$RUST_SRC_PATH
+        call deoplete#custom#option({ 'min_pattern_length': 5 })
+    endif
 endif
 
 " syn-stack ---------------------------
@@ -305,6 +307,7 @@ hi PmenuSbar ctermbg=248
 " highlighting rust -------------------
 hi rustFuncCall ctermfg=232
 hi rustModPath ctermfg=19
+hi rustMacro ctermfg=236
 hi rustString ctermfg=18
 hi link rustModPathSep rustModPath
 hi link rustMacro rustFuncCall
