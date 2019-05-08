@@ -27,9 +27,6 @@
     "editor.scrollbar.verticalScrollbarSize": 0,
     "editor.roundedSelection" : false,
     "editor.renderIndentGuides": false,
-    "[rust]": {
-        "editor.formatOnSave": true
-    },
     "vim.enableNeovim": false,
     "vim.hlsearch": true,
     "vim.neovimPath": "/usr/local/bin/nvim",
@@ -70,6 +67,10 @@
             "commands": [ { "command": "workbench.action.closeActiveEditor", "args": [] } ]
         },
         {
+            "before": ["B"], "after": [ ],
+            "commands": [ { "command": "editor.debug.action.toggleBreakpoint", "args": [] } ]
+        },
+        {
             "before": ["W"], "after": [ ],
             "commands": [ { "command": "workbench.action.files.save", "args": [] } ]
         },
@@ -93,4 +94,5 @@
     "rust.rls": {
         "useRustfmt": true
     },
+    "C_Cpp.updateChannel": "Insiders",
 }

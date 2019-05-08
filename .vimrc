@@ -124,6 +124,7 @@ nnoremap Q :bw<cr>
 nnoremap Z <c-z>
 nnoremap L :bnext<cr>
 nnoremap H :bprev<cr>
+nnoremap ? :Ag <c-r><c-w><cr>
 autocmd VimEnter *.* silent set laststatus=2
 autocmd FileType perl setlocal complete-=i
 
@@ -304,9 +305,9 @@ hi PmenuSbar ctermbg=248
 " highlighting rust -------------------
 hi rustFuncCall ctermfg=232
 hi rustModPath ctermfg=19
-hi rustMacro ctermfg=0
 hi rustString ctermfg=18
 hi link rustModPathSep rustModPath
+hi link rustMacro rustFuncCall
 hi link rustKeyword rustStorage
 hi link rustConditional rustStorage
 hi link rustDecNumber rustString
