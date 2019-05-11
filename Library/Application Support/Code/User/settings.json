@@ -1,9 +1,8 @@
 {
     "explorer.openEditors.visible": 0,
-    "C_Cpp.intelliSenseEngine": "Default",
     "workbench.editor.enablePreview": false,
     "workbench.editor.tabSizing": "shrink",
-    "window.zoomLevel": -1.2,
+    "window.zoomLevel": 0,
     "editor.wordWrap": "on",
     "editor.fontSize": 17,
     "workbench.editor.showTabs": false,
@@ -20,7 +19,7 @@
         "editor.renderIndentGuides": false,
     },
     "editor.tabCompletion": "on",
-    "workbench.activityBar.visible": false,
+    //"workbench.activityBar.visible": false,
     "editor.lineDecorationsWidth": 0,
     "editor.scrollbar.useShadows": false,
     "editor.scrollbar.verticalScrollbarSize": 0,
@@ -29,70 +28,26 @@
     "editor.renderIndentGuides": false,
     "vim.enableNeovim": false,
     "vim.hlsearch": true,
-    "vim.neovimPath": "/usr/local/bin/nvim",
     "vim.normalModeKeyBindings": [
-        {
-            "before": [ "w" ],
-            "after": [ "<C-w>" ]
-        },
-
+        { "before": [ "w" ], "after": [ "<C-w>" ] },
     ],
     "vim.normalModeKeyBindingsNonRecursive": [
-        {
-            "before": [ "w", "s" ],
-            "commands": [":sp"]
-        },
-        {
-            "before": [ "[", "o", "n" ],
-            "commands": [":set number"]
-        },
-        {
-            "before": [ "]", "o", "n" ],
-            "commands": [":set number!"]
-        },
-        {
-            "before": [ "[","[" ], "after": ["z", "t"],
-            "commands": [ { "command": "gotoNextPreviousMember.previousMember", "args": [] } ],
-        },
-        {
-            "before": ["<esc>"],
-            "commands": [":nohl"]
-        },
-        {
-            "before": [ "]","]" ], "after": ["z", "t"],
-            "commands": [ { "command": "gotoNextPreviousMember.nextMember", "args": [] } ],
-        },
-        {
-            "before": ["Q"], "after": [ ],
-            "commands": [ { "command": "workbench.action.closeActiveEditor", "args": [] } ]
-        },
-        {
-            "before": ["B"], "after": [ ],
-            "commands": [ { "command": "editor.debug.action.toggleBreakpoint", "args": [] } ]
-        },
-        {
-            "before": ["W"], "after": [ ],
-            "commands": [ { "command": "workbench.action.files.save", "args": [] } ]
-        },
-        {
-            "before": ["K"], "after": [ ],
-            "commands": [ { "command": "editor.action.showHover", "args": [] } ]
-        }
+        { "before": [ "w", "s" ], "commands": [":sp"] },
+        { "before": [ "[", "o", "n" ], "commands": [":set number"] },
+        { "before": [ "]", "o", "n" ], "commands": [":set number!"] },
+        { "before": ["<esc>"], "commands": [":nohl"] },
+        { "before": ["Q"], "after": [ ],
+            "commands": [ { "command": "workbench.action.closeActiveEditor", "args": [] } ] },
+        { "before": ["B"], "after": [ ],
+            "commands": [ { "command": "editor.debug.action.toggleBreakpoint", "args": [] } ] },
+        { "before": ["W"], "after": [ ],
+            "commands": [ { "command": "workbench.action.files.save", "args": [] } ] },
+        { "before": ["K"], "after": [ ],
+            "commands": [ { "command": "editor.action.showHover", "args": [] } ] }
     ],
 
     "explorer.confirmDragAndDrop": false,
     "explorer.confirmDelete": false,
     "workbench.startupEditor": "newUntitledFile",
-    "workbench.colorTheme": "Default Light+",
-    "cmake-tools-helper.cmake_download_path": "/Users/amin/.vscode/extensions/maddouri.cmake-tools-helper-0.2.1/cmake_download",
-    "cmake.configureOnOpen": true,
-    "rust.rustup": {
-        "toolchain": "nightly-x86_64-apple-darwin",
-        "nightlyToolchain": "nightly-x86_64-apple-darwin"
-    },
-    "rust.mode": "rls",
-    "rust.rls": {
-        "useRustfmt": true
-    },
-    "C_Cpp.updateChannel": "Insiders",
+    "workbench.colorTheme": "Default Light+"
 }

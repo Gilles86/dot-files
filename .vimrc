@@ -52,6 +52,7 @@ endif
    Plug 'ervandew/supertab'
    Plug 'SirVer/ultisnips'
    Plug 'honza/vim-snippets'
+   Plug 'rust-lang/rust.vim'
 
    Plug 'dan-t/rusty-tags', { 'do': function('RustInit') }
    Plug 'w0rp/ale'
@@ -159,6 +160,7 @@ nnoremap B :Buffers<cr>
 nnoremap e :NERDTreeFind<cr>
 imap <C-_> <plug>(fzf-complete-line)
 tnoremap <C-_> <c-\><c-n>
+let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 
 " vim-snippets -------------------------
  let g:UltiSnipsExpandTrigger="<S-tab>"
@@ -303,6 +305,10 @@ hi ALEErrorLine ctermbg=255
 hi Pmenu ctermbg=15
 hi PmenuSel ctermbg=250 
 hi PmenuSbar ctermbg=248
+
+" rust.vim -------------------
+let g:rustfmt_autosave = 1
+let g:rustfmt_command = 'rustup run stable rustfmt'
 
 " highlighting rust -------------------
 hi rustFuncCall ctermfg=232
