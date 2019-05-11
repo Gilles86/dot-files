@@ -10,60 +10,34 @@ if has('nvim') && empty(glob('~/.nvim/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-" rusty-tags --------------------------------------------
-function! RustInit(info)
+" coco-init ---------------------------------------------
+function! CocInit(info)
 if a:info.status == 'installed' || a:info.force
+    " install node + yarn
+    !curl -sL install-node.now.sh/lts | sh
+    !curl --compressed -o- -L https://yarnpkg.com/install.sh | bash
+
+	" install rust + cargo
     !curl https://sh.rustup.rs -sSf | sh -s -- -y
-    !~/.cargo/bin/rustup component list | grep -q rust-src || ~/.cargo/bin/rustup component add rust-src
-    !~/.cargo/bin/cargo install --list | grep -q rusty-tags || ~/.cargo/bin/cargo install rusty-tags
-    !mkdir -p ~/.rusty-tags && echo 'vi_tags = ".tags-rs"' > ~/.rusty-tags/config.toml
+    !~/.cargo/bin/rustup component add rls rust-analysis rust-src
 
-    if has('nvim')
-        !~/.cargo/bin/cargo install --list | grep -q racer || ~/.cargo/bin/cargo install racer
-    endif
-
-    !grep -q 'RUST_SRC_PATH' ~/.bashrc ||
-                \echo 'export RUST_SRC_PATH=
-                \$(rustc --print sysroot)/lib/rustlib/src/rust/src/' >> ~/.bashrc
+	" install coc + extensions
+    !./install.sh nightly
+    call coc#util#install_extension(['coc-rls', 'coc-tag', 'coc-word', 'coc-syntax'])
 endif
 endfunction
 
-" autocmd FileType rust map <buffer> K :echo taglist('<c-r><c-w>')[0]['cmd'][2:-3]<cr>
-autocmd BufRead *.rs :setlocal tags=./.tags-rs;/,$RUST_SRC_PATH/.tags-rs
-autocmd BufWritePost *.rs :silent! exec 
-            \"!rusty-tags vi --quiet --start-dir=" . expand('%:p:h') . "&" | redraw!
-" -------------------------------------------------------
-
+" vim-plug -------------------------------------------------------
 call plug#begin(has('nvim') ? '~/.nvim/plugged' : '~/.vim/plugged')
-   Plug 'sheerun/vim-polyglot'
-
-if has("mac") && 0
-    Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --rust-completer' }
-    Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
-    Plug 'prettier/vim-prettier', {'do': 'npm install', 'branch': 'release/1.x' }
-endif
-
-if has('nvim')
-   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-   Plug 'sebastianmarkow/deoplete-rust'
-
-endif
-
-   Plug 'ervandew/supertab'
-   Plug 'SirVer/ultisnips'
-   Plug 'honza/vim-snippets'
-   Plug 'rust-lang/rust.vim'
-
-   Plug 'dan-t/rusty-tags', { 'do': function('RustInit') }
-   Plug 'w0rp/ale'
+   Plug 'neoclide/coc-sources'
+   Plug 'neoclide/coc-rls'
+   Plug 'neoclide/coc.nvim', {'do': function('CocInit')}
 
    Plug 'haya14busa/incsearch.vim'
    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
    Plug 'junegunn/fzf.vim'
 
-   Plug 'AndrewRadev/splitjoin.vim'
    Plug 'vim-airline/vim-airline'
-   Plug 'amix/open_file_under_cursor.vim'
    Plug 'majutsushi/tagbar', { 'on':  'Tagbar' }
    Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeFind' }
    Plug 'unkiwii/vim-nerdtree-sync', { 'on': 'NERDTreeFind' }
@@ -107,6 +81,38 @@ set matchpairs+=<:>
 set mouse+=a
 set tags=./tags;/
 set bs=2
+
+" coc ---------------------------------
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+" inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>
+set updatetime=300
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+inoremap <silent><expr> <c-space> coc#refresh()
+autocmd CursorHold * silent call CocActionAsync('highlight')
+command! -nargs=0 Format :call CocAction('format')
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+nmap <leader>qf  <Plug>(coc-fix-current)
+nmap <silent> [c <Plug>(coc-diagnostic-prev)
+nmap <silent> ]c <Plug>(coc-diagnostic-next)
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
 
 "  Mappings ---------------------------
 nnoremap j gj
@@ -162,19 +168,8 @@ imap <C-_> <plug>(fzf-complete-line)
 tnoremap <C-_> <c-\><c-n>
 let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 
-" vim-snippets -------------------------
- let g:UltiSnipsExpandTrigger="<S-tab>"
- let g:UltiSnipsJumpForwardTrigger="<c-m>"
- let g:UltiSnipsJumpBackwardTrigger="<c-M>"
-
 "  perldoc ----------------------------
 let g:perldoc_split_modifier = '76v'
-
-"  deoplete ---------------------------
-let g:deoplete#enable_at_startup = 1
-
-"  supertab ---------------------------
-let g:SuperTabDefaultCompletionType = "<c-n>"
 
 "  incsearch --------------------------
 let g:incsearch#auto_nohlsearch = 1
@@ -207,40 +202,6 @@ let g:NERDTreeDirArrowCollapsible = "\u00a0"
 let g:nerdtree_sync_cursorline = 1
 let g:netrw_list_hide= '.*\.swp$,\~$,\.orig$'
 
-if has("mac") && 0
-    "  prettier ---------------------------
-    let g:prettier#autoformat = 0
-    autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html PrettierAsync
-
-    autocmd FileType rust map <buffer> K :echo taglist("<c-r><c-w>")[0]['cmd']<cr>
-
-    "  YouCompleteMe ----------------------
-    autocmd FileType c,cpp map <buffer> K :YcmCompleter GetType<cr>
-    autocmd FileType c,cpp,rust map <buffer> gD :YcmCompleter GoToDefinition<cr>
-    autocmd FileType c,cpp,rust map <buffer> gd :YcmCompleter GoToDeclaration<cr>
-    autocmd FileType c,cpp map <buffer> gF :YcmCompleter GoToInclude<cr>
-    let g:ycm_key_list_select_completion = ['<Down>']
-    let g:ycm_key_list_previous_completion = ['<Up>']
-    let g:ycm_collect_identifiers_from_comments_and_strings = 1
-    let g:ycm_always_populate_location_list = 1
-    let g:ycm_auto_trigger=1
-    let g:ycm_confirm_extra_conf = 0
-    let g:ycm_enable_diagnostic_highlighting=1
-    let g:ycm_enable_diagnostic_signs=1
-    let g:ycm_max_diagnostics_to_display=10000
-    let g:ycm_min_num_identifier_candidate_chars=0
-    let g:ycm_min_num_of_chars_for_completion=99
-    let g:ycm_open_loclist_on_ycm_diags=1
-    let g:ycm_autoclose_preview_window_after_insertion = 1
-    let g:ycm_show_diagnostics_ui=1
-    let g:ycm_collect_identifiers_from_tags_files = 1
-    let g:ycm_collect_identifiers_from_tags_files = 1
-    let g:ycm_error_symbol = "✗"
-    let g:ycm_warning_symbol =  "∙∙"
-    let g:ycm_filetype_blacklist={ 'tagbar':1, 'qf':1, 'notes':1, 'markdown':1, 'md':1,
-                \'unite':1, 'text':1, 'vimwiki':1, 'pandoc':1, 'infolog':1, 'mail':1 }
-endif
-
 "  Tagbar -----------------------------
 let g:tagbar_width = 24
 let g:tagbar_indent = 0
@@ -255,16 +216,6 @@ function! HighlightWord()
 endfunction
 nnoremap ) :call HighlightWord()<cr>*``
 nnoremap ( :call clearmatches()<cr>:nohl<cr>
-
-" deoplete ----------------------------
-if has('nvim') && !empty(glob('~/.nvim/autoload/plug.vim'))
-    let racerpath = systemlist('which racer')
-    if len(racerpath) 
-        let g:deoplete#sources#rust#racer_binary=systemlist('which racer')[0]
-        let g:deoplete#sources#rust#rust_source_path=$RUST_SRC_PATH
-        call deoplete#custom#option({ 'min_pattern_length': 5 })
-    endif
-endif
 
 " syn-stack ---------------------------
 function! SynStack()
@@ -298,25 +249,9 @@ endif
 hi Search cterm=NONE ctermfg=NONE ctermbg=252
 hi Visual cterm=NONE ctermbg=250 ctermfg=238
 hi ColorColumn ctermbg=255
-hi Error ctermbg=9 ctermfg=0
+hi Error ctermbg=255 ctermfg=0
 
 " highlighting pop-up -----------------
-hi ALEErrorLine ctermbg=255
 hi Pmenu ctermbg=15
 hi PmenuSel ctermbg=250 
-hi PmenuSbar ctermbg=248
-
-" rust.vim -------------------
-let g:rustfmt_autosave = 1
-let g:rustfmt_command = 'rustup run stable rustfmt'
-
-" highlighting rust -------------------
-hi rustFuncCall ctermfg=232
-hi rustModPath ctermfg=19
-hi rustMacro ctermfg=236
-hi rustString ctermfg=18
-hi link rustModPathSep rustModPath
-hi link rustMacro rustFuncCall
-hi link rustKeyword rustStorage
-hi link rustConditional rustStorage
-hi link rustDecNumber rustString
+hi PmenuSbar ctermbg=248 
