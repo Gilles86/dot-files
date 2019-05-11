@@ -23,7 +23,7 @@ if a:info.status == 'installed' || a:info.force
 
 	" install coc + extensions
     !./install.sh nightly
-    call coc#util#install_extension(['coc-rls', 'coc-tag', 'coc-word', 'coc-syntax'])
+    call coc#util#install_extension(['coc-rls', 'coc-yank', 'coc-tag', 'coc-word', 'coc-syntax'])
 endif
 endfunction
 
@@ -31,6 +31,7 @@ endfunction
 call plug#begin(has('nvim') ? '~/.nvim/plugged' : '~/.vim/plugged')
    Plug 'neoclide/coc-sources'
    Plug 'neoclide/coc-rls'
+   Plug 'neoclide/coc-yank'
    Plug 'neoclide/coc.nvim', {'do': function('CocInit')}
 
    Plug 'haya14busa/incsearch.vim'
@@ -106,6 +107,7 @@ inoremap <silent><expr> <c-space> coc#refresh()
 autocmd CursorHold * silent call CocActionAsync('highlight')
 command! -nargs=0 Format :call CocAction('format')
 command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+nnoremap <silent> Y  :<C-u>CocList -A --normal yank<cr>
 nmap <leader>qf  <Plug>(coc-fix-current)
 nmap <silent> [c <Plug>(coc-diagnostic-prev)
 nmap <silent> ]c <Plug>(coc-diagnostic-next)
