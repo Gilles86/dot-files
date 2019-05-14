@@ -14,8 +14,8 @@ endif
 function! CocInit(info)
 if a:info.status == 'installed' || a:info.force
     " install node + yarn
-    !curl -sL install-node.now.sh/lts | sh
-    !curl --compressed -o- -L https://yarnpkg.com/install.sh | bash
+    !curl -sL install-node.now.sh/lts | sudo sh -s -- -y
+    !curl --compressed -o- -L https://yarnpkg.com/install.sh | sudo bash
 
 	" install rust + cargo
     !curl https://sh.rustup.rs -sSf | sh -s -- -y
