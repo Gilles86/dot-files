@@ -14,8 +14,8 @@ endif
 function! CocInit(info)
 if a:info.status == 'installed' || a:info.force
     " install node + yarn
-    !curl -sL install-node.now.sh/lts | sh
-    !curl --compressed -o- -L https://yarnpkg.com/install.sh | bash
+    !curl -sL install-node.now.sh/lts | sudo sh -s -- -y
+    !curl --compressed -o- -L https://yarnpkg.com/install.sh | sudo bash
 
 	" install rust + cargo
     !curl https://sh.rustup.rs -sSf | sh -s -- -y
@@ -107,7 +107,7 @@ set updatetime=300
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 inoremap <silent><expr> <c-space> coc#refresh()
-autocmd CursorHold * silent call CocActionAsync('highlight')
+" autocmd CursorHold * silent call CocActionAsync('highlight')
 command! -nargs=0 Format :call CocAction('format')
 command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 nnoremap <silent> Y  :<C-u>CocList -A --normal yank<cr>
