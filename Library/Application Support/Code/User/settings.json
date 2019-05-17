@@ -2,9 +2,9 @@
     "explorer.openEditors.visible": 0,
     "workbench.editor.enablePreview": false,
     "workbench.editor.tabSizing": "shrink",
-    "window.zoomLevel": 0,
+    "window.zoomLevel": -1.2,
     "editor.wordWrap": "on",
-    "editor.fontSize": 17,
+    "editor.fontSize": 15,
     "workbench.editor.showTabs": false,
     "editor.wordSeparators": "`~!@#$%^&*()-=+[{]}\\|;'\",.<>/?",
     "editor.lineNumbers": "off",
@@ -46,6 +46,7 @@
             "commands": [ { "command": "editor.action.showHover", "args": [] } ] }
     ],
 
+    "rust-client.channel": "nightly",
     "explorer.confirmDragAndDrop": false,
     "explorer.confirmDelete": false,
     "workbench.startupEditor": "newUntitledFile",
