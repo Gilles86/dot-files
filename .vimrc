@@ -23,15 +23,18 @@ if a:info.status == 'installed' || a:info.force
 
 	" install coc + extensions
     !./install.sh nightly
-    call coc#util#install_extension(['coc-rls', 'coc-yank', 'coc-tag', 'coc-word', 'coc-syntax'])
+    call coc#util#install_extension(['coc-rls', 'coc-tsserver', 'coc-yank', 'coc-tag', 'coc-word', 'coc-syntax'])
 endif
 endfunction
 
 " vim-plug -------------------------------------------------------
 call plug#begin(has('nvim') ? '~/.nvim/plugged' : '~/.vim/plugged')
+   Plug 'sheerun/vim-polyglot'
+
    Plug 'neoclide/coc-sources'
    Plug 'neoclide/coc-rls'
    Plug 'neoclide/coc-yank'
+   Plug 'neoclide/coc-tsserver'
    Plug 'neoclide/coc.nvim', {'do': function('CocInit')}
 
    Plug 'haya14busa/incsearch.vim'
@@ -161,11 +164,12 @@ call matchadd('ColorColumn', '\%81v', 100)
 hi Normal ctermbg=NONE guibg=NONE
 
 "  FZF --------------------------------
-nnoremap <c-p> :GFiles<cr>
+" nnoremap <c-p> :GFiles<cr>
 nnoremap E :Files<cr>
 nnoremap T :Tags<cr>
 nnoremap B :Buffers<cr>
 nnoremap e :NERDTreeFind<cr>
+nnoremap ? :Ag <c-r><c-w><cr>
 imap <C-_> <plug>(fzf-complete-line)
 tnoremap <C-_> <c-\><c-n>
 let $FZF_DEFAULT_COMMAND = 'ag -g ""'
