@@ -107,7 +107,7 @@ set updatetime=300
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 inoremap <silent><expr> <c-space> coc#refresh()
-autocmd CursorHold * silent call CocActionAsync('highlight')
+" autocmd CursorHold * silent call CocActionAsync('highlight')
 command! -nargs=0 Format :call CocAction('format')
 command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 nnoremap <silent> Y  :<C-u>CocList -A --normal yank<cr>
@@ -256,6 +256,8 @@ hi Search cterm=NONE ctermfg=NONE ctermbg=252
 hi Visual cterm=NONE ctermbg=250 ctermfg=238
 hi ColorColumn ctermbg=255
 hi Error ctermbg=255 ctermfg=0
+hi CocErrorHighlight ctermfg=196 cterm=underline
+hi CocWarningHighlight ctermfg=130 cterm=underline
 
 " highlighting pop-up -----------------
 hi Pmenu ctermbg=15
