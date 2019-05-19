@@ -36,6 +36,8 @@
         { "before": [ "[", "o", "n" ], "commands": [":set number"] },
         { "before": [ "]", "o", "n" ], "commands": [":set number!"] },
         { "before": ["<esc>"], "commands": [":nohl"] },
+        { "before": ["E"], "after": [ ],
+            "commands": [ { "command": "workbench.action.quickOpen", "args": [] } ] },
         { "before": ["Q"], "after": [ ],
             "commands": [ { "command": "workbench.action.closeActiveEditor", "args": [] } ] },
         { "before": ["B"], "after": [ ],
@@ -46,7 +48,6 @@
             "commands": [ { "command": "editor.action.showHover", "args": [] } ] }
     ],
 
-    "rust-client.channel": "nightly",
     "explorer.confirmDragAndDrop": false,
     "explorer.confirmDelete": false,
     "workbench.startupEditor": "newUntitledFile",

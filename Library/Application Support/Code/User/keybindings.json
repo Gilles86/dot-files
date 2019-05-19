@@ -16,6 +16,11 @@
         "when": "inQuickOpen"
     },
     {
+        "key": "ctrl+6",
+        "command": "workbench.action.quickOpenNavigateNext",
+        "when": "inQuickOpen"
+    },
+    {
         "key": "shift+k",
         "command": "workbench.action.quickOpenNavigatePrevious",
         "when": "inQuickOpen"
@@ -32,7 +37,12 @@
     },
     {
         "key": "ctrl+j",
-        "command": "workbench.action.gotoSymbol",
+        "command": "workbench.action.quickOpen",
+        "when": "!inDebugMode && !inQuickOpen"
+    },
+    {
+        "key": "ctrl+6",
+        "command": "workbench.action.openPreviousRecentlyUsedEditorInGroup",
         "when": "!inDebugMode && !inQuickOpen"
     },
     {
