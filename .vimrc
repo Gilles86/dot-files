@@ -43,6 +43,7 @@ call plug#begin(has('nvim') ? '~/.nvim/plugged' : '~/.vim/plugged')
    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
    Plug 'junegunn/fzf.vim'
    Plug 'junegunn/vim-easy-align'
+   Plug 'junegunn/seoul256.vim'
 
 
    Plug 'vim-airline/vim-airline'
@@ -239,6 +240,7 @@ function! SynStack()
   echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 endfunc
 
+
 "  neat-fold --------------------------
 function! NeatFoldText()
   let leading_spaces = len(getline(v:foldstart)) - len(substitute(getline(v:foldstart), '^\s*\(.\{-}\)\s*$', '\1', ''))
@@ -253,11 +255,11 @@ function! NeatFoldText()
 endfunction
 set foldtext=NeatFoldText()
 
-if has('nvim')
-    colorscheme zellner
-else
-    colorscheme default
-endif
+" if has('nvim')
+"     colorscheme zellner
+" else
+"     colorscheme default
+" endif
 
 " hilighting --------------------------
 hi Search cterm=NONE ctermfg=NONE ctermbg=252
@@ -271,3 +273,9 @@ hi CocWarningHighlight ctermfg=130 cterm=underline
 hi Pmenu ctermbg=15
 hi PmenuSel ctermbg=250 
 hi PmenuSbar ctermbg=248 
+
+" seoul256 ---------------------------
+" (dark): 233 (darkest) ~ 239 (lightest)
+" (light): 252 (darkest) ~ 256 (lightest)
+let g:seoul256_background = 256
+colo seoul256
