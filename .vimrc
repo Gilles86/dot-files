@@ -38,8 +38,12 @@ call plug#begin(has('nvim') ? '~/.nvim/plugged' : '~/.vim/plugged')
    Plug 'neoclide/coc.nvim', {'do': function('CocInit')}
 
    Plug 'haya14busa/incsearch.vim'
+   Plug 'yuratomo/w3m.vim'
+
    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
    Plug 'junegunn/fzf.vim'
+   Plug 'junegunn/vim-easy-align'
+
 
    Plug 'vim-airline/vim-airline'
    Plug 'majutsushi/tagbar', { 'on':  'Tagbar' }
@@ -173,6 +177,10 @@ nnoremap ? :Ag <c-r><c-w><cr>
 imap <C-_> <plug>(fzf-complete-line)
 tnoremap <C-_> <c-\><c-n>
 let $FZF_DEFAULT_COMMAND = 'ag -g ""'
+
+"  easy-align --------------------------------
+xmap ga <Plug>(EasyAlign)
+nmap ga <Plug>(EasyAlign)
 
 "  perldoc ----------------------------
 let g:perldoc_split_modifier = '76v'
