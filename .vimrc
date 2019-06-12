@@ -21,9 +21,12 @@ if a:info.status == 'installed' || a:info.force
     !curl https://sh.rustup.rs -sSf | sh -s -- -y
     !~/.cargo/bin/rustup component add rls rust-analysis rust-src
 
+	" !git clone --depth 1 https://github.com/rust-analyzer/rust-analyzer /tmp/.rust-analyzer
+	" !cd /tmp/.rust-analyzer && ~/.cargo/bin/cargo +nightly install-lsp
+
 	" install coc + extensions
     !./install.sh nightly
-    call coc#util#install_extension(['coc-rls', 'coc-tsserver', 'coc-yank', 'coc-tag', 'coc-word', 'coc-syntax'])
+    call coc#util#install_extension(['coc-rls', 'coc-json', 'coc-tsserver', 'coc-yank', 'coc-tag', 'coc-word', 'coc-syntax'])
 endif
 endfunction
 
@@ -35,7 +38,9 @@ call plug#begin(has('nvim') ? '~/.nvim/plugged' : '~/.vim/plugged')
    Plug 'neoclide/coc-rls'
    Plug 'neoclide/coc-yank'
    Plug 'neoclide/coc-tsserver'
+   Plug 'neoclide/coc-json'
    Plug 'neoclide/coc.nvim', {'do': function('CocInit')}
+   Plug 'yuratomo/w3m.vim'
 
    Plug 'haya14busa/incsearch.vim'
    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -136,7 +141,6 @@ nnoremap Q :bw<cr>
 nnoremap Z <c-z>
 nnoremap L :bnext<cr>
 nnoremap H :bprev<cr>
-nnoremap ? :Ag <c-r><c-w><cr>
 autocmd VimEnter *.* silent set laststatus=2
 autocmd FileType perl setlocal complete-=i
 
@@ -162,17 +166,6 @@ runtime! ftplugin/man.vim
 call matchadd('ColorColumn', '\%81v', 100)
 
 hi Normal ctermbg=NONE guibg=NONE
-
-"  FZF --------------------------------
-" nnoremap <c-p> :GFiles<cr>
-nnoremap E :Files<cr>
-nnoremap T :Tags<cr>
-nnoremap B :Buffers<cr>
-nnoremap e :NERDTreeFind<cr>
-nnoremap ? :Ag <c-r><c-w><cr>
-imap <C-_> <plug>(fzf-complete-line)
-tnoremap <C-_> <c-\><c-n>
-let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 
 "  perldoc ----------------------------
 let g:perldoc_split_modifier = '76v'
@@ -215,13 +208,13 @@ let g:tagbar_show_linenumbers = 0
 
 "  highight-word ----------------------
 function! HighlightWord()
+    hi HighlightWord ctermbg=8
     let line=line('.')
     let cword = expand("<cword>")
     call matchadd('HighlightWord', cword, 50)
-    hi HighlightWord ctermbg=8
 endfunction
-nnoremap ) :call HighlightWord()<cr>*``
-nnoremap ( :call clearmatches()<cr>:nohl<cr>
+nnoremap ) :call HighlightWord()<cr>
+nnoremap ( :nohl<cr>:call clearmatches()<cr>
 
 " syn-stack ---------------------------
 function! SynStack()
@@ -230,6 +223,18 @@ function! SynStack()
   endif
   echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 endfunc
+
+"  FZF --------------------------------
+" nnoremap <c-p> :GFiles<cr>
+nnoremap E :Files<cr>
+nnoremap T :Tags<cr>
+nnoremap B :Buffers<cr>
+nnoremap <leader>e :NERDTreeFind<cr>
+nnoremap ? :Ag <c-r><c-w><cr>
+imap <C-_> <plug>(fzf-complete-line)
+tnoremap <C-_> <c-\><c-n>
+let $FZF_DEFAULT_COMMAND = 'ag -g ""'
+
 
 "  neat-fold --------------------------
 function! NeatFoldText()
@@ -252,6 +257,7 @@ else
 endif
 
 " hilighting --------------------------
+autocmd FileType json syntax match Comment +\/\/.\+$+
 hi Search cterm=NONE ctermfg=NONE ctermbg=252
 hi Visual cterm=NONE ctermbg=250 ctermfg=238
 hi ColorColumn ctermbg=255
