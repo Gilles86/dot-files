@@ -105,3 +105,14 @@ Plug 'honza/vim-snippets'
  let g:UltiSnipsExpandTrigger="<S-tab>"
  let g:UltiSnipsJumpForwardTrigger="<c-m>"
  let g:UltiSnipsJumpBackwardTrigger="<c-M>"
+
+"  NERDTree ---------------------------
+let g:NERDTreeDirArrowExpandable = "\u00a0"
+let g:NERDTreeDirArrowCollapsible = "\u00a0"
+let g:nerdtree_sync_cursorline = 1
+let g:netrw_list_hide= '.*\.swp$,\~$,\.orig$'
+
+"  Tagbar -----------------------------
+let g:tagbar_width = 24
+let g:tagbar_indent = 0
+let g:tagbar_show_linenumbers = 0

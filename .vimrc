@@ -33,6 +33,10 @@ endfunction
 " vim-plug -------------------------------------------------------
 call plug#begin(has('nvim') ? '~/.nvim/plugged' : '~/.vim/plugged')
    Plug 'sheerun/vim-polyglot'
+   Plug 'vim-airline/vim-airline'
+
+   Plug 'haya14busa/incsearch.vim'
+   Plug 'yuratomo/w3m.vim'
 
    Plug 'neoclide/coc-sources'
    Plug 'neoclide/coc-rls'
@@ -40,27 +44,19 @@ call plug#begin(has('nvim') ? '~/.nvim/plugged' : '~/.vim/plugged')
    Plug 'neoclide/coc-tsserver'
    Plug 'neoclide/coc-json'
    Plug 'neoclide/coc.nvim', {'do': function('CocInit')}
-   Plug 'yuratomo/w3m.vim'
 
-   Plug 'haya14busa/incsearch.vim'
-   Plug 'yuratomo/w3m.vim'
 
    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
    Plug 'junegunn/fzf.vim'
    Plug 'junegunn/vim-easy-align'
    Plug 'junegunn/seoul256.vim'
 
-
-   Plug 'vim-airline/vim-airline'
-   Plug 'majutsushi/tagbar', { 'on':  'Tagbar' }
-   Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeFind' }
-   Plug 'unkiwii/vim-nerdtree-sync', { 'on': 'NERDTreeFind' }
-
    Plug 'tpope/vim-commentary'
    Plug 'tpope/vim-surround'
    Plug 'tpope/vim-fugitive'
    Plug 'tpope/vim-repeat'
    Plug 'tpope/vim-unimpaired'
+   Plug 'tpope/vim-vinegar'
 
    Plug 'aminroosta/perldoc-vim', { 'for': 'perl' }
 call plug#end()
@@ -203,17 +199,6 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#branch#enabled = 1
 let g:airline_theme='dark'
 let g:airline_extensions = ['tabline', 'branch']
-
-"  NERDTree ---------------------------
-let g:NERDTreeDirArrowExpandable = "\u00a0"
-let g:NERDTreeDirArrowCollapsible = "\u00a0"
-let g:nerdtree_sync_cursorline = 1
-let g:netrw_list_hide= '.*\.swp$,\~$,\.orig$'
-
-"  Tagbar -----------------------------
-let g:tagbar_width = 24
-let g:tagbar_indent = 0
-let g:tagbar_show_linenumbers = 0
 
 "  highight-word ----------------------
 function! HighlightWord()
