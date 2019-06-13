@@ -43,8 +43,13 @@ call plug#begin(has('nvim') ? '~/.nvim/plugged' : '~/.vim/plugged')
    Plug 'yuratomo/w3m.vim'
 
    Plug 'haya14busa/incsearch.vim'
+   Plug 'yuratomo/w3m.vim'
+
    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
    Plug 'junegunn/fzf.vim'
+   Plug 'junegunn/vim-easy-align'
+   Plug 'junegunn/seoul256.vim'
+
 
    Plug 'vim-airline/vim-airline'
    Plug 'majutsushi/tagbar', { 'on':  'Tagbar' }
@@ -167,6 +172,10 @@ call matchadd('ColorColumn', '\%81v', 100)
 
 hi Normal ctermbg=NONE guibg=NONE
 
+"  easy-align --------------------------------
+xmap ga <Plug>(EasyAlign)
+nmap ga <Plug>(EasyAlign)
+
 "  perldoc ----------------------------
 let g:perldoc_split_modifier = '76v'
 
@@ -259,12 +268,6 @@ function! NeatFoldText()
 endfunction
 set foldtext=NeatFoldText()
 
-if has('nvim')
-    colorscheme zellner
-else
-    colorscheme default
-endif
-
 " hilighting --------------------------
 autocmd FileType json syntax match Comment +\/\/.\+$+
 hi Search cterm=NONE ctermfg=NONE ctermbg=252
@@ -278,3 +281,12 @@ hi CocWarningHighlight ctermfg=130 cterm=underline
 hi Pmenu ctermbg=15
 hi PmenuSel ctermbg=250 
 hi PmenuSbar ctermbg=248 
+
+" seoul256 ---------------------------
+" (dark): 233 (darkest) ~ 239 (lightest)
+" (light): 252 (darkest) ~ 256 (lightest)
+let g:seoul256_background = 256
+try
+    colorscheme  seoul256
+catch /^Vim\%((\a\+)\)\=:E185/
+endtry
