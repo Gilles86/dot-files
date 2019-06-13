@@ -224,7 +224,7 @@ function! SynStack()
   echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 endfunc
 
-"  FZF --------------------------------
+" FZF --------------------------------
 " nnoremap <c-p> :GFiles<cr>
 nnoremap E :Files<cr>
 nnoremap T :Tags<cr>
@@ -235,6 +235,15 @@ imap <C-_> <plug>(fzf-complete-line)
 tnoremap <C-_> <c-\><c-n>
 let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 
+" w3m-vim --------------------------------
+autocmd FileType w3m nmap <buffer><c-o>   <Plug>(w3m-back)
+autocmd FileType w3m nmap <buffer><c-i>   <Plug>(w3m-forward)
+autocmd FileType w3m nmap <buffer><tab>   <Plug>(w3m-next-link)
+autocmd FileType w3m nmap <buffer><c-n>   <Plug>(w3m-next-link)
+autocmd FileType w3m nmap <buffer><s-tab> <Plug>(w3m-prev-link)
+autocmd FileType w3m nmap <buffer><c-p>   <Plug>(w3m-prev-link)
+autocmd FileType w3m nmap <buffer>O       <Plug>(w3m-address-bar)
+autocmd FileType w3m nmap <buffer>o       :W3m<space>
 
 "  neat-fold --------------------------
 function! NeatFoldText()
