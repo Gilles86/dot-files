@@ -1,0 +1,21 @@
+set -o vi
+
+export VISUAL=vim
+export EDITOR="$VISUAL"
+
+alias open='xdg-open'
+
+alias s='$(history | cut -c 8- | fzf)'
+alias v="~/.nvim/nvim.appimage"
+
+# ----------- bitcoin
+alias b='bitcoin-cli'
+alias bblock='bitcoin-cli getblockchaininfo'
+alias bnet='bitcoin-cli getnetworkinfo'
+alias bmempool='bitcoin-cli getrawmempool'
+alias bmempoolall='bitcoin-cli getrawmempool true'
+
+# ----------- functions
+d() {
+    w3m https://www.vocabulary.com/dictionary/$1 | tail -n +13 | less
+}
