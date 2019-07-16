@@ -35,6 +35,7 @@ call plug#begin(has('nvim') ? '~/.nvim/plugged' : '~/.vim/plugged')
    Plug 'sheerun/vim-polyglot'
    Plug 'vim-airline/vim-airline'
 
+   Plug 'scrooloose/nerdtree'
    Plug 'haya14busa/incsearch.vim'
    Plug 'yuratomo/w3m.vim'
 
@@ -62,6 +63,11 @@ call plug#begin(has('nvim') ? '~/.nvim/plugged' : '~/.vim/plugged')
 call plug#end()
 
 filetype plugin on
+
+"  NERDTree ---------------------------
+let g:NERDTreeDirArrowExpandable = "\u00a0"
+let g:NERDTreeDirArrowCollapsible = "\u00a0"
+let g:nerdtree_sync_cursorline = 1
 
 "  Configurations ---------------------
 set scrolloff=7

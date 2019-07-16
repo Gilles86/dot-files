@@ -5,7 +5,7 @@ export EDITOR="$VISUAL"
 
 alias open='xdg-open'
 
-alias s='$(history | cut -c 8- | fzf)'
+alias s='$(history | cut -c 8- | fzf --height=50%)'
 alias v="~/.nvim/nvim.appimage"
 
 # ----------- bitcoin
