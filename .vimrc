@@ -32,7 +32,6 @@ endfunction
 
 " vim-plug -------------------------------------------------------
 call plug#begin(has('nvim') ? '~/.nvim/plugged' : '~/.vim/plugged')
-   Plug 'sheerun/vim-polyglot'
    Plug 'vim-airline/vim-airline'
 
    Plug 'scrooloose/nerdtree'
@@ -46,11 +45,8 @@ call plug#begin(has('nvim') ? '~/.nvim/plugged' : '~/.vim/plugged')
    Plug 'neoclide/coc-json'
    Plug 'neoclide/coc.nvim', {'do': function('CocInit')}
 
-
    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
    Plug 'junegunn/fzf.vim'
-   Plug 'junegunn/vim-easy-align'
-   Plug 'junegunn/seoul256.vim'
 
    Plug 'tpope/vim-commentary'
    Plug 'tpope/vim-surround'
@@ -59,7 +55,6 @@ call plug#begin(has('nvim') ? '~/.nvim/plugged' : '~/.vim/plugged')
    Plug 'tpope/vim-unimpaired'
    Plug 'tpope/vim-vinegar'
 
-   Plug 'aminroosta/perldoc-vim', { 'for': 'perl' }
 call plug#end()
 
 filetype plugin on
@@ -107,7 +102,7 @@ function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
     execute 'h '.expand('<cword>')
   else
-    call CocAction('doHover')
+    call CocActionAsync('doHover')
   endif
 endfunction
 inoremap <silent><expr> <TAB>
@@ -120,8 +115,8 @@ inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 inoremap <silent><expr> <c-space> coc#refresh()
 " autocmd CursorHold * silent call CocActionAsync('highlight')
-command! -nargs=0 Format :call CocAction('format')
-command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+" command! -nargs=0 Format :call CocAction('format')
+" command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 nnoremap <silent> Y  :<C-u>CocList -A --normal yank<cr>
 nmap <leader>qf  <Plug>(coc-fix-current)
 nmap <silent> [c <Plug>(coc-diagnostic-prev)
@@ -148,7 +143,7 @@ nnoremap Q :bw<cr>
 nnoremap Z <c-z>
 nnoremap L :bnext<cr>
 nnoremap H :bprev<cr>
-autocmd VimEnter *.* silent set laststatus=2
+" autocmd VimEnter *.* silent set laststatus=2
 autocmd FileType perl setlocal complete-=i
 
 nnoremap [* :Ggrep <cword> --<CR><CR>:copen<CR>
@@ -174,13 +169,6 @@ call matchadd('ColorColumn', '\%81v', 100)
 
 hi Normal ctermbg=NONE guibg=NONE
 
-"  easy-align --------------------------------
-xmap ga <Plug>(EasyAlign)
-nmap ga <Plug>(EasyAlign)
-
-"  perldoc ----------------------------
-let g:perldoc_split_modifier = '76v'
-
 "  incsearch --------------------------
 let g:incsearch#auto_nohlsearch = 1
 map /  <Plug>(incsearch-forward)
@@ -202,9 +190,8 @@ let g:airline_powerline_fonts = 1
 let g:airline_detect_modified=1
 let g:airline_statusline_ontop=1
 let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#branch#enabled = 1
 let g:airline_theme='dark'
-let g:airline_extensions = ['tabline', 'branch']
+let g:airline_extensions = ['tabline']
 
 "  highight-word ----------------------
 function! HighlightWord()
@@ -273,11 +260,15 @@ hi Pmenu ctermbg=15
 hi PmenuSel ctermbg=250 
 hi PmenuSbar ctermbg=248 
 
-" seoul256 ---------------------------
-" (dark): 233 (darkest) ~ 239 (lightest)
-" (light): 252 (darkest) ~ 256 (lightest)
-let g:seoul256_background = 256
-try
-    colorscheme  seoul256
-catch /^Vim\%((\a\+)\)\=:E185/
-endtry
+" matchparen --------------------------
+function! g:FckThatMatchParen ()
+    if exists(":NoMatchParen")
+        :NoMatchParen
+    endif
+endfunction
+
+augroup plugin_initialize
+    autocmd!
+    autocmd VimEnter * call FckThatMatchParen()
+augroup END
+

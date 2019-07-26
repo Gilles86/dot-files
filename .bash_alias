@@ -6,7 +6,7 @@ export EDITOR="$VISUAL"
 alias open='xdg-open'
 
 alias s='$(history | cut -c 8- | fzf --height=50%)'
-alias v="~/.nvim/nvim.appimage"
+alias v="~/.nvim/bin/nvim"
 
 # ----------- bitcoin
 alias b='bitcoin-cli'
@@ -19,3 +19,9 @@ alias bmempoolall='bitcoin-cli getrawmempool true'
 d() {
     w3m https://www.vocabulary.com/dictionary/$1 | tail -n +13 | less
 }
+
+# ----------- git
+alias gs="git status -sb"
+alias gd="git diff"
+alias gds="git diff --staged"
+alias gl="git log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all"
