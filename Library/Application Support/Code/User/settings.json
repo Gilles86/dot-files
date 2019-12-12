@@ -71,5 +71,21 @@
     "workbench.colorTheme": "Default Light+",
     "[javascript]": {
         "editor.defaultFormatter": "vscode.typescript-language-features"
-    }
+    },
+    "rust.mode": "rls",
+    "rust.rustup": {
+      "nightlyToolchain": "nightly-x86_64-apple-darwin",
+      "toolchain": "nightly-x86_64-apple-darwin"
+    },
+    "rust.rls": {
+        "useRustfmt": true
+    },
+    "latex-workshop.view.pdf.viewer": "tab",
+    "[typescript]": {
+        "editor.defaultFormatter": "vscode.typescript-language-features"
+    },
+    "[json]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "typescript.updateImportsOnFileMove.enabled": "always"
 }
