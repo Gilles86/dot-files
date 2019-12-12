@@ -1,9 +1,8 @@
 keymap W PRINT
 keymap y PEEK
 keymap Q CLOSE_TAB
-keymap E TAB_MENU
 keymap ? HELP
-keymap H HISTORY
+keymap :h HISTORY
 keymap o GOTO https://www.google.com/search?q=+
 keymap O GOTO
 keymap t TAB_GOTO https://www.google.com/search?q=+
@@ -15,6 +14,22 @@ keymap ZZ EXIT
 
 keymap c-o PREV
 keymap c-i NEXT
-keymap c-n NEXT_LINK
-keymap c-p PREV_LINK
+keymap c-n NEXT_RIGHT_DOWN
+keymap c-p NEXT_LEFT_UP
+keymap F TAB_LINK
+keymap h PREV_TAB
+keymap l NEXT_TAB
+keymap H MOVE_LEFT
+keymap L MOVE_RIGHT
+keymap B TAB_MENU
+keymap E LIST
+
+keymap gg BEGIN
+keymap G END
+keymap zz CENTER_V
+keymap ^ LINE_BEGIN
+keymap $ LINE_END
+keymap w NEXT_WORD
+keymap b PREV_WORD
+keymap :: MENU
 
