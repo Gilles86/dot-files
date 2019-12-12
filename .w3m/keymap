@@ -1,0 +1,20 @@
+keymap W PRINT
+keymap y PEEK
+keymap Q CLOSE_TAB
+keymap E TAB_MENU
+keymap ? HELP
+keymap H HISTORY
+keymap o GOTO https://www.google.com/search?q=+
+keymap O GOTO
+keymap t TAB_GOTO https://www.google.com/search?q=+
+keymap T TAB_GOTO_RELATIVE
+keymap S SUBMIT
+keymap f MOVE_LIST_MENU
+keymap gh GOTO http://www.google.com/en
+keymap ZZ EXIT
+
+keymap c-o PREV
+keymap c-i NEXT
+keymap c-n NEXT_LINK
+keymap c-p PREV_LINK
+
