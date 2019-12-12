@@ -1,14 +1,38 @@
 // Place your key bindings in this file to overwrite the defaults
 [
     {
-        "key": "ctrl+n",
-        "command": "editor.action.triggerSuggest",
-        "when": "editorHasCompletionItemProvider && textInputFocus && !editorReadonly && vim.mode == 'Insert' && listFocus && !inputFocus"
+        "key": "ctrl+/",
+        "command": "workbench.action.togglePanel"
     },
     {
-      "key": "ctrl+n",
-      "command": "workbench.action.gotoSymbol",
-        "when": "textInputFocus && vim.mode != 'Insert'"
+        "key": "ctrl+n",
+        "command": "editor.action.triggerSuggest",
+        "when": "editorHasCompletionItemProvider && textInputFocus && !editorReadonly && vim.mode == 'Insert'"
+    },
+    {
+        "key": "ctrl+n",
+        "command": "selectNextSuggestion",
+        "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
+    },
+    {
+        "key": "ctrl+p",
+        "command": "selectPrevSuggestion",
+        "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
+    },
+    {
+        "key": "ctrl+r",
+        "command": "selectNextSuggestion",
+        "when": "editorHasCompletionItemProvider && textInputFocus && !editorReadonly && vim.mode == 'Insert'"
+    },
+    {
+        "key": "ctrl+n",
+        "command": "workbench.action.gotoSymbol",
+        "when": "editorTextFocus && vim.active && !inDebugRepl && vim.mode == 'Normal'"
+    },
+    {
+        "key": "ctrl+shift+n",
+        "command": "workbench.action.showAllSymbols",
+        "when": "editorTextFocus && vim.active && !inDebugRepl && vim.mode == 'Normal'"
     },
     {
         "key": "ctrl+n",
@@ -18,16 +42,16 @@
     {
         "key": "ctrl+p",
         "command": "workbench.action.quickOpenNavigatePrevious",
-        "when": "inQuickOpen"
+        "when": "inQuickOpen && !suggestWidgetVisible"
     },
     {
         "key": "ctrl+p",
         "command": "workbench.action.quickOpen",
-        "when": "!inQuickOpen"
+        "when": "!inQuickOpen && !suggestWidgetVisible"
     },
     {
-        "key": "ctrl+6",
-        "command": "workbench.action.openPreviousRecentlyUsedEditorInGroup",
+        "key": "ctrl+\\",
+        "command": "workbench.action.toggleSidebarVisibility",
         "when": "!inDebugMode && !inQuickOpen"
     },
     {
