@@ -1,0 +1,35 @@
+
+" Remap tab movement 
+unbind l
+unbind h
+bind l tabtext_gt
+bind h tabprev
+
+" Navigate dropdowns in insert mode
+bind --mode=insert <C-n> !s xdotool key Down
+bind --mode=insert <C-p> !s xdotool key Up
+
+" Only hint search results on Google and DDG
+bindurl www.google.com f hint -Jc .rc > .r > a
+bindurl www.google.com F hint -Jbc .rc>.r>a
+
+bindurl ^https://duckduckgo.com f hint -Jc [class=result__a]
+bindurl ^https://duckduckgo.com F hint -Jbc [class=result__a]
+
+" Allow Ctrl-a to select all in the commandline
+unbind --mode=ex <C-a>
+
+" Allow Ctrl-c to copy in the commandline
+unbind --mode=ex <C-c>
+
+" Stupid workaround to let hint -; be used with composite which steals semi-colons
+command hint_focus hint -;
+
+" Open right click menu on links
+bind ;C composite hint_focus; !s xdotool key Menu
+
+" Defaults to 300ms but I'm a 'move fast and close the wrong tabs' kinda chap
+set hintdelay 100
+
+
+

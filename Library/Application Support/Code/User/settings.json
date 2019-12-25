@@ -10,6 +10,7 @@
     "editor.wordSeparators": "`~!@#$%^&*()-=+[{]}\\|;:'\",.<>/?",
     "editor.lineNumbers": "off",
     "editor.renderLineHighlight": "none",
+    "vscode-neovim.neovimPath": "/usr/local/bin/nvim",
     "explorer.autoReveal": true,
     "editor.minimap.enabled": false,
     "editor.folding": false,
@@ -96,9 +97,6 @@
     "latex-workshop.view.pdf.viewer": "tab",
     "[typescript]": {
         "editor.defaultFormatter": "vscode.typescript-language-features"
-    },
-    "[json]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
     "typescript.updateImportsOnFileMove.enabled": "always"
 }
