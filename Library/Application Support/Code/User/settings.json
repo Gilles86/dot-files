@@ -10,6 +10,7 @@
     "editor.wordSeparators": "`~!@#$%^&*()-=+[{]}\\|;:'\",.<>/?",
     "editor.lineNumbers": "off",
     "editor.renderLineHighlight": "none",
+    "vscode-neovim.neovimPath": "/usr/local/bin/nvim",
     "explorer.autoReveal": true,
     "editor.minimap.enabled": false,
     "editor.folding": false,
@@ -97,9 +98,6 @@
     "[typescript]": {
         "editor.defaultFormatter": "vscode.typescript-language-features"
     },
-    "[json]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
     "typescript.updateImportsOnFileMove.enabled": "always",
     "perlSyntax.includePaths": [
         "/home/git/regentmarkets/perl-Feed-Index-SupportResistance/lib",
@@ -126,4 +124,5 @@
         "/home/git/regentmarkets/bom-events/lib",
         "/home/git/regentmarkets/reporting/mt5/lib"
     ]
+    "typescript.updateImportsOnFileMove.enabled": "always"
 }

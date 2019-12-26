@@ -88,5 +88,5 @@
         "key": "escape",
         "command": "workbench.action.toggleSidebarVisibility",
         "when": "explorerViewletVisible && filesExplorerFocus"
-    },
+    }
 ]
