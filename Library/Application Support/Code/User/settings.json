@@ -82,7 +82,6 @@
     "explorer.confirmDragAndDrop": false,
     "explorer.confirmDelete": false,
     "workbench.startupEditor": "newUntitledFile",
-    "workbench.colorTheme": "Default Light+",
     "[javascript]": {
         "editor.defaultFormatter": "vscode.typescript-language-features"
     },
@@ -98,5 +97,6 @@
     "[typescript]": {
         "editor.defaultFormatter": "vscode.typescript-language-features"
     },
-    "typescript.updateImportsOnFileMove.enabled": "always"
+    "typescript.updateImportsOnFileMove.enabled": "always",
+    "workbench.colorTheme": "Default Light+"
 }

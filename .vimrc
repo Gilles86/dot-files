@@ -34,6 +34,7 @@ endfunction
 call plug#begin(has('nvim') ? '~/.nvim/plugged' : '~/.vim/plugged')
    Plug 'vim-airline/vim-airline'
 
+   Plug 'aminroosta/perldoc-vim'
    Plug 'scrooloose/nerdtree'
    Plug 'haya14busa/incsearch.vim'
    Plug 'yuratomo/w3m.vim'
