@@ -14,7 +14,7 @@
     "explorer.autoReveal": true,
     "editor.minimap.enabled": false,
     "editor.folding": false,
-    "editor.glyphMargin": false,
+    "editor.glyphMargin": true,
     "git.decorations.enabled": false,
     "[rust]": {
         "editor.formatOnSave": true,
@@ -23,7 +23,7 @@
     "editor.tabCompletion": "on",
     "keyboard.dispatch": "keyCode",
     //"workbench.activityBar.visible": false,
-    "editor.lineDecorationsWidth": 3,
+    "editor.lineDecorationsWidth": 0,
     "editor.scrollbar.useShadows": false,
     "editor.scrollbar.verticalScrollbarSize": 0,
     "editor.scrollbar.verticalScrollbarSize": 0,
@@ -98,5 +98,30 @@
         "editor.defaultFormatter": "vscode.typescript-language-features"
     },
     "typescript.updateImportsOnFileMove.enabled": "always",
+    "perlSyntax.includePaths": [
+        "/home/git/regentmarkets/perl-Feed-Index-SupportResistance/lib",
+        "/home/git/regentmarkets/bom/lib",
+        "/home/git/regentmarkets/bom-postgres/lib",
+        "/home/git/regentmarkets/bom-platform/lib",
+        "/home/git/regentmarkets/bom-user/lib",
+        "/home/git/regentmarkets/bom-market/lib",
+        "/home/git/regentmarkets/bom-marketdataautoupdater/lib",
+        "/home/git/regentmarkets/bom-backoffice/lib",
+        "/home/git/regentmarkets/bom-myaffiliates/lib",
+        "/home/git/regentmarkets/binary-websocket-api/lib",
+        "/home/git/regentmarkets/bom-paymentapi/lib",
+        "/home/git/regentmarkets/bom-oauth/lib",
+        "/home/git/regentmarkets/bom-rpc/lib",
+        "/home/git/regentmarkets/bom-populator/lib",
+        "/home/git/regentmarkets/bom-feed/lib",
+        "/home/git/regentmarkets/bom-test/lib",
+        "/home/git/regentmarkets/php-mt5-webapi/lib",
+        "/home/git/regentmarkets/bom-transaction/lib",
+        "/home/git/regentmarkets/bom-pricing/lib",
+        "/home/git/regentmarkets/bom-cryptocurrency/lib",
+        "/home/git/regentmarkets/bom-config/lib",
+        "/home/git/regentmarkets/bom-events/lib",
+        "/home/git/regentmarkets/reporting/mt5/lib"
+    ],
     "workbench.colorTheme": "Default Light+"
 }
