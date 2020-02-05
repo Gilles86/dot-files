@@ -20,6 +20,7 @@
         "editor.formatOnSave": true,
         "editor.renderIndentGuides": false,
     },
+    "terminal.integrated.macOptionClickForcesSelection": true,
     "editor.tabCompletion": "on",
     "keyboard.dispatch": "keyCode",
     //"workbench.activityBar.visible": false,
@@ -86,11 +87,6 @@
     "[javascript]": {
         "editor.defaultFormatter": "vscode.typescript-language-features"
     },
-    "rust.mode": "rls",
-    "rust.rustup": {
-      "nightlyToolchain": "nightly-x86_64-apple-darwin",
-      "toolchain": "nightly-x86_64-apple-darwin"
-    },
     "rust.rls": {
         "useRustfmt": true
     },
@@ -99,7 +95,9 @@
         "editor.defaultFormatter": "vscode.typescript-language-features"
     },
     "typescript.updateImportsOnFileMove.enabled": "always",
+    "perl.enable": true,
     "perlSyntax.includePaths": [
+        "/home/git/regentmarkets/perl-Net-Async-MT5/lib",
         "/home/git/regentmarkets/perl-Feed-Index-SupportResistance/lib",
         "/home/git/regentmarkets/bom/lib",
         "/home/git/regentmarkets/bom-postgres/lib",
@@ -123,6 +121,8 @@
         "/home/git/regentmarkets/bom-config/lib",
         "/home/git/regentmarkets/bom-events/lib",
         "/home/git/regentmarkets/reporting/mt5/lib"
-    ]
+    ],
+    "rust-client.rustupPath": "~/.cargo/bin/rustup",
+    "rust-client.channel" : "stable",
     "typescript.updateImportsOnFileMove.enabled": "always"
 }
