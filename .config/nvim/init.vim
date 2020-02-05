@@ -6,13 +6,19 @@ if empty(glob('~/.nvim/autoload/plug.vim'))
     autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
+" VSCode extension
 if exists('g:vscode')
-    " VSCode extension
 
-	nmap w <C-W>
+    call plug#begin('~/.config/nvim/plugged')
+        Plug 'tpope/vim-surround'
+        Plug 'tpope/vim-repeat'
+
+    call plug#end()
+
 	nnoremap W :Write<cr>
 	nnoremap Q :Quit!<cr>
 	nmap E <C-p>
+	nmap w <C-W>
 
 	xmap gc  <Plug>VSCodeCommentary
 	nmap gc  <Plug>VSCodeCommentary

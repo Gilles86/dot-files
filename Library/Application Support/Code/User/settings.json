@@ -83,7 +83,6 @@
     "explorer.confirmDragAndDrop": false,
     "explorer.confirmDelete": false,
     "workbench.startupEditor": "newUntitledFile",
-    "workbench.colorTheme": "Default Light+",
     "[javascript]": {
         "editor.defaultFormatter": "vscode.typescript-language-features"
     },
@@ -124,5 +123,6 @@
     ],
     "rust-client.rustupPath": "~/.cargo/bin/rustup",
     "rust-client.channel" : "stable",
-    "typescript.updateImportsOnFileMove.enabled": "always"
+    "typescript.updateImportsOnFileMove.enabled": "always",
+    "workbench.colorTheme": "Default Light+"
 }
