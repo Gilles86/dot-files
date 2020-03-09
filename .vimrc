@@ -37,7 +37,6 @@ call plug#begin(has('nvim') ? '~/.nvim/plugged' : '~/.vim/plugged')
    Plug 'aminroosta/perldoc-vim'
    Plug 'scrooloose/nerdtree'
    Plug 'haya14busa/incsearch.vim'
-   " Plug 'yuratomo/w3m.vim'
 
    Plug 'neoclide/coc-sources'
    " Plug 'neoclide/coc-rls'
@@ -219,16 +218,6 @@ nnoremap <leader>e :NERDTreeFind<cr>
 nnoremap ? :Ag <c-r><c-w><cr>
 imap <C-_> <plug>(fzf-complete-line)
 let $FZF_DEFAULT_COMMAND = 'ag -g ""'
-
-" w3m-vim --------------------------------
-" autocmd FileType w3m nmap <buffer><c-o>   <Plug>(w3m-back)
-" autocmd FileType w3m nmap <buffer><c-i>   <Plug>(w3m-forward)
-" autocmd FileType w3m nmap <buffer><tab>   <Plug>(w3m-next-link)
-" autocmd FileType w3m nmap <buffer><c-n>   <Plug>(w3m-next-link)
-" autocmd FileType w3m nmap <buffer><s-tab> <Plug>(w3m-prev-link)
-" autocmd FileType w3m nmap <buffer><c-p>   <Plug>(w3m-prev-link)
-" autocmd FileType w3m nmap <buffer>O       <Plug>(w3m-address-bar)
-" autocmd FileType w3m nmap <buffer>o       :W3m<space>
 
 "  neat-fold --------------------------
 function! NeatFoldText()
