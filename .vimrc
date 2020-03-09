@@ -14,19 +14,19 @@ endif
 function! CocInit(info)
 if a:info.status == 'installed' || a:info.force
     " install node + yarn
-    !curl -sL install-node.now.sh/lts | sudo sh -s -- -y
-    !curl --compressed -o- -L https://yarnpkg.com/install.sh | sudo bash
+    " !curl -sL install-node.now.sh/lts | sudo sh -s -- -y
+    " !curl --compressed -o- -L https://yarnpkg.com/install.sh | sudo bash
 
 	" install rust + cargo
-    !curl https://sh.rustup.rs -sSf | sh -s -- -y
-    !~/.cargo/bin/rustup component add rls rust-analysis rust-src
+    " !curl https://sh.rustup.rs -sSf | sh -s -- -y
+    " !~/.cargo/bin/rustup component add rls rust-analysis rust-src
 
 	" !git clone --depth 1 https://github.com/rust-analyzer/rust-analyzer /tmp/.rust-analyzer
 	" !cd /tmp/.rust-analyzer && ~/.cargo/bin/cargo +nightly install-lsp
 
 	" install coc + extensions
-    !./install.sh nightly
-    call coc#util#install_extension(['coc-rls', 'coc-json', 'coc-tsserver', 'coc-yank', 'coc-tag', 'coc-word', 'coc-syntax'])
+    " !./install.sh nightly
+    call coc#util#install_extension(['coc-json', 'coc-yank', 'coc-tag', 'coc-word', 'coc-syntax'])
 endif
 endfunction
 
@@ -40,9 +40,9 @@ call plug#begin(has('nvim') ? '~/.nvim/plugged' : '~/.vim/plugged')
    Plug 'yuratomo/w3m.vim'
 
    Plug 'neoclide/coc-sources'
-   Plug 'neoclide/coc-rls'
+   " Plug 'neoclide/coc-rls'
    Plug 'neoclide/coc-yank'
-   Plug 'neoclide/coc-tsserver'
+   " Plug 'neoclide/coc-tsserver'
    Plug 'neoclide/coc-json'
    Plug 'neoclide/coc.nvim', {'do': function('CocInit')}
 
@@ -157,8 +157,6 @@ cnoremap jjj J
 cnoremap kkk K
 cnoremap Noh noh
 
-inoremap {<cr> {}<esc>i<cr><esc>ko
-
 "  colorscheme ------------------------
 syntax on
 set t_Co=256
@@ -220,7 +218,6 @@ nnoremap B :Buffers<cr>
 nnoremap <leader>e :NERDTreeFind<cr>
 nnoremap ? :Ag <c-r><c-w><cr>
 imap <C-_> <plug>(fzf-complete-line)
-tnoremap <C-_> <c-\><c-n>
 let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 
 " w3m-vim --------------------------------
