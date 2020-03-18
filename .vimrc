@@ -44,6 +44,7 @@ call plug#begin(has('nvim') ? '~/.nvim/plugged' : '~/.vim/plugged')
    " Plug 'neoclide/coc-tsserver'
    Plug 'neoclide/coc-json'
    Plug 'neoclide/coc.nvim', {'do': function('CocInit')}
+   Plug 'ervandew/supertab'
 
    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
    Plug 'junegunn/fzf.vim'
@@ -156,6 +157,9 @@ cnoremap jjj J
 cnoremap kkk K
 cnoremap Noh noh
 
+" Supertab ----------------------------
+let g:SuperTabDefaultCompletionType = "<c-n>"
+
 "  colorscheme ------------------------
 syntax on
 set t_Co=256
@@ -253,6 +257,9 @@ function! g:FckThatMatchParen ()
         :NoMatchParen
     endif
 endfunction
+
+" binary qa ----------------------------
+iabbrev udd use Data::Dumper::Concise::Sugar;
 
 augroup plugin_initialize
     autocmd!
