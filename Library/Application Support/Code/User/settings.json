@@ -3,9 +3,9 @@
     "workbench.editor.enablePreview": false,
     "workbench.editor.tabSizing": "shrink",
     "rust-analyzer.enableEnhancedTyping": false,
-    "window.zoomLevel": -1,
+    "window.zoomLevel": 0,
     "editor.wordWrap": "on",
-    "editor.fontSize": 15,
+    "editor.fontSize": 14,
     "workbench.editor.showTabs": false,
     "editor.wordSeparators": "`~!@#$%^&*()-=+[{]}\\|;:'\",.<>/?",
     "editor.lineNumbers": "off",
@@ -14,7 +14,7 @@
     "explorer.autoReveal": true,
     "editor.minimap.enabled": false,
     "editor.folding": false,
-    "editor.glyphMargin": true,
+    "editor.glyphMargin": false,
     "git.decorations.enabled": false,
     "[rust]": {
         "editor.formatOnSave": true,
@@ -29,6 +29,14 @@
     "editor.scrollbar.verticalScrollbarSize": 0,
     "editor.scrollbar.verticalScrollbarSize": 0,
     "editor.roundedSelection" : false,
+    "files.exclude": {
+        "**/.vscode/": true,
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true
+    },
     "editor.renderIndentGuides": false,
     "editor.wordSeparators": "`~!@#$%^&*()-=+[{]}\\|;:'\",.<>/?",
     "vim.iskeyword": "`~!@#$%^&*()-=+[{]}\\|;:'\",.<>/?",
@@ -56,7 +64,7 @@
         { "before": ["<leader>", "x"],
             "commands": [{ "command": "workbench.view.extensions"}] },
         { "before": ["<leader>", "e"],
-            "commands": [{ "command": "workbench.view.explorer"}] },
+            "commands": [{ "command": "workbench.files.action.showActiveFileInExplorer"}] },
         { "before": ["w", "c"],
             "commands": [{ "command": "workbench.action.closeEditorsAndGroup" }] },
         { "before": ["z", "J"],
@@ -95,6 +103,8 @@
     },
     "typescript.updateImportsOnFileMove.enabled": "always",
     "perl.enable": true,
+    "gitlens.currentLine.enabled": false,
+    "terminal.integrated.rendererType": "experimentalWebgl",
     "perlSyntax.includePaths": [
         "/home/git/regentmarkets/perl-Net-Async-MT5/lib",
         "/home/git/regentmarkets/perl-Feed-Index-SupportResistance/lib",
@@ -124,5 +134,6 @@
     "rust-client.rustupPath": "~/.cargo/bin/rustup",
     "rust-client.channel" : "stable",
     "typescript.updateImportsOnFileMove.enabled": "always",
-    "workbench.colorTheme": "Default Light+"
+    "workbench.colorTheme": "Default Light+",
+    "C_Cpp.updateChannel": "Insiders"
 }

@@ -2,7 +2,7 @@
 " Remap tab movement 
 unbind l
 unbind h
-bind l tabtext
+bind l tabnext
 bind h tabprev
 
 " Navigate dropdowns in insert mode
