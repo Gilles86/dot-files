@@ -14,19 +14,19 @@ endif
 function! CocInit(info)
 if a:info.status == 'installed' || a:info.force
     " install node + yarn
-    !curl -sL install-node.now.sh/lts | sudo sh -s -- -y
-    !curl --compressed -o- -L https://yarnpkg.com/install.sh | sudo bash
+    " !curl -sL install-node.now.sh/lts | sudo sh -s -- -y
+    " !curl --compressed -o- -L https://yarnpkg.com/install.sh | sudo bash
 
 	" install rust + cargo
-    !curl https://sh.rustup.rs -sSf | sh -s -- -y
-    !~/.cargo/bin/rustup component add rls rust-analysis rust-src
+    " !curl https://sh.rustup.rs -sSf | sh -s -- -y
+    " !~/.cargo/bin/rustup component add rls rust-analysis rust-src
 
 	" !git clone --depth 1 https://github.com/rust-analyzer/rust-analyzer /tmp/.rust-analyzer
 	" !cd /tmp/.rust-analyzer && ~/.cargo/bin/cargo +nightly install-lsp
 
 	" install coc + extensions
-    !./install.sh nightly
-    call coc#util#install_extension(['coc-rls', 'coc-json', 'coc-tsserver', 'coc-yank', 'coc-tag', 'coc-word', 'coc-syntax'])
+    " !./install.sh nightly
+    call coc#util#install_extension(['coc-json', 'coc-yank', 'coc-tag', 'coc-word', 'coc-syntax'])
 endif
 endfunction
 
@@ -37,14 +37,14 @@ call plug#begin(has('nvim') ? '~/.nvim/plugged' : '~/.vim/plugged')
    Plug 'aminroosta/perldoc-vim'
    Plug 'scrooloose/nerdtree'
    Plug 'haya14busa/incsearch.vim'
-   Plug 'yuratomo/w3m.vim'
 
    Plug 'neoclide/coc-sources'
-   Plug 'neoclide/coc-rls'
+   " Plug 'neoclide/coc-rls'
    Plug 'neoclide/coc-yank'
-   Plug 'neoclide/coc-tsserver'
+   " Plug 'neoclide/coc-tsserver'
    Plug 'neoclide/coc-json'
    Plug 'neoclide/coc.nvim', {'do': function('CocInit')}
+   Plug 'ervandew/supertab'
 
    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
    Plug 'junegunn/fzf.vim'
@@ -157,7 +157,8 @@ cnoremap jjj J
 cnoremap kkk K
 cnoremap Noh noh
 
-inoremap {<cr> {}<esc>i<cr><esc>ko
+" Supertab ----------------------------
+let g:SuperTabDefaultCompletionType = "<c-n>"
 
 "  colorscheme ------------------------
 syntax on
@@ -220,18 +221,7 @@ nnoremap B :Buffers<cr>
 nnoremap <leader>e :NERDTreeFind<cr>
 nnoremap ? :Ag <c-r><c-w><cr>
 imap <C-_> <plug>(fzf-complete-line)
-tnoremap <C-_> <c-\><c-n>
 let $FZF_DEFAULT_COMMAND = 'ag -g ""'
-
-" w3m-vim --------------------------------
-autocmd FileType w3m nmap <buffer><c-o>   <Plug>(w3m-back)
-autocmd FileType w3m nmap <buffer><c-i>   <Plug>(w3m-forward)
-autocmd FileType w3m nmap <buffer><tab>   <Plug>(w3m-next-link)
-autocmd FileType w3m nmap <buffer><c-n>   <Plug>(w3m-next-link)
-autocmd FileType w3m nmap <buffer><s-tab> <Plug>(w3m-prev-link)
-autocmd FileType w3m nmap <buffer><c-p>   <Plug>(w3m-prev-link)
-autocmd FileType w3m nmap <buffer>O       <Plug>(w3m-address-bar)
-autocmd FileType w3m nmap <buffer>o       :W3m<space>
 
 "  neat-fold --------------------------
 function! NeatFoldText()
@@ -267,6 +257,9 @@ function! g:FckThatMatchParen ()
         :NoMatchParen
     endif
 endfunction
+
+" binary qa ----------------------------
+iabbrev udd use Data::Dumper::Concise::Sugar;
 
 augroup plugin_initialize
     autocmd!
