@@ -112,7 +112,7 @@ inoremap <silent><expr> <TAB>
       \ coc#refresh()
 " inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>
 set updatetime=300
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+" inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 inoremap <silent><expr> <c-space> coc#refresh()
 " autocmd CursorHold * silent call CocActionAsync('highlight')
