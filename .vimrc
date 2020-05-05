@@ -163,7 +163,7 @@ let g:SuperTabDefaultCompletionType = "<c-n>"
 "  colorscheme ------------------------
 syntax on
 set t_Co=256
-set background=dark
+set background=light
 let g:solarized_termcolors=256
 let g:netrw_banner=0
 runtime! ftplugin/man.vim
