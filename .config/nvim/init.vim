@@ -6,6 +6,8 @@ if empty(glob('~/.nvim/autoload/plug.vim'))
     autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
+set background=light
+
 " VSCode extension
 if exists('g:vscode')
 
