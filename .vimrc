@@ -10,26 +10,6 @@ if has('nvim') && empty(glob('~/.nvim/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-" coco-init ---------------------------------------------
-function! CocInit(info)
-if a:info.status == 'installed' || a:info.force
-    " install node + yarn
-    " !curl -sL install-node.now.sh/lts | sudo sh -s -- -y
-    " !curl --compressed -o- -L https://yarnpkg.com/install.sh | sudo bash
-
-	" install rust + cargo
-    " !curl https://sh.rustup.rs -sSf | sh -s -- -y
-    " !~/.cargo/bin/rustup component add rls rust-analysis rust-src
-
-	" !git clone --depth 1 https://github.com/rust-analyzer/rust-analyzer /tmp/.rust-analyzer
-	" !cd /tmp/.rust-analyzer && ~/.cargo/bin/cargo +nightly install-lsp
-
-	" install coc + extensions
-    " !./install.sh nightly
-    call coc#util#install_extension(['coc-json', 'coc-yank', 'coc-tag', 'coc-word', 'coc-syntax'])
-endif
-endfunction
-
 " vim-plug -------------------------------------------------------
 call plug#begin(has('nvim') ? '~/.nvim/plugged' : '~/.vim/plugged')
    Plug 'vim-airline/vim-airline'
@@ -38,13 +18,7 @@ call plug#begin(has('nvim') ? '~/.nvim/plugged' : '~/.vim/plugged')
    Plug 'scrooloose/nerdtree'
    Plug 'haya14busa/incsearch.vim'
 
-   Plug 'neoclide/coc-sources'
-   " Plug 'neoclide/coc-rls'
-   Plug 'neoclide/coc-yank'
-   " Plug 'neoclide/coc-tsserver'
-   Plug 'neoclide/coc-json'
-   Plug 'neoclide/coc.nvim', {'do': function('CocInit')}
-   Plug 'ervandew/supertab'
+   Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
    Plug 'junegunn/fzf.vim'
@@ -115,9 +89,6 @@ set updatetime=300
 " inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 inoremap <silent><expr> <c-space> coc#refresh()
-" autocmd CursorHold * silent call CocActionAsync('highlight')
-" command! -nargs=0 Format :call CocAction('format')
-" command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 nnoremap <silent> Y  :<C-u>CocList -A --normal yank<cr>
 nmap <leader>qf  <Plug>(coc-fix-current)
 nmap <silent> [c <Plug>(coc-diagnostic-prev)
@@ -157,9 +128,6 @@ cnoremap jjj J
 cnoremap kkk K
 cnoremap Noh noh
 
-" Supertab ----------------------------
-let g:SuperTabDefaultCompletionType = "<c-n>"
-
 "  colorscheme ------------------------
 syntax on
 set t_Co=256
@@ -192,7 +160,7 @@ let g:airline_powerline_fonts = 1
 let g:airline_detect_modified=1
 let g:airline_statusline_ontop=1
 let g:airline#extensions#tabline#enabled = 1
-let g:airline_theme='dark'
+let g:airline_theme='light'
 let g:airline_extensions = ['tabline']
 
 "  highight-word ----------------------
