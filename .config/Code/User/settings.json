@@ -29,7 +29,7 @@
     "editor.renderIndentGuides": false,
     "editor.wordSeparators": "`~!@#$%^&*()-=+[{]}\\|;:'\",.<>/?",
     "vim.iskeyword": "`~!@#$%^&*()-=+[{]}\\|;:'\",.<>/?",
-    "vim.enableNeovim": true,
+    "vim.enableNeovim": false,
     "vim.hlsearch": true,
     "vim.leader": "<space>",
     "vim.handleKeys": {
