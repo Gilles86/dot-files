@@ -11,7 +11,7 @@ const run = (command) => {
 const github_name = 'aminroosta';
 
 const branch = process.argv[2];
-const message  = process.argv[3] || "Dummy PR";
+const message  = process.argv[2];
 if(!branch) { console.warn('USAGE dummy-pr prefix/branch-name'); process.exit(1); }
 const prefix = branch.split('/')[0];
 if(!prefix) { console.warn('USAGE dummy-pr prefix/branch-name'); process.exit(1); }
@@ -27,7 +27,7 @@ if(branches.indexOf(branch) == -1) run(`git checkout -b ${branch} origin/master`
 else run(`git checkout ${branch}`);
 
 run('git config --global push.default simple');
-run(`git commit --allow-empty -m ${message}`);
+run(`git commit --allow-empty -m '${message}'`);
 run(`git push -u ${prefix} ${branch}`);
 
 // https://github.com/regentmarkets/bom-pricing/compare/master...aminroosta:amin/inconsistent-error-for-tick-expiry-contracts
