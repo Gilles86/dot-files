@@ -9,10 +9,6 @@ bind h tabprev
 bind --mode=insert <C-n> !s xdotool key Down
 bind --mode=insert <C-p> !s xdotool key Up
 
-" Only hint search results on Google and DDG
-bindurl www.google.com f hint -Jc .rc > .r > a
-bindurl www.google.com F hint -Jbc .rc>.r>a
-
 bindurl ^https://duckduckgo.com f hint -Jc [class=result__a]
 bindurl ^https://duckduckgo.com F hint -Jbc [class=result__a]
 
