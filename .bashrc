@@ -26,3 +26,21 @@ export HISTCONTROL=erasedups:ignoredups:ignorespace
 # append to history instead of overwriting it
 shopt -s histappend
 PROMPT_COMMAND='history -a' 
+
+if [ -n "$PS1" ]; then
+    NEW_PROMPT_COMMAND='
+        TRIMMED_PWD=${PWD: -40};
+        TRIMMED_PWD=${TRIMMED_PWD:-$PWD}
+    '
+
+    if [ -n "$PROMPT_COMMAND" ]; then
+        PROMPT_COMMAND="$PROMPT_COMMAND;$NEW_PROMPT_COMMAND"
+    else
+        PROMPT_COMMAND="$NEW_PROMPT_COMMAND"
+    fi
+
+    unset NEW_PROMPT_COMMAND
+
+	# PS1='\[\033[1;30m\]\u:\[\033[1;32m\]$TRIMMED_PWD\[\033[1;30m\] $ '
+	PS1='\[\033[1;32m\]$TRIMMED_PWD\[\033[1;30m\] $ '
+fi
