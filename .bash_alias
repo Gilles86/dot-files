@@ -1,34 +1,11 @@
-set -o vi
-
-export VISUAL=vim
-export EDITOR="$VISUAL"
-
-alias open='xdg-open'
-
 alias s='$(history | cut -c 8- | fzf --height=50%)'
-
-if [ -f ~/.nvim/bin/nvim ]; then
-    alias v="~/.nvim/bin/nvim"
-fi
-if [ -f ~/.nvim/nvim.appimage ]; then
-    alias v="~/.nvim/nvim.appimage"
-fi
-
-# ----------- bitcoin
-alias b='bitcoin-cli'
-alias bblock='bitcoin-cli getblockchaininfo'
-alias bnet='bitcoin-cli getnetworkinfo'
-alias bmempool='bitcoin-cli getrawmempool'
-alias bmempoolall='bitcoin-cli getrawmempool true'
-
-# ----------- functions
-d() {
-    w3m https://www.vocabulary.com/dictionary/$1 | tail -n +13 | less
-}
+alias v="vim"
 
 # ----------- git
-#alias gs="git status -sb"
+alias gs="git status"
 alias gd="git diff"
 alias gds="git diff --staged"
-alias gcm="git diff -m"
+alias gdm="git diff -m"
+alias gbr="git branch -r"
+alias grv="git remote -v"
 alias gl="git log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all"
