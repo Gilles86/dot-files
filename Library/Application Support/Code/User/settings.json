@@ -3,12 +3,12 @@
     "explorer.openEditors.visible": 0,
     "workbench.editor.enablePreview": false,
     "workbench.editor.tabSizing": "shrink",
-    "rust-analyzer.enableEnhancedTyping": false,
+    "rust-analyzer.inlayHints.typeHints": false,
+    "rust-analyzer.inlayHints.parameterHints": false,
     "window.zoomLevel": 0,
     "editor.wordWrap": "on",
     "editor.fontSize": 14,
     "workbench.editor.showTabs": false,
-    "editor.wordSeparators": "`~!@#$%^&*()-=+[{]}\\|;:'\",.<>/?",
     "editor.lineNumbers": "off",
     "editor.renderLineHighlight": "none",
     "vscode-neovim.neovimPath": "/usr/local/bin/nvim",
@@ -132,9 +132,8 @@
         "/home/git/regentmarkets/bom-events/lib",
         "/home/git/regentmarkets/reporting/mt5/lib"
     ],
-    "rust-client.rustupPath": "~/.cargo/bin/rustup",
-    "rust-client.channel" : "stable",
     "typescript.updateImportsOnFileMove.enabled": "always",
     "workbench.colorTheme": "Default Light+",
-    "C_Cpp.updateChannel": "Insiders"
+    "C_Cpp.updateChannel": "Insiders",
+    "extensions.ignoreRecommendations": false
 }
