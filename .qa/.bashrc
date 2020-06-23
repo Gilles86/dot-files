@@ -45,3 +45,4 @@ alias dummy="node /home/git/regentmarkets/dummy-pr.js"
 
 export SQL_CREATE_APP="insert into oauth.apps (name, binary_user_id, active, redirect_uri, scopes, verification_uri) values ('QA app', 1, true, 'https://staging.binary.com/en/logged_inws.html', '{read,admin,trade,payments}','https://staging.binary.com/en/redirect.html');"
 
+set -o vi
