@@ -45,4 +45,17 @@ alias dummy="node /home/git/regentmarkets/dummy-pr.js"
 
 export SQL_CREATE_APP="insert into oauth.apps (name, binary_user_id, active, redirect_uri, scopes, verification_uri) values ('QA app', 1, true, 'https://staging.binary.com/en/logged_inws.html', '{read,admin,trade,payments}','https://staging.binary.com/en/redirect.html');"
 
+openmutt() {
+    mutt -f /tmp/default.mailbox
+}
+
+export GIT_PROMPT_ONLY_IN_REPO=1
+[[ -s ~/.bash-git-prompt/gitprompt.sh ]] && source ~/.bash-git-prompt/gitprompt.sh
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+export NVM_DIR="$HOME/.nvm"                                                                               
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm                                        
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
 set -o vi
