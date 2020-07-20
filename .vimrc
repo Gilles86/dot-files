@@ -30,6 +30,8 @@ call plug#begin(has('nvim') ? '~/.nvim/plugged' : '~/.vim/plugged')
    Plug 'tpope/vim-repeat'
    Plug 'tpope/vim-unimpaired'
    Plug 'tpope/vim-vinegar'
+
+   Plug 'kassio/neoterm'
 call plug#end()
 
 filetype plugin on
@@ -70,6 +72,10 @@ set matchpairs+=<:>
 set mouse+=a
 set tags=./tags;/
 set bs=2
+
+" neoterm -----------------------------
+" 3<leader>tl will clear neoterm-3.
+nnoremap <leader>tc :<c-u>exec v:count.'Tclear'<cr>
 
 " coc ---------------------------------
 function! s:check_back_space() abort
