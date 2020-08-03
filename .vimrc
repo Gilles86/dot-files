@@ -22,6 +22,7 @@ call plug#begin(has('nvim') ? '~/.nvim/plugged' : '~/.vim/plugged')
 
    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
    Plug 'junegunn/fzf.vim'
+   Plug 'ianding1/leetcode.vim'
 
    Plug 'tpope/vim-commentary'
    Plug 'tpope/vim-surround'
@@ -29,9 +30,14 @@ call plug#begin(has('nvim') ? '~/.nvim/plugged' : '~/.vim/plugged')
    Plug 'tpope/vim-repeat'
    Plug 'tpope/vim-unimpaired'
    Plug 'tpope/vim-vinegar'
+
+   Plug 'kassio/neoterm'
 call plug#end()
 
 filetype plugin on
+
+let g:leetcode_browser = "firefox"
+let g:leetcode_solution_filetype = "rust"
 
 "  NERDTree ---------------------------
 let g:NERDTreeDirArrowExpandable = "\u00a0"
@@ -66,6 +72,10 @@ set matchpairs+=<:>
 set mouse+=a
 set tags=./tags;/
 set bs=2
+
+" neoterm -----------------------------
+" 3<leader>tl will clear neoterm-3.
+nnoremap <leader>tc :<c-u>exec v:count.'Tclear'<cr>
 
 " coc ---------------------------------
 function! s:check_back_space() abort
@@ -131,6 +141,7 @@ cnoremap Noh noh
 syntax on
 set t_Co=256
 set background=light
+colorscheme desert
 let g:solarized_termcolors=256
 let g:netrw_banner=0
 runtime! ftplugin/man.vim
