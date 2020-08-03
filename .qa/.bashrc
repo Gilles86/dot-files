@@ -59,3 +59,6 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 set -o vi
+
+export PATH=$PATH:/home/git/regentmarkets/environment-manifests-qa/bin
+
