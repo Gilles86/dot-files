@@ -32,6 +32,7 @@ call plug#begin(has('nvim') ? '~/.nvim/plugged' : '~/.vim/plugged')
    Plug 'tpope/vim-vinegar'
 
    Plug 'kassio/neoterm'
+   Plug 'NLKNguyen/papercolor-theme'
 call plug#end()
 
 filetype plugin on
@@ -140,14 +141,17 @@ cnoremap Noh noh
 "  colorscheme ------------------------
 syntax on
 set t_Co=256
-set background=light
-colorscheme desert
+
 let g:solarized_termcolors=256
 let g:netrw_banner=0
 runtime! ftplugin/man.vim
 call matchadd('ColorColumn', '\%81v', 100)
 
-hi Normal ctermbg=NONE guibg=NONE
+set background=light
+try
+    colorscheme PaperColor
+catch
+endtry
 
 "  incsearch --------------------------
 let g:incsearch#auto_nohlsearch = 1
@@ -183,14 +187,6 @@ endfunction
 nnoremap ) :call HighlightWord()<cr>
 nnoremap ( :nohl<cr>:call clearmatches()<cr>
 
-" syn-stack ---------------------------
-function! SynStack()
-  if !exists("*synstack")
-    return
-  endif
-  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
-endfunc
-
 " FZF --------------------------------
 " nnoremap <c-p> :GFiles<cr>
 nnoremap E :Files<cr>
@@ -200,6 +196,7 @@ nnoremap <leader>e :NERDTreeFind<cr>
 nnoremap ? :Ag <c-r><c-w><cr>
 imap <C-_> <plug>(fzf-complete-line)
 let $FZF_DEFAULT_COMMAND = 'ag -g ""'
+let g:fzf_colors = { 'fg': ['fg', 'CocListFgWhite'], 'bg': ['bg', 'CocListBgBlack']}
 
 "  neat-fold --------------------------
 function! NeatFoldText()
@@ -214,20 +211,6 @@ function! NeatFoldText()
   return foldtextstart . repeat(foldchar, winwidth(0)-foldtextlength) . foldtextend
 endfunction
 set foldtext=NeatFoldText()
-
-" hilighting --------------------------
-autocmd FileType json syntax match Comment +\/\/.\+$+
-hi Search cterm=NONE ctermfg=NONE ctermbg=252
-hi Visual cterm=NONE ctermbg=250 ctermfg=238
-hi ColorColumn ctermbg=255
-hi Error ctermbg=255 ctermfg=0
-hi CocErrorHighlight ctermfg=196 cterm=underline
-hi CocWarningHighlight ctermfg=130 cterm=underline
-
-" highlighting pop-up -----------------
-hi Pmenu ctermbg=15
-hi PmenuSel ctermbg=250 
-hi PmenuSbar ctermbg=248 
 
 " matchparen --------------------------
 function! g:FckThatMatchParen ()
