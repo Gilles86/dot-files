@@ -6,11 +6,9 @@ ws:
 
 pd:
 	sudo /etc/init.d/binary_pricer_daemon restart
-	sudo /etc/init.d/binary_pricer_daemon_bid restart
 
 rpcp:
 	sudo /etc/init.d/binary_pricer_daemon restart
-	sudo /etc/init.d/binary_pricer_daemon_bid restart
 	sudo /etc/init.d/binary_rpc restart
 
 bo:
