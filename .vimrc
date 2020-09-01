@@ -220,7 +220,7 @@ function! g:FckThatMatchParen ()
 endfunction
 
 " binary qa ----------------------------
-iabbrev udd use Data::Dumper::Concise::Sugar;
+iabbrev udd use Data::Dumper::Concise;<cr>warn Dumper
 
 augroup plugin_initialize
     autocmd!
