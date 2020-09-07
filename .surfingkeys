@@ -1,0 +1,14 @@
+// an example to replace `T` with `gt`, click `Default mappings` to see how `T` works.
+map('d', 'x');
+map('gp', '<Alt-p>');
+map('l', 'R');
+map('h', 'E');
+map('u', 'X');
+map('F', 'gf');
+map('O', ';U');
+map('T', ';u');
+map('o', 'go');
+map('<Ctrl-o>', 'S');
+map('<Ctrl-i>', 'D');
+
+Hints.characters = '0123456789';
