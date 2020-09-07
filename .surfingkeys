@@ -12,3 +12,7 @@ map('<Ctrl-o>', 'S');
 map('<Ctrl-i>', 'D');
 
 Hints.characters = '0123456789';
+Hints.numericHints = true;
+settings.omnibarPosition = "bottom";
+settings.scrollStepSize = 110;
+settings.smoothScroll = false;
