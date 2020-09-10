@@ -39,11 +39,9 @@ tailit() {
 }
 watchit() {
     cd /home/git/regentmarkets/
-    watchman-make -p "binary-websocket-api/**/*.pm" -t websocket -p "bom-rpc/**/*.(pm|pl)" "bom-pricing/**/*.pm" "bom/**/*.pm" "bom-market/**/*.pm" -t rpc_and_pricer -p "binary-backoffice/**/*.(pm|pl|t|cgi)" -t bo
+    watchman-make -p "binary-websocket-api/**/*.pm" -t ws -p "bom-rpc/**/*.(pm|pl)" "bom-pricing/**/*.pm" "bom/**/*.pm" "bom-market/**/*.pm" -t rpcp -p "binary-backoffice/**/*.(pm|pl|t|cgi)" -t bo
 }
 alias dummy="node /home/git/regentmarkets/dummy-pr.js"
-
-export SQL_CREATE_APP="insert into oauth.apps (name, binary_user_id, active, redirect_uri, scopes, verification_uri) values ('QA app', 1, true, 'https://staging.binary.com/en/logged_inws.html', '{read,admin,trade,payments}','https://staging.binary.com/en/redirect.html');"
 
 openmutt() {
     mutt -f /tmp/default.mailbox
