@@ -38,8 +38,7 @@ call plug#begin(has('nvim') ? '~/.nvim/plugged' : '~/.vim/plugged')
    Plug 'tpope/vim-vinegar'
 
    Plug 'kassio/neoterm'
-   Plug 'cormacrelf/vim-colors-github'
-   " Plug 'Adryd/vim-adryd-monokai'
+   Plug 'Adryd/vim-adryd-monokai'
 call plug#end()
 
 filetype plugin on
@@ -155,7 +154,7 @@ let g:netrw_banner=0
 
 set background=light
 try
-    colorscheme github
+    colorscheme one
 catch
 endtry
 
@@ -205,7 +204,7 @@ let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 autocmd! FileType fzf tnoremap <buffer> <esc> <c-c>
 
 let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.9 } }
-let $FZF_DEFAULT_OPTS="--ansi --preview-window 'right:60%' --layout reverse --margin=0,0 --preview 'BAT_THEME=GitHub bat --color=always --style=header,grid --line-range :300 {}'"
+let $FZF_DEFAULT_OPTS="--ansi --preview-window 'right:60%' --layout reverse --margin=0,0 --preview 'bat --color=always --style=header,grid {}'"
 
 
 "  neat-fold --------------------------
