@@ -19,6 +19,9 @@ d() {
 export HISTFILESIZE=10000
 export HISTSIZE=500
 
+# BAT_THEME
+export BAT_THEME=GitHub
+
 # don't put duplicate lines in the history 
 # ignore lines that start with a space
 export HISTCONTROL=erasedups:ignoredups:ignorespace

@@ -2,11 +2,17 @@
 if !has('nvim') && empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  silent !TEMP_DEB="$(mktemp)"
+    \ && wget -O "$TEMP_DEB" 'https://github.com/sharkdp/bat/releases/download/v0.15.4/bat-musl_0.15.4_amd64.deb'
+    \ && sudo dpkg -i "$TEMP_DEB" && rm -f "$TEMP_DEB"
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 if has('nvim') && empty(glob('~/.nvim/autoload/plug.vim'))
   silent !curl -fLo ~/.nvim/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  silent !TEMP_DEB="$(mktemp)"
+    \ && wget -O "$TEMP_DEB" 'https://github.com/sharkdp/bat/releases/download/v0.15.4/bat-musl_0.15.4_amd64.deb'
+    \ && sudo dpkg -i "$TEMP_DEB" && rm -f "$TEMP_DEB"
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
@@ -32,7 +38,7 @@ call plug#begin(has('nvim') ? '~/.nvim/plugged' : '~/.vim/plugged')
    Plug 'tpope/vim-vinegar'
 
    Plug 'kassio/neoterm'
-   Plug 'NLKNguyen/papercolor-theme'
+   Plug 'cormacrelf/vim-colors-github'
 call plug#end()
 
 filetype plugin on
@@ -144,12 +150,11 @@ set t_Co=256
 
 let g:solarized_termcolors=256
 let g:netrw_banner=0
-runtime! ftplugin/man.vim
-call matchadd('ColorColumn', '\%81v', 100)
+" call matchadd('ColorColumn', '\%81v', 100)
 
 set background=light
 try
-    colorscheme PaperColor
+    colorscheme github
 catch
 endtry
 
@@ -175,6 +180,7 @@ let g:airline_detect_modified=1
 let g:airline_statusline_ontop=1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_theme='dark'
+" let g:airline_theme = "github"
 let g:airline_extensions = ['tabline']
 
 "  highight-word ----------------------
@@ -196,7 +202,11 @@ nnoremap <leader>e :NERDTreeFind<cr>
 nnoremap ? :Ag <c-r><c-w><cr>
 imap <C-_> <plug>(fzf-complete-line)
 let $FZF_DEFAULT_COMMAND = 'ag -g ""'
-let g:fzf_colors = { 'fg': ['fg', 'CocListFgWhite'], 'bg': ['bg', 'CocListBgBlack']}
+autocmd! FileType fzf tnoremap <buffer> <esc> <c-c>
+
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.9 } }
+let $FZF_DEFAULT_OPTS="--ansi --preview-window 'right:60%' --layout reverse --margin=1,4 --preview 'BAT_THEME=GitHub bat --color=always --style=header,grid --line-range :300 {}'"
+
 
 "  neat-fold --------------------------
 function! NeatFoldText()
