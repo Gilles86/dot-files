@@ -38,6 +38,8 @@ call plug#begin(has('nvim') ? '~/.nvim/plugged' : '~/.vim/plugged')
    Plug 'tpope/vim-vinegar'
 
    Plug 'kassio/neoterm'
+   Plug 'cormacrelf/vim-colors-github'
+   " Plug 'Adryd/vim-adryd-monokai'
 call plug#end()
 
 filetype plugin on
@@ -153,7 +155,7 @@ let g:netrw_banner=0
 
 set background=light
 try
-    colorscheme desert
+    colorscheme github
 catch
 endtry
 

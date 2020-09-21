@@ -20,7 +20,7 @@ export HISTFILESIZE=10000
 export HISTSIZE=500
 
 # BAT_THEME
-export BAT_THEME=ansi-light
+export BAT_THEME="Monokai Extended Light"
 
 # don't put duplicate lines in the history 
 # ignore lines that start with a space
