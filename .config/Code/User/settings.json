@@ -2,7 +2,7 @@
     "explorer.openEditors.visible": 0,
     "workbench.editor.enablePreview": false,
     "workbench.editor.tabSizing": "shrink",
-    "window.zoomLevel": -1,
+    "window.zoomLevel": 0,
     "editor.wordWrap": "on",
     "editor.fontSize": 15,
     "workbench.editor.showTabs": false,
@@ -70,5 +70,6 @@
     "explorer.confirmDragAndDrop": false,
     "explorer.confirmDelete": false,
     "workbench.startupEditor": "newUntitledFile",
-    "workbench.colorTheme": "Default Light+"
+    "workbench.colorTheme": "Default Light+",
+    "extensions.ignoreRecommendations": false
 }
