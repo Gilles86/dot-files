@@ -213,8 +213,8 @@ hi Search ctermbg=188
 hi BookmarkLine ctermbg=188
 command! Cnext try | cnext | catch | cfirst | catch | endtry
 command! Cprev try | cprev | catch | clast | catch | endtry
-nnoremap L :Cnext<cr>
-nnoremap H :Cprev<cr>
+nnoremap L :Cnext<cr>zt
+nnoremap H :Cprev<cr>zt
 
 "  neat-fold --------------------------
 function! NeatFoldText()
