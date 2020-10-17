@@ -36,6 +36,7 @@ call plug#begin(has('nvim') ? '~/.nvim/plugged' : '~/.vim/plugged')
    Plug 'tpope/vim-repeat'
    Plug 'tpope/vim-unimpaired'
    Plug 'tpope/vim-vinegar'
+   Plug 'MattesGroeger/vim-bookmarks'
 
    Plug 'kassio/neoterm'
    Plug 'Adryd/vim-adryd-monokai'
@@ -45,7 +46,6 @@ filetype plugin on
 
 let g:leetcode_browser = "firefox"
 let g:leetcode_solution_filetype = "rust"
-
 "  NERDTree ---------------------------
 let g:NERDTreeDirArrowExpandable = "\u00a0"
 let g:NERDTreeDirArrowCollapsible = "\u00a0"
@@ -129,8 +129,6 @@ map <space> <leader>
 nnoremap W :w<cr>
 nnoremap Q :bw<cr>
 nnoremap Z <c-z>
-nnoremap L :bnext<cr>
-nnoremap H :bprev<cr>
 " autocmd VimEnter *.* silent set laststatus=2
 autocmd FileType perl setlocal complete-=i
 
@@ -199,6 +197,7 @@ nnoremap T :Tags<cr>
 nnoremap B :Buffers<cr>
 nnoremap <leader>e :NERDTreeFind<cr>
 nnoremap ? :Ag <c-r><c-w><cr>
+nnoremap z? :echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')<cr>
 imap <C-_> <plug>(fzf-complete-line)
 let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 autocmd! FileType fzf tnoremap <buffer> <esc> <c-c>
@@ -206,6 +205,16 @@ autocmd! FileType fzf tnoremap <buffer> <esc> <c-c>
 let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.9 } }
 let $FZF_DEFAULT_OPTS="--ansi --preview-window 'right:60%' --layout reverse --margin=0,0 --preview 'bat --color=always --style=header,grid {}'"
 
+" vim-bookmarks -----------------------
+let g:bookmark_highlight_lines = 1
+let g:bookmark_auto_close = 1
+nnoremap M :BookmarkToggle<cr>:BookmarkShowAll<cr>:BookmarkShowAll<cr>
+hi Search ctermbg=188
+hi BookmarkLine ctermbg=188
+command! Cnext try | cnext | catch | cfirst | catch | endtry
+command! Cprev try | cprev | catch | clast | catch | endtry
+nnoremap L :Cnext<cr>zt
+nnoremap H :Cprev<cr>zt
 
 "  neat-fold --------------------------
 function! NeatFoldText()
