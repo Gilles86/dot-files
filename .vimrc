@@ -2,11 +2,17 @@
 if !has('nvim') && empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  silent !TEMP_DEB="$(mktemp)"
+    \ && wget -O "$TEMP_DEB" 'https://github.com/sharkdp/bat/releases/download/v0.15.4/bat-musl_0.15.4_amd64.deb'
+    \ && sudo dpkg -i "$TEMP_DEB" && rm -f "$TEMP_DEB"
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 if has('nvim') && empty(glob('~/.nvim/autoload/plug.vim'))
   silent !curl -fLo ~/.nvim/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  silent !TEMP_DEB="$(mktemp)"
+    \ && wget -O "$TEMP_DEB" 'https://github.com/sharkdp/bat/releases/download/v0.15.4/bat-musl_0.15.4_amd64.deb'
+    \ && sudo dpkg -i "$TEMP_DEB" && rm -f "$TEMP_DEB"
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
@@ -30,16 +36,16 @@ call plug#begin(has('nvim') ? '~/.nvim/plugged' : '~/.vim/plugged')
    Plug 'tpope/vim-repeat'
    Plug 'tpope/vim-unimpaired'
    Plug 'tpope/vim-vinegar'
+   Plug 'MattesGroeger/vim-bookmarks'
 
    Plug 'kassio/neoterm'
-   Plug 'NLKNguyen/papercolor-theme'
+   Plug 'Adryd/vim-adryd-monokai'
 call plug#end()
 
 filetype plugin on
 
 let g:leetcode_browser = "firefox"
 let g:leetcode_solution_filetype = "rust"
-
 "  NERDTree ---------------------------
 let g:NERDTreeDirArrowExpandable = "\u00a0"
 let g:NERDTreeDirArrowCollapsible = "\u00a0"
@@ -123,8 +129,6 @@ map <space> <leader>
 nnoremap W :w<cr>
 nnoremap Q :bw<cr>
 nnoremap Z <c-z>
-nnoremap L :bnext<cr>
-nnoremap H :bprev<cr>
 " autocmd VimEnter *.* silent set laststatus=2
 autocmd FileType perl setlocal complete-=i
 
@@ -144,12 +148,11 @@ set t_Co=256
 
 let g:solarized_termcolors=256
 let g:netrw_banner=0
-runtime! ftplugin/man.vim
-call matchadd('ColorColumn', '\%81v', 100)
+" call matchadd('ColorColumn', '\%81v', 100)
 
 set background=light
 try
-    colorscheme PaperColor
+    colorscheme one
 catch
 endtry
 
@@ -194,9 +197,24 @@ nnoremap T :Tags<cr>
 nnoremap B :Buffers<cr>
 nnoremap <leader>e :NERDTreeFind<cr>
 nnoremap ? :Ag <c-r><c-w><cr>
+nnoremap z? :echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')<cr>
 imap <C-_> <plug>(fzf-complete-line)
 let $FZF_DEFAULT_COMMAND = 'ag -g ""'
-let g:fzf_colors = { 'fg': ['fg', 'CocListFgWhite'], 'bg': ['bg', 'CocListBgBlack']}
+autocmd! FileType fzf tnoremap <buffer> <esc> <c-c>
+
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.9 } }
+let $FZF_DEFAULT_OPTS="--ansi --preview-window 'right:60%' --layout reverse --margin=0,0 --preview 'bat --color=always --style=header,grid {}'"
+
+" vim-bookmarks -----------------------
+let g:bookmark_highlight_lines = 1
+let g:bookmark_auto_close = 1
+nnoremap M :BookmarkToggle<cr>:BookmarkShowAll<cr>:BookmarkShowAll<cr>
+hi Search ctermbg=188
+hi BookmarkLine ctermbg=188
+command! Cnext try | cnext | catch | cfirst | catch | endtry
+command! Cprev try | cprev | catch | clast | catch | endtry
+nnoremap L :Cnext<cr>zt
+nnoremap H :Cprev<cr>zt
 
 "  neat-fold --------------------------
 function! NeatFoldText()

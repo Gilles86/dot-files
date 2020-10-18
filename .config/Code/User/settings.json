@@ -2,7 +2,7 @@
     "explorer.openEditors.visible": 0,
     "workbench.editor.enablePreview": false,
     "workbench.editor.tabSizing": "shrink",
-    "window.zoomLevel": 2,
+    "window.zoomLevel": 0,
     "editor.wordWrap": "on",
     "editor.fontSize": 16,
     "workbench.editor.showTabs": false,
