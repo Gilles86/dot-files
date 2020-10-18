@@ -85,4 +85,12 @@
         "command": "workbench.action.toggleSidebarVisibility",
         "when": "explorerViewletVisible && filesExplorerFocus"
     },
+    {
+        "key": "ctrl+/",
+        "command": "workbench.action.terminal.toggleTerminal"
+    },
+    {
+        "key": "ctrl+`",
+        "command": "-workbench.action.terminal.toggleTerminal"
+    },
 ]

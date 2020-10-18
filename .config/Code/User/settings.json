@@ -2,12 +2,20 @@
     "explorer.openEditors.visible": 0,
     "workbench.editor.enablePreview": false,
     "workbench.editor.tabSizing": "shrink",
-    "window.zoomLevel": -1,
+    "window.zoomLevel": 2,
     "editor.wordWrap": "on",
-    "editor.fontSize": 15,
+    "editor.fontSize": 16,
     "workbench.editor.showTabs": false,
     "editor.wordSeparators": "`~!@#$%^&*()-=+[{]}\\|;:'\",.<>/?",
     "editor.lineNumbers": "off",
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/*.swp": true
+    },
     "editor.renderLineHighlight": "none",
     "explorer.autoReveal": true,
     "editor.minimap.enabled": false,
@@ -70,5 +78,11 @@
     "explorer.confirmDragAndDrop": false,
     "explorer.confirmDelete": false,
     "workbench.startupEditor": "newUntitledFile",
-    "workbench.colorTheme": "Default Light+"
+    "workbench.colorTheme": "Default Light+",
+    "extensions.ignoreRecommendations": false,
+    "arduino.commandPath": "arduino",
+    "C_Cpp.updateChannel": "Insiders",
+    "arduino.path": "/home/amin/Documents/arduino-1.8.13",
+    "cmake.configureOnOpen": false,
+    "idf.showOnboardingOnInit": false
 }
