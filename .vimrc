@@ -39,7 +39,6 @@ call plug#begin(has('nvim') ? '~/.nvim/plugged' : '~/.vim/plugged')
    Plug 'MattesGroeger/vim-bookmarks'
 
    Plug 'kassio/neoterm'
-   Plug 'Adryd/vim-adryd-monokai'
 call plug#end()
 
 filetype plugin on
@@ -151,10 +150,6 @@ let g:netrw_banner=0
 " call matchadd('ColorColumn', '\%81v', 100)
 
 set background=light
-try
-    colorscheme one
-catch
-endtry
 
 "  incsearch --------------------------
 let g:incsearch#auto_nohlsearch = 1
@@ -169,8 +164,8 @@ map g* <Plug>(incsearch-nohl-g*)
 map g# <Plug>(incsearch-nohl-g#)
 
 "  vim-airline ------------------------
-let g:airline_left_sep = ''
-let g:airline_right_sep = ''
+let g:airline_left_sep = '|'
+let g:airline_right_sep = '|'
 let g:airline_left_alt_sep = ''
 let g:airline_right_alt_sep = ''
 let g:airline_powerline_fonts = 1
@@ -203,7 +198,8 @@ let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 autocmd! FileType fzf tnoremap <buffer> <esc> <c-c>
 
 let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.9 } }
-let $FZF_DEFAULT_OPTS="--ansi --preview-window 'right:60%' --layout reverse --margin=0,0 --preview 'bat --color=always --style=header,grid {}'"
+let $BAT_THEME="Monokai Extended Light"
+" let $FZF_DEFAULT_OPTS="--ansi --preview-window 'right:60%' --layout reverse --margin=0,0 --preview 'bat --color=always --style=header,grid {}'"
 
 " vim-bookmarks -----------------------
 let g:bookmark_highlight_lines = 1
