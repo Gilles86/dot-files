@@ -62,7 +62,7 @@
     "<S-Esc>": { "type": "addon.toggle.enabled" }
   },
   "search": {
-    "default": "google",
+    "default": "duckduckgo",
     "engines": {
       "google": "https://google.com/search?q={}",
       "yahoo": "https://search.yahoo.com/search?p={}",

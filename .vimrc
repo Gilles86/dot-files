@@ -51,6 +51,7 @@ let g:NERDTreeDirArrowCollapsible = "\u00a0"
 let g:nerdtree_sync_cursorline = 1
 
 "  Configurations ---------------------
+set noswapfile
 set scrolloff=7
 set foldlevel=99
 set foldmethod=syntax
