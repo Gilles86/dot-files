@@ -116,7 +116,7 @@ create_pr_file(branch)
       var environment = change_prs.length &&
           change_prs.map(pr => {
               var repo = pr.split('/')[4];
-              return `${repo}:\n  - ${my_remote}/${repo}\n  - ${branch}`;
+              return `${repo}:\n  - ${my_github}/${repo}\n  - ${branch}`;
           }).join('\n');
 
       change_prs.length && console.log(
