@@ -63,7 +63,7 @@ var diff_branch = (repo, branch) => (
 
 var add_branch = (repo, branch) => runAsync(
   `cd /home/git/regentmarkets/${repo} && \
-  git rev-parse --verify --quiet ${my_remote}/${branch} && \
+  git rev-parse --verify --quiet ${my_remote}/${branch} || \
   git rev-parse --verify --quiet ${branch} || \
   git checkout -b ${branch} origin/master`, {quiet: true}
 );
@@ -121,15 +121,12 @@ create_pr_file(branch)
 
       change_prs.length && console.log(
           '\x1b[32m---\n',
-          '\n# PRs to be merged:\n',
-          change_prs.join('\n')
+          '\n# PRs to be merged:\n' + change_prs.join('\n')
       );
       change_prs.length && console.log(
-          '\n# Dummy PRs:\n',
-          test_prs.join('\n'),
-          '\n'
+          '\n# Dummy PRs:\n' + test_prs.join('\n')
       );
-      environment && console.log( '# environment.yml\n```\n' + environment + '\n```\n');
+      environment && console.log( '\n# environment.yml\n```\n' + environment + '\n```\n');
 
   })['catch'](e => console.error(e));
 
