@@ -55,3 +55,5 @@ export NVM_DIR="$HOME/.nvm"
 export IDF_PATH=~/esp/ESP8266_RTOS_SDK
 export PATH="$PATH:$HOME/esp/xtensa-lx106-elf/bin"
 . ~/esp/ESP8266_RTOS_SDK/add_path.sh
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"

@@ -3,3 +3,4 @@ if [ -f ~/.bashrc ]; then
 fi
 
 export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="$HOME/.deno/bin:$PATH"

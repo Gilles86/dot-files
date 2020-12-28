@@ -19,8 +19,8 @@
     "editor.renderLineHighlight": "none",
     "explorer.autoReveal": true,
     "editor.minimap.enabled": false,
-    "editor.folding": false,
-    "editor.glyphMargin": false,
+    "editor.folding": true,
+    "editor.glyphMargin": true,
     "git.decorations.enabled": false,
     "[rust]": {
         "editor.formatOnSave": true,
@@ -84,5 +84,12 @@
     "C_Cpp.updateChannel": "Insiders",
     "arduino.path": "/home/amin/Documents/arduino-1.8.13",
     "cmake.configureOnOpen": false,
-    "idf.showOnboardingOnInit": false
+    "idf.showOnboardingOnInit": false,
+    "workbench.editorAssociations": [
+        {
+            "viewType": "jupyter.notebook.ipynb",
+            "filenamePattern": "*.ipynb"
+        }
+    ],
+    "jupyter.askForKernelRestart": false
 }

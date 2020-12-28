@@ -1,38 +1,103 @@
 #!/usr/bin/node
-const execSync = require('child_process').execSync;
+var my_github = 'aminroosta';
+var my_remote = 'amin';
 
-const run = (command) => {
-    console.log(command);
-    const res = execSync(command).toString();
-    console.log(res);
+const USAGE = `
+****************************************************
+** USAGE:
+*
+*         ~/dummy-pr.js repo-name your-branch-name
+** e.g:
+*         ~/dummy-pr.js bom-rpc amin/fix-poc-issue
+*
+** PREREQUISITE: 
+*         export GITHUB_TOKEN='<your-personal-token-from-github>'
+*
+****************************************************
+`
+var child_process = require('child_process');
+
+var repository   = process.argv[2];
+var branch = process.argv[3];
+if(!branch) { console.warn(USAGE); process.exit(1); }
+repository = repository && repository.replace('/', '');
+
+var run = (command, options) => {
+    var quiet = options && options.quiet;
+    quiet || console.log(command);
+    var res = child_process.execSync(command).toString();
+    quiet || console.log(res);
     return res;
 }
 
-const github_name = 'aminroosta';
+var runAsync = (command, options) => new Promise((resolve, reject) => {
+  var quiet = options && options.quiet;
+  console.log(command);
+  child_process.exec(command, (error, stdout, stderr) => {
+    if (error) {
+        console.error(error.message);
+        process.exit(0)
+        // return reject(error);
+    }
+    var res = stdout;
+    quiet || console.log(res);
+    resolve(res);
+  });
+});
 
-const branch = process.argv[2];
-const message  = process.argv[3] || process.argv[2];
-if(!branch) { console.warn('USAGE dummy-pr prefix/branch-name'); process.exit(1); }
-const prefix = branch.split('/')[0];
-if(!prefix) { console.warn('USAGE dummy-pr prefix/branch-name'); process.exit(1); }
+var repositories = run('cd /home/git/regentmarkets && ls -d */', {quiet: true})
+    .split(/\s+/)
+    .map(d => d.replace('/', ''))
+    .filter(d => d);
 
-const remotes = run('git remote -v | grep -v ^backup');
-const upstream = remotes.split(/\s/)[1].replace(/(git@github.com:)(.*)(\/.*.git)/, `$1${github_name}$3`);
+// git config sets a return code when you ask for a nonexistent config.
+var add_remote = (repo) => (
+  runAsync(`cd /home/git/regentmarkets/${repo} && \
+    git config remote.${my_remote}.url >&- || git remote add ${my_remote} git@github.com:${my_github}/${repo}.git && \
+    git fetch ${my_remote} && git fetch origin
+  `, {quiet: true})
+);
 
-(remotes.indexOf(upstream) == -1) && run(`git remote add ${prefix} ${upstream}`);
-run(`git fetch ${prefix} && git fetch origin`);
+var diff_branch = (repo, branch) => (
+  runAsync(`cd /home/git/regentmarkets/${repo} && \
+    git diff ${my_remote}/${branch} origin/master --stat
+  `, {quiet: true})
+);
 
-const branches = run('git branch') + '\n' + run ('git branch -r');
-if(branches.indexOf(branch) == -1) run(`git checkout -b ${branch} origin/master`);
-else run(`git checkout ${branch}`);
+var add_branch = (repo, branch) => (
+  runAsync(`cd /home/git/regentmarkets/${repo} && \
+    git rev-parse --verify --quiet ${my_remote}/${branch} || git checkout -b ${branch} origin/master
+  `, {quiet: true})
+);
 
-run('git config --global push.default simple');
-run(`git commit --allow-empty -m '${message}'`);
-run(`git push -u ${prefix} ${branch}`);
+var find_pr_async = (repo, branch) => (
+  runAsync(`cd /home/git/regentmarkets/${repo} && hub pr list -h ${my_github}:${branch}`, {quiet: true})
+    .then(res => res.split(/\s+|#/)[2])
+    .then(pr => pr && `https://github.com/regentmarkets/${repo}/pull/${pr}`)
+    .then(pr => pr && add_remote(repo).then(() => pr))
+    .then(pr => pr && diff_branch(repo, branch).then(diff => `${pr} ${diff ? 'change' : 'test'}`))
+);
 
-// https://github.com/regentmarkets/bom-pricing/compare/master...aminroosta:amin/inconsistent-error-for-tick-expiry-contracts
 
-const origin = run('git remote -v | grep ^origin').split(/\s/)[1].replace(/(git@github.com:)(.*)(.git)/, "$2");
-const url = `https://github.com/${origin}/compare/master...${github_name}:${branch}?title=${branch}`
+Promise.all(
+    repositories.map(
+        repo => find_pr_async(repo, branch)
+    )
+).then(prs => prs.filter(pr => pr))
+.then(prs => runAsync(`echo '#BEGIN\n${prs.join('\n')}\n#END' > /tmp/prs.txt`))
+.then(() => add_remote(repository))
+.then(() => add_branch(repository, branch))
+.then(() => runAsync(
+    `cd /home/git/regentmarkets/${repository} && \
+    git checkout ${branch} && git pull && \
+    git commit --allow-empty -m '${branch}' && \
+    git fetch -f ${my_remote} "refs/notes/pr:refs/notes/pr" && \
+    git notes --ref=pr add -f -F /tmp/prs.txt HEAD && \
+    git push -f ${my_remote} refs/notes/pr && \
+    git push -u ${my_remote} ${branch}
+    `
+))
+.then(() => find_pr_async(repository, branch))
+.then(pr => console.log("\x1b[32m===================>\n", pr, "\n\n"));
 
-console.warn("\x1b[32m===================>\n", url, "\n\n");
+
