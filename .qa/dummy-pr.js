@@ -106,8 +106,8 @@ create_pr_file(branch)
   .then(() => Promise.all(
      target_repos.map(repo => add_remote(repo)
          .then(() => add_branch(repo, branch))
-         // .then(() => create_pr(repo, branch))
-         // .then(() => find_pr(repo, branch))
+         .then(() => create_pr(repo, branch))
+         .then(() => find_pr(repo, branch))
      )
   ))
   .then(() => {
