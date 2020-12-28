@@ -2,23 +2,29 @@
 if !has('nvim') && empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  silent !curl https://raw.githubusercontent.com/aminroosta/dot-files/master/.scripts/install-debian-ag.sh | bash
-  silent !curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.1/install.sh | bash
-  silent !source ~/.nvm/nvm.sh && nvm install stable && mkdir -p ~/.config/coc 
-  silent !TEMP_DEB="$(mktemp)"
-    \ && wget -O "$TEMP_DEB" 'https://github.com/sharkdp/bat/releases/download/v0.15.4/bat-musl_0.15.4_amd64.deb'
-    \ && sudo dpkg -i "$TEMP_DEB" && rm -f "$TEMP_DEB"
+
+  if has('unix') && !has('mac')
+    silent !curl https://raw.githubusercontent.com/aminroosta/dot-files/master/.scripts/install-debian-ag.sh | bash
+    silent !curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.1/install.sh | bash
+    silent !source ~/.nvm/nvm.sh && nvm install stable && mkdir -p ~/.config/coc 
+    silent !TEMP_DEB="$(mktemp)"
+        \ && wget -O "$TEMP_DEB" 'https://github.com/sharkdp/bat/releases/download/v0.15.4/bat-musl_0.15.4_amd64.deb'
+        \ && sudo dpkg -i "$TEMP_DEB" && rm -f "$TEMP_DEB"
+  endif
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 if has('nvim') && empty(glob('~/.nvim/autoload/plug.vim'))
   silent !curl -fLo ~/.nvim/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  silent !curl https://raw.githubusercontent.com/aminroosta/dot-files/master/.scripts/install-debian-ag.sh | bash
-  silent !curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.1/install.sh | bash
-  silent !source ~/.bashrc && nvm install stable
-  silent !TEMP_DEB="$(mktemp)"
-    \ && wget -O "$TEMP_DEB" 'https://github.com/sharkdp/bat/releases/download/v0.15.4/bat-musl_0.15.4_amd64.deb'
-    \ && sudo dpkg -i "$TEMP_DEB" && rm -f "$TEMP_DEB"
+
+  if has('unix') && !has('mac')
+    silent !curl https://raw.githubusercontent.com/aminroosta/dot-files/master/.scripts/install-debian-ag.sh | bash
+    silent !curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.1/install.sh | bash
+    silent !source ~/.bashrc && nvm install stable
+    silent !TEMP_DEB="$(mktemp)"
+        \ && wget -O "$TEMP_DEB" 'https://github.com/sharkdp/bat/releases/download/v0.15.4/bat-musl_0.15.4_amd64.deb'
+        \ && sudo dpkg -i "$TEMP_DEB" && rm -f "$TEMP_DEB"
+   endif
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 

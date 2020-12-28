@@ -39,3 +39,4 @@ alias gs='git status'
 alias svg='svgo --pretty --disable=cleanupIDs '
 alias gg='git -c color.grep.linenumber="bold yellow" -c color.grep.filename="bold green" grep --break --heading --line-number'
 alias ydl='youtube-dl -f "bestvideo[ext=mp4]+bestaudio[ext=m4a]/mp4"'
+source "$HOME/.cargo/env"
