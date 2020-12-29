@@ -92,44 +92,60 @@ var create_pr_file = (branch) => (
     .then(prs => runAsync(`echo '#BEGIN\n${prs.join('\n')}\n#END' > /tmp/prs.txt`))
 );
 
-var create_pr = (repo, branch) => runAsync(
+var commit_changes = (repo, branch) => runAsync(
   `cd /home/git/regentmarkets/${repo} && \
   git checkout ${branch} && git pull && \
   git commit --allow-empty -m '${branch}' && \
+  git push -u ${my_remote} ${branch}`
+);
+
+var create_pr = (repo, branch) => runAsync(
+  `cd /home/git/regentmarkets/${repo} && \
   git fetch -f ${my_remote} "refs/notes/pr:refs/notes/pr" && \
   git notes --ref=pr add -f -F /tmp/prs.txt HEAD && \
   git push -f ${my_remote} refs/notes/pr && \
-  git push -u ${my_remote} ${branch} &&\
   hub pull-request -m '${branch}' >& /dev/null || echo "Updated PR on ${repo}:${branch}"`
 );
 
-create_pr_file(branch)
-  .then(() => Promise.all(
-     target_repos.map(repo => add_remote(repo)
-         .then(() => add_branch(repo, branch))
-         .then(() => create_pr(repo, branch))
-         .then(() => find_pr(repo, branch))
-     )
-  ))
-  .then(() => {
-      var change_prs = prs_found.filter(pr => pr.endsWith('change')).map(pr => '- ' + pr.split(' ')[0]);
-      var test_prs = prs_found.filter(pr => pr.endsWith('test')).map(pr => '- ' + pr.split(' ')[0]);
+var promise = Promise.all(
+    target_repos.map(repo => add_remote(repo)
+        .then(() => add_branch(repo, branch))
+        .then(() => commit_changes(repo, branch))
+    )
+).then(() => Promise.all(
+    repositories.map(
+        repo => find_pr(repo, branch)
+    ))
+).then(prs => prs.filter(pr => pr));
 
-      var environment = change_prs.length &&
-          change_prs.map(pr => {
-              var repo = pr.split('/')[4];
-              return `${repo}:\n  - ${my_github}/${repo}\n  - ${branch}`;
-          }).join('\n');
+target_repos.forEach(repo => {
+    promise = promise.then(prs => 
+        runAsync(`echo '#BEGIN\n${prs.join('\n')}\n#END' > /tmp/prs.txt`)
+        .then(() => create_pr(repo, branch))
+        .then(() => find_pr(repo, branch))
+        .then(pr => { prs.push(pr); return prs; })
+    );
+})
 
-      console.log('\x1b[32m---\n');
-      change_prs.length && console.log(
-          '\n# PRs to be merged:\n' + change_prs.join('\n')
-      );
-      test_prs.length && console.log(
-          '\n# Dummy PRs:\n' + test_prs.join('\n')
-      );
-      environment && console.log( '\n# environment.yml\n```\n' + environment + '\n```\n');
+promise.then(() => {
+    var change_prs = prs_found.filter(pr => pr.endsWith('change')).map(pr => '- ' + pr.split(' ')[0]);
+    var test_prs = prs_found.filter(pr => pr.endsWith('test')).map(pr => '- ' + pr.split(' ')[0]);
 
-  })['catch'](e => console.error(e));
+    var environment = change_prs.length &&
+        change_prs.map(pr => {
+            var repo = pr.split('/')[4];
+            return `${repo}:\n  - ${my_github}/${repo}\n  - ${branch}`;
+        }).join('\n');
+
+    console.log('\x1b[32m---\n');
+    change_prs.length && console.log(
+        '\n# PRs to be merged:\n' + change_prs.join('\n')
+    );
+    test_prs.length && console.log(
+        '\n# Dummy PRs:\n' + test_prs.join('\n')
+    );
+    environment && console.log( '\n# environment.yml\n```\n' + environment + '\n```\n');
+
+})['catch'](e => console.error(e));
 
 
