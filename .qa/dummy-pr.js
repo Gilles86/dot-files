@@ -19,14 +19,15 @@ var child_process = require('child_process');
 
 var branch = process.argv[2];
 var target_repos   = process.argv.slice(3);
-if(!branch || !target_repos.length) { console.warn(USAGE); process.exit(1); }
+if(!branch || !target_repos.length) { console.warn("\x1b[31m" + USAGE); process.exit(1); }
+if(!process.env.GITHUB_TOKEN) { console.warn("\x1b[31m" + USAGE, "\n GITHUB TOKEN IS MIISING.\n"); process.exit(2); }
 
 var run = (command, options) => {
     var quiet = options && options.quiet;
     quiet || console.log(command);
     var res = child_process.execSync(command).toString();
     quiet || console.log(res);
-    return res;
+    return res; 
 }
 
 var runAsync = (command, options) => new Promise((resolve, reject) => {
@@ -113,17 +114,18 @@ create_pr_file(branch)
   .then(() => {
       var change_prs = prs_found.filter(pr => pr.endsWith('change')).map(pr => '- ' + pr.split(' ')[0]);
       var test_prs = prs_found.filter(pr => pr.endsWith('test')).map(pr => '- ' + pr.split(' ')[0]);
+
       var environment = change_prs.length &&
           change_prs.map(pr => {
               var repo = pr.split('/')[4];
               return `${repo}:\n  - ${my_github}/${repo}\n  - ${branch}`;
           }).join('\n');
 
+      console.log('\x1b[32m---\n');
       change_prs.length && console.log(
-          '\x1b[32m---\n',
           '\n# PRs to be merged:\n' + change_prs.join('\n')
       );
-      change_prs.length && console.log(
+      test_prs.length && console.log(
           '\n# Dummy PRs:\n' + test_prs.join('\n')
       );
       environment && console.log( '\n# environment.yml\n```\n' + environment + '\n```\n');
