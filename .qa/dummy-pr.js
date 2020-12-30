@@ -93,7 +93,7 @@ var create_pr_file = (branch) => (
 
 var create_pr = (repo, branch) => runAsync(
   `cd /home/git/regentmarkets/${repo} && \
-  git checkout ${branch} && git pull && \
+  git checkout ${branch} && git pull ${my_remote} ${branch} && \
   git commit --allow-empty -m '${branch}' && \
   git fetch -f ${my_remote} "refs/notes/pr:refs/notes/pr" && \
   git notes --ref=pr add -f -F /tmp/prs.txt HEAD && \
