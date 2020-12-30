@@ -95,7 +95,7 @@ var find_pr = (repo, branch) => (
 // ==> if there is no change (dummy pr), it creates an empty commit.
 var commit_changes = (repo, branch) => runAsync(
   `cd /home/git/regentmarkets/${repo} && \
-  git checkout ${branch} && git pull ${my_remote} ${branch} && \
+  git checkout ${branch} && git pull ${my_remote} ${branch} || echo "SKIPPED" && \
   git commit --allow-empty -m '${branch}' && \
   git push -u ${my_remote} ${branch}`
 );
