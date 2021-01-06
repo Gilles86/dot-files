@@ -149,7 +149,7 @@ var promise = Promise.all(
 
     var environment = to_merge_prs.length &&
         to_merge_prs.map(pr => {
-            var repo = pr.split('/')[4];
+            var repo = pr.split(' ')[2].split('/')[4];
             return `${repo}:\n  - ${my_github}/${repo}\n  - ${branch}`;
         }).join('\n');
 
