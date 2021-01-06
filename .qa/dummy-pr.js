@@ -61,7 +61,7 @@ var add_remote = (repo) => runAsync(
   git fetch ${my_remote} && git fetch origin`, {quiet: true}
 );
 
-// ==> returns the "git diff", if the diff is empty it will be marked as a test pr
+// ==> returns the "git diff", if the diff is empty it will be marked as a dummy pr
 var diff_branch = (repo, branch) => (
   runAsync(`cd /home/git/regentmarkets/${repo} && \
     git diff ${my_remote}/${branch} origin/master --stat`, {quiet: true})
@@ -84,7 +84,7 @@ var find_pr = (repo, branch) => (
     .then(res => res.split(/\s+|#/)[2])
     .then(pr => pr && `https://github.com/regentmarkets/${repo}/pull/${pr}`)
     .then(pr => pr && add_remote(repo).then(() => pr))
-    .then(pr => pr && diff_branch(repo, branch).then(diff => `${pr} ${diff ? 'change' : 'test'}`))
+    .then(pr => pr && diff_branch(repo, branch).then(diff => `${pr} ${diff ? 'to_merge' : 'dummy'}`))
     .then(pr => {
         pr && prs_found.indexOf(pr) == -1 && prs_found.push(pr);
         return pr;
@@ -92,7 +92,7 @@ var find_pr = (repo, branch) => (
 );
 
 // ==> commits your local changes, anything already in the "git stash".
-// ==> if there is no change (dummy pr), it creates an empty commit.
+// ==> if there is no to_merge (dummy pr), it creates an empty commit.
 var commit_changes = (repo, branch) => runAsync(
   `cd /home/git/regentmarkets/${repo} && \
   git checkout ${branch} && git pull ${my_remote} ${branch} || echo "SKIPPED" && \
@@ -144,21 +144,21 @@ var promise = Promise.all(
         var parts = pr.split('/');
         return ['-', `![circle-ci](https://circleci.com/gh/${parts[3]}/${parts[4]}/tree/pull%2F${parts[6]}.svg)`, pr].join(' ');
     }
-    var change_prs = prs_found.filter(pr => pr.endsWith('change')).map(format_pr);
-    var test_prs = prs_found.filter(pr => pr.endsWith('test')).map(format_pr);
+    var to_merge_prs = prs_found.filter(pr => pr.endsWith('to_merge')).map(format_pr);
+    var dummy_prs = prs_found.filter(pr => pr.endsWith('dummy')).map(format_pr);
 
-    var environment = change_prs.length &&
-        change_prs.map(pr => {
+    var environment = to_merge_prs.length &&
+        to_merge_prs.map(pr => {
             var repo = pr.split('/')[4];
             return `${repo}:\n  - ${my_github}/${repo}\n  - ${branch}`;
         }).join('\n');
 
     console.log('\x1b[32m---\n');
-    change_prs.length && console.log(
-        '\n# PRs to be merged:\n' + change_prs.join('\n')
+    to_merge_prs.length && console.log(
+        '\n# PRs to be merged\n' + to_merge_prs.join('\n')
     );
-    test_prs.length && console.log(
-        '\n# Dummy PRs:\n' + test_prs.join('\n')
+    dummy_prs.length && console.log(
+        '\n# Dummy PRs:\n' + dummy_prs.join('\n')
     );
     environment && console.log( '\n# environment.yml\n```\n' + environment + '\n```\n');
 })['catch'](e => console.error(e));
