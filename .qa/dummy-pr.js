@@ -137,8 +137,15 @@ var promise = Promise.all(
   ))
 // ==> pretty print the result, in a format we can copy to redmine tasks.
  .then(() => {
-    var change_prs = prs_found.filter(pr => pr.endsWith('change')).map(pr => '- ' + pr.split(' ')[0]);
-    var test_prs = prs_found.filter(pr => pr.endsWith('test')).map(pr => '- ' + pr.split(' ')[0]);
+    function format_pr(pr) {
+        // example output:
+        // - ![circle-ci](https://circleci.com/gh/regentmarkets/binary-websocket-api/tree/pull%2F4031.svg) https://github.com/regentmarkets/bom/pull/1878 
+        pr = pr.split(' ')[0];
+        var parts = pr.split('/');
+        return ['-', `![circle-ci](https://circleci.com/gh/${parts[3]}/${parts[4]}/tree/pull%2F${parts[6]}.svg)`, pr].join(' ');
+    }
+    var change_prs = prs_found.filter(pr => pr.endsWith('change')).map(format_pr);
+    var test_prs = prs_found.filter(pr => pr.endsWith('test')).map(format_pr);
 
     var environment = change_prs.length &&
         change_prs.map(pr => {
