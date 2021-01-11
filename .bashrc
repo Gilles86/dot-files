@@ -52,3 +52,11 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 source "$HOME/.cargo/env"
+
+path_to_kubectl=$(which kubectl)
+if [ -x "$path_to_kubectl" ] ; then
+    alias k=kubectl
+    source <(kubectl completion bash)
+    source <(kubectl completion bash | sed s/kubectl/k/g)
+    # echo "kubectl completion done."
+fi
