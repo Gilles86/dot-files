@@ -58,5 +58,12 @@ if [ -x "$path_to_kubectl" ] ; then
     alias k=kubectl
     source <(kubectl completion bash)
     source <(kubectl completion bash | sed s/kubectl/k/g)
-    # echo "kubectl completion done."
 fi
+
+path_to_helm=$(which helm)
+if [ -x "$path_to_helm" ] ; then
+    alias h=helm
+    source <(helm completion bash)
+    source <(helm completion bash | sed s/helm/h/g)
+fi
+
