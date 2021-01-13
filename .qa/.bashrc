@@ -61,6 +61,21 @@ install_k8s() {
     ./get_helm.sh && rm ./get_helm.sh
 }
 
+
+path_to_kubectl=$(which kubectl)
+if [ -x "$path_to_kubectl" ] ; then
+    alias k=kubectl
+    source <(kubectl completion bash)
+    source <(kubectl completion bash | sed s/kubectl/k/g)
+fi
+
+path_to_helm=$(which helm)
+if [ -x "$path_to_helm" ] ; then
+    alias h=helm
+    source <(helm completion bash)
+    source <(helm completion bash | sed s/helm/h/g)
+fi
+
 export GIT_PROMPT_ONLY_IN_REPO=1
 [[ -s ~/.bash-git-prompt/gitprompt.sh ]] && source ~/.bash-git-prompt/gitprompt.sh
 
