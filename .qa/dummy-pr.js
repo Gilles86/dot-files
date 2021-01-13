@@ -107,9 +107,9 @@ var create_pr_without_notes = (repo, branch) => runAsync(
 );
 
 // ==> on the second pass, we update the notes for the pr.
-var create_pr = (repo, branch) => runAsync(
+var update_pr_notes = (repo, branch) => runAsync(
   `cd /home/git/regentmarkets/${repo} && \
-  git fetch -f ${my_remote} "refs/notes/pr:refs/notes/pr" && \
+  git fetch -f ${my_remote} "refs/notes/pr:refs/notes/pr" || echo "IGNORE" && \
   git notes --ref=pr add -f -F /tmp/prs.txt HEAD && \
   git push -f ${my_remote} refs/notes/pr && \
   hub pull-request -m '${branch}' >& /dev/null || echo "Updated PR on ${repo}:${branch}"`
@@ -133,7 +133,7 @@ var promise = Promise.all(
  .then(prs => runAsync(`echo '#BEGIN\n${prs.join('\n')}\n#END' > /tmp/prs.txt`))
 // ==> now update the prs, this time with the notes.
  .then(() => Promise.all(
-     target_repos.map(repo => create_pr(repo, branch))
+     target_repos.map(repo => update_pr_notes(repo, branch))
   ))
 // ==> pretty print the result, in a format we can copy to redmine tasks.
  .then(() => {
