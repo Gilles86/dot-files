@@ -143,6 +143,7 @@ nnoremap Q :bw<cr>
 nnoremap Z <c-z>
 " autocmd VimEnter *.* silent set laststatus=2
 autocmd FileType perl setlocal complete-=i
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 
 nnoremap [* :Ggrep <cword> --<CR><CR>:copen<CR>
 nnoremap ]* *``:Ggrep <cword> --<CR><CR>
