@@ -1,0 +1,190 @@
+\documentclass{article}
+\linespread{1}
+%for page margins
+\usepackage[margin=0.5in]{geometry}
+%for page numbers
+% \usepackage{fancyhdr}
+% \pagestyle{fancy}
+% \fancyhf{}
+% \fancyhead[R]{\thepage}
+%for moving text left and right
+\usepackage{stackengine}
+\parskip 1em\parindent 0ex
+%font
+\usepackage{times}
+%links
+\usepackage{hyperref,xcolor}
+\hypersetup{
+    colorlinks,
+    linkcolor={red!50!black},
+    citecolor={blue!50!black},
+    urlcolor={blue!80!black}
+}
+
+\newcommand{\p}[2]{\stackinset{c}{#1}{c}{}{#2}{}}
+\newcommand{\pp}[5]{\stackinset{#1}{#2}{#3}{#4}{#5}{}}
+\newcommand{\hh}[1]{\large{\textit{\textbf{#1}}}}
+\newcommand{\hhh}[1]{\Large{\textit{\textbf{#1}}}}
+\newcommand{\hhhh}[1]{\LARGE{\textit{\textbf{#1}}}}
+\newcommand{\hhhhh}[1]{\huge{\textit{\textbf{#1}}}}
+\newcommand{\h}[1]{\normalsize{\textit{\textbf{#1}}}}
+\newcommand{\hr}{\par\vspace{-.5\ht\strutbox}\noindent\hrulefill\par}
+\renewcommand{\i}[1]{\normalsize{\textit{#1}}}
+
+% muti column itemize from: https://tex.stackexchange.com/questions/194426
+\usepackage{etoolbox,refcount}
+\usepackage{multicol}
+
+\newcounter{countitems}
+\newcounter{nextitemizecount}
+\newcommand{\setupcountitems}{%
+  \stepcounter{nextitemizecount}%
+  \setcounter{countitems}{0}%
+  \preto\item{\stepcounter{countitems}}%
+}
+\makeatletter
+\newcommand{\computecountitems}{%
+  \edef\@currentlabel{\number\c@countitems}%
+  \label{countitems@\number\numexpr\value{nextitemizecount}-1\relax}%
+}
+\newcommand{\nextitemizecount}{%
+  \getrefnumber{countitems@\number\c@nextitemizecount}%
+}
+\newcommand{\previtemizecount}{%
+  \getrefnumber{countitems@\number\numexpr\value{nextitemizecount}-1\relax}%
+}
+\makeatother    
+\newenvironment{AutoMultiColItemize}{%
+\ifnumcomp{\nextitemizecount}{>}{3}{\begin{multicols}{2}}{}%
+\setupcountitems\begin{itemize}}%
+{\end{itemize}%
+\unskip\computecountitems\ifnumcomp{\previtemizecount}{>}{3}{\end{multicols}}{}}
+% muti column itemize end
+
+
+\begin{document}
+
+ \centerline{\hhhhh{Amin Roosta}}
+
+\h{Address:} Cyberjaya, Malaysia \hfill \p{-1.55in}{\h{Github:} \href{https://github.com/aminroosta}{github.com/aminroosta}} \\
+\h{Email:} amin.roosta89@gmail.com \hfill \p{-1.82in}{\h{Tel:} +60 17 300 9173} \\
+
+\vspace{-.3cm}
+\hh{Summary:} \vspace{.1cm} \\
+I'm a software developer who dabbles in open-source contributions.
+I have a passion for system architecture, performant code, and creating reusable libraries.
+
+\hr
+\hh{Projects:}
+
+\h{scroll-snap-react} \hfill \i{2020} \\ \vspace {-.3cm} \\
+Created a React libary to animate pages snapping into postion on scroll using:\\ \vspace{-.85cm}
+\begin{itemize}
+ \setlength{\itemsep}{1pt} \setlength{\parskip}{0pt} \setlength{\parsep}{0pt}
+    \item React, TypeScript,  Web Animation API, CSS Snap Module, Jest
+\end{itemize}  \vspace{-.4cm}
+Npm: \href{https://github.com/aminroosta/scroll-snap-react}{scroll-snap-react} \\
+Github: \href{https://github.com/aminroosta/scroll-snap-react}{aminroosta/scroll-snap-react} \\
+
+\h{SmartCharts} \hfill \i{(2017 - 2019)} \\ \vspace {-.3cm} \\
+Developed a charting libary at binary.com using: \\ \vspace{-.85cm}
+\begin{itemize}
+ \setlength{\itemsep}{1pt} \setlength{\parskip}{0pt} \setlength{\parsep}{0pt}
+    \item React, MobxJs, Sass, Jest, Webpack, Babel
+\end{itemize}  \vspace{-.4cm}
+Demo: \href{https://charts.binary.com}{charts.binary.com} \\
+Npm: \href{https://www.npmjs.com/package/smartcharts}{smartcharts} \\
+Github: \href{https://github.com/binary-com/SmartCharts}{binary-com/smartcharts} \\
+
+\h{WebTrader} \hfill \i{(2015 - 2017)} \\ \vspace {-.3cm} \\
+Developed a single-page trading platform at binary.com using:\\ \vspace{-.85cm}
+\begin{itemize}
+ \setlength{\itemsep}{1pt} \setlength{\parskip}{0pt} \setlength{\parsep}{0pt}
+    \item jQuery, HighCharts, GruntJs, RequireJs, Websocket API, Indicators
+\end{itemize}  \vspace{-.4cm}
+Demo: \href{https://webtrader.binary.com/}{webtrader.binary.com} \\
+Npm: \href{https://www.npmjs.com/package/webtrader-charts}{webtrader-charts} \\
+Github: \href{https://github.com/binary-com/webtrader}{binary-com/webtrader} \\
+
+\vspace {-.5cm} 
+\hr
+ {\hh{Open Source Contributions:}}
+
+ evcxr: \href{https://github.com/google/evcxr/pulls?q=is%3Apr+author%3Aaminroosta+is%3Aclosed}{google/evcxr} \hfill \i{(2020)} \\
+ rust sqlite wrapper: \href{https://crates.io/crates/rsqlite}{crates/rsqlite} \hfill \i{(2020)} \\ 
+ vscode vim extension: \href{https://github.com/VSCodeVim/Vim/pulls?q=is%3Apr+author%3Aaminroosta+is%3Aclosed}{VSCodeVim/Vim} \hfill \i{(2016 - 2019)} \\
+ cpp sqlite wrapper: \href{https://github.com/aminroosta/sqlite_modern_cpp}{modern\_sqlite\_cpp} \hfill \i{(2014)} \\
+ 
+\vspace {-.5cm} 
+\hr
+\h{\hh{Skills:}} \hfill \\ \vspace {-1.0cm} \\
+\begin{AutoMultiColItemize}
+ \setlength{\itemsep}{1pt} \setlength{\parskip}{0pt} \setlength{\parsep}{0pt}
+    \item React, Redux, MobX
+    \item JavaScript, TypeScript
+    \item NodeJs, DenoJs
+    \item WebGL, D3, Canvas
+    \item CSS, SASS, Stylus
+    \item Jest, tape, mocha
+    \item C, Cpp, Rust, Python
+    \item PostgreSql, Sqlite
+\end{AutoMultiColItemize} \vspace {-.3cm} 
+
+\hr
+\hh{Education:}
+
+\h{B.Sc.} Computer Science and Engineering, Shiraz University\hfill \i{2010 -- 2015} \\
+
+\end{document}
+
+%  \hh{.NET Installer} \hfill \i{2015} \\ \vspace {-.35cm} \\
+%  $C\#$ developer ad DominateRFID \\ \vspace{-.9cm}
+%  \begin{itemize}
+%   \setlength{\itemsep}{1pt} \setlength{\parskip}{0pt} \setlength{\parsep}{0pt}
+%      \item Windows Services, Ms SqlServer, Windows Task Scheduler, IIS \dots
+%  \end{itemize}
+
+% \hh{Zigbee Pro Stack network on $nxp$ $jn516x$ chips} \hfill \i{Embeded Programmer (2014 -- 2015)} \\ \vspace{-.35cm} \\
+% $C$ programmer at \href{http://www.dominaterfid.com/}{DominateRFID} \\ \vspace{-.9cm}
+% \begin{itemize}
+%  \setlength{\itemsep}{1pt} \setlength{\parskip}{0pt} \setlength{\parsep}{0pt}
+%     \item 802.15.4 Protocol, Zigbee Pro Stack API(physics, mac \& application)
+%     \item Chip Peripherals of $jn516x$ (USART, I2C, WAKE TIMER \dots)
+%     \item Humidity-Temperature \& Accelerometer Sensors
+% \end{itemize}
+
+% \hh{Computer Vision (Intersection Monitoring System)} \hfill \i{Backend Developer (2013 -- 2014)} \\ \vspace{-.35cm} \\
+% C\# Developer at \href{https://portal.shiraz.ir/}{Shiraz Municipality} \\ \vspace {-.90cm}
+% \begin{itemize}
+%  \setlength{\itemsep}{1pt} \setlength{\parskip}{0pt} \setlength{\parsep}{0pt}
+%  \item LPR \& OCR, Camera APIs, MS SqlServer
+% \end{itemize}
+
+% \hh{Computer Vision (Vehicle Model Recognition)} \hfill \i{Python \& C++ Developer (2012 -- 2014)} \\ \vspace{-.35cm} \\
+% Developer at Shiraz University CVPR Lab \\ \vspace{-.9cm}
+% \begin{itemize}
+%  \setlength{\itemsep}{1pt} \setlength{\parskip}{0pt} \setlength{\parsep}{0pt}
+%  \item OpenCV, SVM \& Neural Networks
+%  \item C++11 multithreading, Windows Async IO, C++\/CLI
+%  \item Python Interface via Boost.Python
+% \end{itemize}
+
+
+% \hh{C++ Pricing Engine} \hfill \i{C++ Developer (2018 - present)} \\ \vspace {-.35cm} \\
+% C++ Developer at binary.com \\ \vspace{-.9cm}
+% \begin{itemize}
+%  \setlength{\itemsep}{1pt} \setlength{\parskip}{0pt} \setlength{\parsep}{0pt}
+%     \item C++17, CMake, conan, boost, Catch2, FakeIt, nlohmann, docker, redis, asio, beast ...
+% \end{itemize}  \vspace{-.1cm}
+
+% \hh{C++ MT5 Expert Adviser} \hfill \i{Quantitative Analyst (2017 - 2018 )} \\ \vspace {-.35cm} \\
+% C++ programmer at \href{http://www.binary.com/}{binary.com} \\ \vspace{-.9cm}
+% \begin{itemize}
+%  \setlength{\itemsep}{1pt} \setlength{\parskip}{0pt} \setlength{\parsep}{0pt}
+%     \item Expert Adviser in Mql5 Lanuguage
+%     \item Chromium Embeded Framework (CEF)
+% \end{itemize}  \vspace{-.1cm}
+
+% \hh{\href{https://github.com/aminroosta/proc-macro-workshop}{Rust proc-macro-workshop}}
+% \hfill \i{Rust (2019)} \\ \vspace {-.35cm} \\
+%  a selection of projects designed to learn to write Rust procedural macros \\ \vspace{-.35cm} \\
