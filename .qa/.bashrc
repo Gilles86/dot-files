@@ -47,6 +47,35 @@ openmutt() {
     mutt -f /tmp/default.mailbox
 }
 
+install_k8s() {
+    # install kubectl
+    curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.20.0/bin/linux/amd64/kubectl
+    chmod +x ./kubectl
+    sudo mv ./kubectl /usr/local/bin/kubectl
+    # install minikube
+    curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+    sudo install minikube-linux-amd64 /usr/local/bin/minikube
+    # install helm
+    curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
+    chmod 700 get_helm.sh
+    ./get_helm.sh && rm ./get_helm.sh
+}
+
+
+path_to_kubectl=$(which kubectl)
+if [ -x "$path_to_kubectl" ] ; then
+    alias k=kubectl
+    source <(kubectl completion bash)
+    source <(kubectl completion bash | sed s/kubectl/k/g)
+fi
+
+path_to_helm=$(which helm)
+if [ -x "$path_to_helm" ] ; then
+    alias h=helm
+    source <(helm completion bash)
+    source <(helm completion bash | sed s/helm/h/g)
+fi
+
 export GIT_PROMPT_ONLY_IN_REPO=1
 [[ -s ~/.bash-git-prompt/gitprompt.sh ]] && source ~/.bash-git-prompt/gitprompt.sh
 
