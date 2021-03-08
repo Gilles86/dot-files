@@ -1,5 +1,5 @@
 rpc:
-	sudo /etc/init.d/binary_rpc_redis restart
+	sudo /etc/init.d/binary_rpc_redis_general restart
 ws:
 	sudo /etc/init.d/binary_websocket_api restart
 pd:
@@ -12,7 +12,7 @@ bo:
 	sudo /etc/init.d/binary_starman_bom-backoffice restart
 
 rpc_stop:
-	sudo /etc/init.d/binary_rpc_redis stop
+	sudo /etc/init.d/binary_rpc_redis_general stop
 ws_stop:
 	sudo /etc/init.d/binary_websocket_api stop
 pd_stop:
@@ -25,7 +25,7 @@ bo_stop:
 	sudo /etc/init.d/binary_starman_bom-backoffice stop
 
 rpc_start:
-	sudo /etc/init.d/binary_rpc_redis start
+	sudo /etc/init.d/binary_rpc_redis_general start
 ws_start:
 	sudo /etc/init.d/binary_websocket_api start
 pd_start:
