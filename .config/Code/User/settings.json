@@ -1,95 +1,190 @@
 {
-    "explorer.openEditors.visible": 0,
-    "workbench.editor.enablePreview": false,
-    "workbench.editor.tabSizing": "shrink",
-    "window.zoomLevel": 0,
-    "editor.wordWrap": "on",
-    "editor.fontSize": 16,
-    "workbench.editor.showTabs": false,
-    "editor.wordSeparators": "`~!@#$%^&*()-=+[{]}\\|;:'\",.<>/?",
-    "editor.lineNumbers": "off",
-    "files.exclude": {
-        "**/.git": true,
-        "**/.svn": true,
-        "**/.hg": true,
-        "**/CVS": true,
-        "**/.DS_Store": true,
-        "**/*.swp": true
+  "telemetry.enableTelemetry": false,
+  "explorer.openEditors.visible": 0,
+  "workbench.editor.enablePreview": false,
+  "workbench.editor.tabSizing": "shrink",
+  "rust-analyzer.inlayHints.typeHints": false,
+  "rust-analyzer.inlayHints.parameterHints": false,
+  "window.zoomLevel": 0,
+  "editor.wordWrap": "on",
+  "editor.fontSize": 16,
+  "workbench.editor.showTabs": false,
+  "editor.lineNumbers": "off",
+  "editor.renderLineHighlight": "none",
+  "vscode-neovim.neovimPath": "/usr/local/bin/nvim",
+  "explorer.autoReveal": true,
+  "editor.minimap.enabled": false,
+  "editor.folding": false,
+  "editor.glyphMargin": false,
+  "git.decorations.enabled": false,
+  "[rust]": {
+    "editor.formatOnSave": true,
+    "editor.renderIndentGuides": false
+  },
+  "terminal.integrated.macOptionClickForcesSelection": true,
+  "editor.tabCompletion": "on",
+  "keyboard.dispatch": "keyCode",
+  //"workbench.activityBar.visible": false,
+  "editor.lineDecorationsWidth": 0,
+  "editor.scrollbar.useShadows": false,
+  "editor.scrollbar.verticalScrollbarSize": 0,
+  "editor.scrollbar.verticalScrollbarSize": 0,
+  "editor.roundedSelection": false,
+  "files.exclude": {
+    "**/.vscode/": true,
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true
+  },
+  "editor.renderIndentGuides": false,
+  "editor.wordSeparators": "`~!@#$%^&*()-=+[{]}\\|;:'\",.<>/?",
+  "vim.iskeyword": "`~!@#$%^&*()-=+[{]}\\|;:'\",.<>/?",
+  "vim.enableNeovim": false,
+  "vim.hlsearch": true,
+  "vim.leader": "<space>",
+  "vim.handleKeys": {
+    "<C-f>": false,
+    "<C-d>": false
+  },
+  "vim.normalModeKeyBindings": [
+    { "before": ["w"], "after": ["<C-w>"] },
+    { "before": ["?"], "after": ["v", "a", "w", "?"] }
+  ],
+  "vim.visualModeKeyBindingsNonRecursive": [
+    {
+      "before": ["?"],
+      "commands": [{ "command": "workbench.action.findInFiles" }]
+    }
+  ],
+  "vim.normalModeKeyBindingsNonRecursive": [
+    { "before": ["<esc>"], "commands": [":nohl"] },
+    { "before": ["w", "s"], "commands": [":sp"] },
+    { "before": ["z", "n"], "commands": [":set number!"] },
+    {
+      "before": ["z", "i"],
+      "commands": [{ "command": "workbench.action.zoomIn" }]
     },
-    "editor.renderLineHighlight": "none",
-    "explorer.autoReveal": true,
-    "editor.minimap.enabled": false,
-    "editor.folding": true,
-    "editor.glyphMargin": true,
-    "git.decorations.enabled": false,
-    "[rust]": {
-        "editor.formatOnSave": true,
-        "editor.renderIndentGuides": false,
+    {
+      "before": ["z", "o"],
+      "commands": [{ "command": "workbench.action.zoomOut" }]
     },
-    "editor.tabCompletion": "on",
-    "keyboard.dispatch": "keyCode",
-    //"workbench.activityBar.visible": false,
-    "editor.lineDecorationsWidth": 3,
-    "editor.scrollbar.useShadows": false,
-    "editor.scrollbar.verticalScrollbarSize": 0,
-    "editor.scrollbar.verticalScrollbarSize": 0,
-    "editor.roundedSelection" : false,
-    "editor.renderIndentGuides": false,
-    "editor.wordSeparators": "`~!@#$%^&*()-=+[{]}\\|;:'\",.<>/?",
-    "vim.iskeyword": "`~!@#$%^&*()-=+[{]}\\|;:'\",.<>/?",
-    "vim.enableNeovim": false,
-    "vim.hlsearch": true,
-    "vim.leader": "<space>",
-    "vim.handleKeys": {
-        "<C-f>": false,
-        "<C-d>": false,
+    {
+      "before": ["w", "f"],
+      "commands": [{ "command": "editor.action.quickFix" }]
     },
-    "vim.normalModeKeyBindings": [
-        { "before": [ "w" ], "after": [ "<C-w>" ] },
-        { "before": ["?"], "after": [ "v", "a", "w", "?" ] },
-    ],
-    "vim.visualModeKeyBindingsNonRecursive": [
-        { "before": ["?"], "commands": [{ "command": "workbench.action.findInFiles"}] },
-    ],
-    "vim.normalModeKeyBindingsNonRecursive": [
-        { "before": ["<esc>"], "commands": [":nohl"] },
-        { "before": [ "w", "s" ], "commands": [":sp"] },
-        { "before": [ "z",  "n" ], "commands": [":set number!"] },
-        { "before": ["z", "i"], "commands": [{ "command": "workbench.action.zoomIn"}] },
-        { "before": ["z", "o"], "commands": [{ "command": "workbench.action.zoomOut"}] },
+    {
+      "before": ["w", "r"],
+      "commands": [{ "command": "editor.action.rename" }]
+    },
+    {
+      "before": ["<leader>", "x"],
+      "commands": [{ "command": "workbench.view.extensions" }]
+    },
+    {
+      "before": ["<leader>", "e"],
+      "commands": [
+        { "command": "workbench.files.action.showActiveFileInExplorer" }
+      ]
+    },
+    {
+      "before": ["w", "c"],
+      "commands": [{ "command": "workbench.action.closeEditorsAndGroup" }]
+    },
+    {
+      "before": ["z", "J"],
+      "commands": [{ "command": "workbench.action.moveActiveEditorGroupDown" }]
+    },
+    {
+      "before": ["z", "H"],
+      "commands": [{ "command": "workbench.action.moveActiveEditorGroupLeft" }]
+    },
+    {
+      "before": ["z", "L"],
+      "commands": [{ "command": "workbench.action.moveActiveEditorGroupRight" }]
+    },
+    {
+      "before": ["z", "K"],
+      "commands": [{ "command": "workbench.action.moveActiveEditorGroupUp" }]
+    },
+    {
+      "before": ["E"],
+      "commands": [{ "command": "workbench.action.quickOpen" }]
+    },
+    {
+      "before": ["Q"],
+      "after": [],
+      "commands": [{ "command": "workbench.action.closeEditorsAndGroup" }]
+    },
+    {
+      "before": ["T"],
+      "after": [],
+      "commands": [{ "command": "workbench.action.showAllSymbols" }]
+    },
+    {
+      "before": ["B"],
+      "after": [],
+      "commands": [{ "command": "workbench.action.showAllEditors" }]
+    },
+    {
+      "before": ["W"],
+      "after": [],
+      "commands": [{ "command": "workbench.action.files.save" }]
+    },
+    {
+      "before": ["K"],
+      "after": [],
+      "commands": [{ "command": "editor.action.showHover" }]
+    }
+  ],
 
-        { "before": ["<leader>", "x"],
-            "commands": [{ "command": "workbench.view.extensions"}] },
-        { "before": ["<leader>", "e"],
-            "commands": [{ "command": "workbench.view.explorer"}] },
-        { "before": ["w", "c"],
-            "commands": [{ "command": "workbench.action.closeEditorsAndGroup" }] },
-        { "before": ["E"], "commands": [{ "command": "workbench.action.quickOpen" }] },
-        { "before": ["Q"], "after": [ ],
-            "commands": [ { "command": "workbench.action.closeEditorsAndGroup" } ] },
-        { "before": ["B"], "after": [ ],
-            "commands": [ { "command": "workbench.action.showAllSymbols" } ] },
-        { "before": ["W"], "after": [ ],
-            "commands": [ { "command": "workbench.action.files.save" } ] },
-        { "before": ["K"], "after": [ ],
-            "commands": [ { "command": "editor.action.showHover" } ] }
-    ],
-
-    "explorer.confirmDragAndDrop": false,
-    "explorer.confirmDelete": false,
-    "workbench.startupEditor": "newUntitledFile",
-    "workbench.colorTheme": "Default Light+",
-    "extensions.ignoreRecommendations": false,
-    "arduino.commandPath": "arduino",
-    "C_Cpp.updateChannel": "Insiders",
-    "arduino.path": "/home/amin/Documents/arduino-1.8.13",
-    "cmake.configureOnOpen": false,
-    "idf.showOnboardingOnInit": false,
-    "workbench.editorAssociations": [
-        {
-            "viewType": "jupyter.notebook.ipynb",
-            "filenamePattern": "*.ipynb"
-        }
-    ],
-    "jupyter.askForKernelRestart": false
+  "explorer.confirmDragAndDrop": false,
+  "explorer.confirmDelete": false,
+  "workbench.startupEditor": "newUntitledFile",
+  "[javascript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  },
+  "rust.rls": {
+    "useRustfmt": true
+  },
+  "latex-workshop.view.pdf.viewer": "tab",
+  "[typescript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  },
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "perl.enable": true,
+  "gitlens.currentLine.enabled": false,
+  "terminal.integrated.rendererType": "experimentalWebgl",
+  "perlSyntax.includePaths": [
+    "/home/git/regentmarkets/perl-Net-Async-MT5/lib",
+    "/home/git/regentmarkets/perl-Feed-Index-SupportResistance/lib",
+    "/home/git/regentmarkets/bom/lib",
+    "/home/git/regentmarkets/bom-postgres/lib",
+    "/home/git/regentmarkets/bom-platform/lib",
+    "/home/git/regentmarkets/bom-user/lib",
+    "/home/git/regentmarkets/bom-market/lib",
+    "/home/git/regentmarkets/bom-marketdataautoupdater/lib",
+    "/home/git/regentmarkets/bom-backoffice/lib",
+    "/home/git/regentmarkets/bom-myaffiliates/lib",
+    "/home/git/regentmarkets/binary-websocket-api/lib",
+    "/home/git/regentmarkets/bom-paymentapi/lib",
+    "/home/git/regentmarkets/bom-oauth/lib",
+    "/home/git/regentmarkets/bom-rpc/lib",
+    "/home/git/regentmarkets/bom-populator/lib",
+    "/home/git/regentmarkets/bom-feed/lib",
+    "/home/git/regentmarkets/bom-test/lib",
+    "/home/git/regentmarkets/php-mt5-webapi/lib",
+    "/home/git/regentmarkets/bom-transaction/lib",
+    "/home/git/regentmarkets/bom-pricing/lib",
+    "/home/git/regentmarkets/bom-cryptocurrency/lib",
+    "/home/git/regentmarkets/bom-config/lib",
+    "/home/git/regentmarkets/bom-events/lib",
+    "/home/git/regentmarkets/reporting/mt5/lib"
+  ],
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "workbench.colorTheme": "Default Light+",
+  "C_Cpp.updateChannel": "Insiders",
+  "extensions.ignoreRecommendations": false,
+  "svg.preview.mode": "svg"
 }
